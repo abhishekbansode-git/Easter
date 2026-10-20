@@ -7,7 +7,7 @@
   <!-- Google Fonts: Roboto (Body font) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Nunito:wght@400;600;700&family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
         /* Franklin Gothic Medium font from OTF */
     @font-face {
@@ -56,6 +56,7 @@
       --font-body: var(--font-roboto);
       --clue-heading-font: var(--font-franklin);
       --clue-content-font: var(--font-roboto);
+      --clue-grid-font: 'Libre Franklin', 'Franklin Gothic Medium', 'Roboto', sans-serif;
       --primary-color: #7c3aed;
       --primary-hover: #6d28d9;
       --primary-light: #ede9fe;
@@ -84,84 +85,153 @@
       background: var(--bg-gradient);
       min-height: 100vh;
       color: var(--text-dark);
-      padding: 24px 16px 60px;
+      margin: 0;
+      padding: 0;
     }
 
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
+    /* Modern 2-Column App Layout */
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
     }
 
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 32px;
+    /* Left Sidebar */
+    .app-sidebar {
+      width: 290px;
+      min-width: 290px;
+      max-width: 290px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(226, 232, 240, 0.9);
+      padding: 32px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      box-sizing: border-box;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+      z-index: 50;
+      overflow-y: auto;
     }
 
-    .badge-easter {
-      display: inline-flex;
+    /* Single Clean Project Brand Header */
+    .sidebar-brand {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      background: #fdf2f8;
-      border: 1px solid #fbcfe8;
-      color: #db2777;
-      padding: 6px 16px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
+      gap: 12px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #f1f5f9;
     }
 
-    h1 {
+    .brand-badge-icon {
+      font-size: 2rem;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 100%);
+      border: 1px solid #fbcfe8;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(219, 39, 119, 0.1);
+      flex-shrink: 0;
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
       font-family: var(--font-title);
-      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-size: 1.25rem;
       font-weight: 800;
       color: #3b0764;
       line-height: 1.2;
-      margin-bottom: 8px;
+      margin: 0;
     }
 
-    .subtitle {
-      font-size: 1.05rem;
+    .brand-subtitle {
+      font-size: 0.8rem;
+      font-weight: 600;
       color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto;
+      letter-spacing: 0.3px;
     }
 
-    /* Stepper Navigation */
-    .stepper-nav {
+    /* Sidebar Stepper Navigation */
+    .sidebar-stepper {
       display: flex;
-      justify-content: space-between;
-      position: relative;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      padding: 16px 28px;
-      border-radius: var(--radius-lg);
-      margin-bottom: 36px;
-      box-shadow: var(--shadow-sm);
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      padding-left: 4px;
     }
 
     .step-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-family: var(--font-title);
       font-size: 0.95rem;
       font-weight: 600;
-      color: #94a3b8;
+      color: #64748b;
       cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .step-item:hover {
+      background: #f8fafc;
+      color: #1e293b;
     }
 
     .step-item.active {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(219, 39, 119, 0.08) 100%);
+      border: 1px solid rgba(124, 58, 237, 0.2);
       color: var(--primary-color);
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.06);
     }
 
     .step-item.completed {
       color: var(--accent-green);
+    }
+
+    .step-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .step-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .step-hint {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #94a3b8;
+    }
+
+    .step-item.active .step-hint {
+      color: #7c3aed;
     }
 
     .step-circle {
@@ -173,8 +243,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
+      flex-shrink: 0;
       transition: all 0.2s ease;
     }
 
@@ -187,6 +258,43 @@
     .step-item.completed .step-circle {
       background: var(--accent-green);
       color: white;
+    }
+
+    /* Sidebar Footer */
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .sidebar-status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 999px;
+    }
+
+    .status-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    /* Main Content Stage - Fluid across all screen sizes */
+    .app-main {
+      flex: 1;
+      min-width: 0;
+      padding: 36px 48px 80px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* Step Content Panel */
@@ -540,10 +648,44 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 768px) {
-      .stepper-nav {
+    @media (max-width: 860px) {
+      .app-layout {
         flex-direction: column;
-        gap: 12px;
+      }
+      .app-sidebar {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        height: auto;
+        position: static;
+        padding: 16px 20px;
+        gap: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      }
+      .sidebar-brand {
+        padding-bottom: 12px;
+      }
+      .sidebar-section-title {
+        display: none;
+      }
+      .sidebar-stepper {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 4px;
+      }
+      .step-item {
+        flex-shrink: 0;
+        padding: 8px 12px;
+      }
+      .step-hint {
+        display: none;
+      }
+      .sidebar-footer {
+        display: none;
+      }
+      .app-main {
+        padding: 20px 16px 60px;
       }
       .step-panel {
         padding: 24px 16px;
@@ -1172,7 +1314,19 @@
       #print-sheet-root * {
         visibility: visible;
       }
-      .container {
+      #print-sheet-root .clue9-slot-char:not(.visible),
+      #print-sheet-root .clue11-slot-letter:not(.visible),
+      #print-sheet-root .clue12-ans-char:not(.visible),
+      #print-sheet-root .clue8-ans-letter:not(.visible),
+      #print-sheet-root .cipher-letter-char.hidden,
+      #print-sheet-root [style*="display:none"],
+      #print-sheet-root [style*="display: none"] {
+        visibility: hidden !important;
+        display: none !important;
+      }
+      .container,
+      .app-layout,
+      .app-sidebar {
         display: none !important;
       }
       #print-sheet-root {
@@ -1382,7 +1536,604 @@
 
 
 
-    /* ===== STEP 3: INTERACTIVE PIGPEN CLUE PREVIEW ===== */
+    /* ===== STEP 3: FLUID SIDE-BY-SIDE SPLIT WORKSPACE ===== */
+    .step3-header {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .step3-workspace-split {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 36px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .step3-control-column {
+      flex: 1;
+      min-width: 320px;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step3-card-column {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: sticky;
+      top: 24px;
+    }
+
+    /* Cards in Control Column */
+    .step3-deck-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .step3-deck-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 24px -4px rgba(124, 58, 237, 0.08);
+    }
+
+    .deck-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .deck-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+    }
+
+    .step3-active-theme-tag {
+      font-family: var(--font-title);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      background: var(--primary-light);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid #ddd6fe;
+    }
+
+    /* Theme Selector 2x2 Grid in Step 3 */
+    .step3-theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .step3-theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: left;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step3-theme-btn:hover {
+      background: #faf5ff;
+      border-color: #c4b5fd;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+    }
+
+    .step3-theme-btn.active {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2.5px rgba(124, 58, 237, 0.18), 0 4px 12px rgba(124, 58, 237, 0.12);
+    }
+
+    .step3-theme-btn.active::after {
+      content: '✓';
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 15px;
+      height: 15px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      font-size: 9px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step3-theme-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .step3-theme-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .step3-theme-name {
+      font-family: var(--font-title);
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+
+    .step3-theme-sub {
+      font-size: 0.68rem;
+      color: #64748b;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .step3-theme-btn.active .step3-theme-name {
+      color: var(--primary-color);
+    }
+
+    /* Clue Navigator Card */
+    .deck-clue-hero {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+      border: 1.5px solid #f0abfc;
+      border-radius: 14px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 14px rgba(217, 70, 239, 0.08);
+    }
+
+    .deck-clue-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: white;
+      border: 1px solid #f5d0fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 3px 8px rgba(192, 38, 211, 0.12);
+      flex-shrink: 0;
+    }
+
+    .deck-clue-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .deck-clue-meta .clue-stepper-subtitle {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #4a044e;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .deck-clue-meta .clue-stepper-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #a21caf;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .deck-nav-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .deck-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1.5px solid #cbd5e1;
+      background: white;
+      color: #334155;
+      border-radius: 10px;
+      font-family: var(--font-title);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      user-select: none;
+    }
+
+    .deck-btn:hover {
+      background: #fdf4ff;
+      border-color: #d8b4fe;
+      color: var(--primary-color);
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+    }
+
+    .deck-btn kbd {
+      font-family: monospace;
+      font-size: 0.7rem;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 1px 4px;
+      color: #64748b;
+    }
+
+    /* Scalable Clue Jump Selector & Progress (Scales cleanly for 12, 24, or any number of clues) */
+    .deck-quick-select-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .deck-quick-select-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .deck-select-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #64748b;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .deck-clue-select {
+      flex: 1;
+      width: 100%;
+      font-family: var(--font-title);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1e1b4b;
+      background: #f8fafc url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="%236b21a8"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>') no-repeat right 12px center;
+      padding: 10px 36px 10px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .deck-clue-select:hover {
+      background-color: #faf5ff;
+      border-color: #c4b5fd;
+    }
+
+    .deck-clue-select:focus {
+      outline: none;
+      background-color: white;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+    }
+
+    .deck-progress-track {
+      width: 100%;
+      height: 6px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .deck-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7c3aed 0%, #ec4899 100%);
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Segmented Mode Switch */
+    .deck-mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 12px;
+      gap: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .deck-mode-switch .preview-mode-btn {
+      border: none;
+      background: transparent;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: var(--font-title);
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #64748b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .deck-mode-switch .preview-mode-btn:hover:not(.active) {
+      color: #1e293b;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .deck-mode-switch .preview-mode-btn.active {
+      background: white;
+      color: var(--primary-color);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Location Input */
+    .step3-input-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .step3-char-badge {
+      font-family: monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #64748b;
+      background: #f1f5f9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .step3-char-badge.warning {
+      color: #dc2626;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .step3-input-box-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .step3-input-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 1.15rem;
+      pointer-events: none;
+    }
+
+    .deck-text-input {
+      width: 100%;
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 11px 14px 11px 42px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+    }
+
+    .deck-text-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+    }
+
+    .deck-hint-text {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Action Buttons in Step 3 */
+    .deck-actions-card {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .deck-action-btn {
+      flex: 1;
+      justify-content: center;
+      padding: 13px 20px;
+      font-size: 0.95rem;
+    }
+
+    /* Studio Canvas Stage (Right Side) */
+    .step3-studio-mat {
+      background: linear-gradient(145deg, #ffffff 0%, #faf8ff 100%);
+      border: 1.5px solid rgba(226, 232, 240, 0.95);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 20px 48px -12px rgba(124, 58, 237, 0.12), 0 4px 16px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .studio-mat-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .studio-stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      background: #faf5ff;
+      border: 1px solid #e9d5ff;
+      border-radius: 999px;
+      font-family: var(--font-title);
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #6b21a8;
+      letter-spacing: 0.4px;
+    }
+
+    .studio-stage-badge .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 2.5px rgba(16, 185, 129, 0.25);
+      animation: pulse-dot 2s infinite ease-in-out;
+    }
+
+    .studio-theme-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .step3-card-column .clue-card-paper {
+      width: 480px;
+      max-width: 480px;
+      aspect-ratio: 2480 / 3508;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform-origin: top center;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    }
+
+    .studio-mat-footer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .studio-hint-kbd {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .studio-hint-kbd kbd {
+      font-family: monospace;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.7rem;
+      color: #475569;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    @media (max-width: 960px) {
+      .step3-workspace-split {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 24px;
+      }
+      .step3-card-column {
+        position: static;
+        width: 100%;
+        max-width: 480px;
+        flex: 0 0 auto;
+      }
+      .step3-control-column {
+        width: 100%;
+        max-width: 480px;
+      }
+      .step3-studio-mat {
+        width: 100%;
+        padding: 16px;
+      }
+      .step3-card-column .clue-card-paper {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    /* Fallback toolbar styles */
     .preview-toolbar {
       display: flex;
       align-items: center;
@@ -1636,12 +2387,26 @@
     .clue-main-title {
       font-family: var(--clue-heading-font, var(--font-title));
       font-size: 2.55rem;
-      font-weight: 900;
+      font-weight: 700;
       color: #1e293b;
       letter-spacing: 5px;
       line-height: 1.1;
       margin-bottom: 8px;
       text-transform: uppercase;
+    }
+
+    .clue-hash {
+      display: inline-block;
+      font-family: 'Roboto', sans-serif;
+      margin: 0 1px;
+      font-weight: 700;
+    }
+
+    .theme-font-baskerville .clue-main-title .clue-hash,
+    .theme-font-baskerville .clue-main-title span {
+      font-family: 'Roboto', sans-serif !important;
+      font-weight: 400 !important;
+      margin: 0 1px !important;
     }
 
     .clue-intro-poem {
@@ -1815,7 +2580,7 @@
     .egg-maze-title {
       font-family: var(--font-title);
       font-size: 2.2rem;
-      font-weight: 900;
+      font-weight: 700;
       color: #1e293b;
       letter-spacing: 3px;
       margin-bottom: 6px;
@@ -1908,7 +2673,7 @@
     .clue-main-title {
       font-family: var(--clue-heading-font, var(--font-title));
       font-size: 2.55rem;
-      font-weight: 900;
+      font-weight: 700;
       color: #1e293b;
       letter-spacing: 5px;
       line-height: 1.1;
@@ -2774,164 +3539,405 @@
     }
 
     /* --- CLUE 9: EGG MAZE RUNNER --- */
-    .egg-maze-runner-stage {
-      width: 100%;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 6px 0;
-    }
-    .egg-runner-svg {
-      width: 280px;
-      max-width: 90%;
-      height: auto;
-    }
-
-    /* --- CLUE 10: PICTURE REBUS --- */
-    .rebus-equation-row {
+    .clue9-maze-wrap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      z-index: 10;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 18px 0;
+      width: 480px;
+      height: 679px;
+      transform: translate(calc(-50% + 1px), 1px);
+    }
+    .maze-inner-box {
+      position: relative;
       width: 100%;
-    }
-    .rebus-item-card {
+      height: 100%;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      background: white;
-      border: 2px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 14px 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-      min-width: 95px;
+      justify-content: center;
     }
-    .rebus-icon-graphic {
-      font-size: 2.4rem;
+    .maze-render-svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+    }
+    .maze-letters-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .maze-char-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-family: var(--clue-grid-font);
+      font-size: 18px;
+      font-weight: 400;
+      color: #1e293b;
       line-height: 1;
-    }
-    .rebus-card-label {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #475569;
-      text-transform: uppercase;
-    }
-    .rebus-operator {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--primary-color);
-    }
-    .rebus-result-box {
-      border: 2.5px dashed #cbd5e1;
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 12px 20px;
-      min-width: 120px;
-      font-family: var(--clue-heading-font, var(--font-title));
-      font-size: 1.3rem;
-      font-weight: 900;
-      color: #1e293b;
-    }
-
-    /* --- CLUE 11: WORD SCRAMBLE --- */
-    .scramble-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      max-width: 360px;
-      margin: 12px auto;
-    }
-    .scramble-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: white;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 8px 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-    .scramble-jumble {
-      font-family: monospace;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #334155;
-      letter-spacing: 2px;
-    }
-    .scramble-target {
-      display: flex;
-      gap: 4px;
-    }
-    .scramble-box {
-      width: 26px;
-      height: 28px;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.95rem;
+      user-select: none;
+      z-index: 30;
+      width: 28px;
+      height: 28px;
+    }
+    .maze-char-node.target-highlight {
+      color: #16a34a;
+      font-weight: 700;
+      background: #dcfce7;
+      border-radius: 50%;
+      border: 1.5px solid #16a34a;
+      box-shadow: 0 0 0 2px #bbf7d0;
+    }
+    .maze-solution-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .clue9-answers-wrap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      z-index: 12;
+      box-sizing: border-box;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      width: fit-content;
+      transform: translate(-50%, 604px);
+      gap: 6px;
+    }
+    .clue9-answer-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+    }
+    .clue9-slot-char {
+      font-family: var(--clue-grid-font);
+      font-size: 20px;
+      font-weight: 700;
+      color: #16a34a;
+      line-height: 1;
+      margin-bottom: 2px;
+      visibility: hidden;
+    }
+    .clue9-slot-char.visible {
+      visibility: visible;
+    }
+    .clue9-slot-line {
+      width: 24px;
+      height: 2px;
+      background: #1e293b;
+      border-radius: 1px;
+    }
+    .clue9-bottom-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+    }
+    .clue9-corner-graphic {
+      position: absolute;
+      pointer-events: auto;
+    }
+
+    /* --- CLUE 10: PICTURE REBUS (Calibrated from clue10adjuster.html) --- */
+    .clue10-pic1-wrap {
+      position: absolute;
+      left: 38px;
+      top: 190px;
+      width: 160px;
+      height: 218px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .clue10-pic1-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .clue10-pic2-wrap {
+      position: absolute;
+      left: 280px;
+      top: 244px;
+      width: 138px;
+      height: 158px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .clue10-pic2-color-box {
+      width: 100%;
+      height: 100%;
+      background: #f6c0c6;
+      border-radius: 4px;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .clue10-word1-row {
+      position: absolute;
+      left: 50px;
+      top: 432px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 14px;
+      z-index: 10;
+    }
+    .clue10-word2-row {
+      position: absolute;
+      left: 288px;
+      top: 432px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 14px;
+      z-index: 10;
+    }
+    .clue10-final-ans-row {
+      position: absolute;
+      left: 50%;
+      top: 535px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 18px;
+      z-index: 10;
+    }
+    .clue10-rebus-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+    }
+    .clue10-rebus-char {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      color: #3d2314;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 2px;
+      font-size: 24px;
+      min-height: 24px;
+    }
+    .clue10-rebus-char.answer-revealed {
+      color: #16a34a !important;
       font-weight: 800;
+    }
+    .clue10-rebus-underline {
+      background: #3d2314;
+      border-radius: 1px;
+    }
+    .clue10-rebus-sub-number {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      color: #3d2314;
+      text-align: center;
+      line-height: 1;
+      margin-top: 4px;
+      font-size: 15px;
+    }
+    .theme-font-baskerville .clue10-rebus-char,
+    .theme-font-baskerville .clue10-rebus-sub-number {
       color: #1e293b;
     }
-    .scramble-box.key-letter {
-      border-color: #ec4899;
-      background: #fdf2f8;
-      color: #ec4899;
+    .theme-font-baskerville .clue10-rebus-underline {
+      background: #1e293b;
+    }
+
+    /* --- CLUE 11: WORD SCRAMBLE PUZZLE --- */
+    .clue11-puzzle-wrap {
+      position: absolute;
+      top: 215px;
+      left: 50%;
+      transform: translate(calc(-50% + 0px), 16px);
+      z-index: 15;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 50px;
+    }
+    .clue11-scramble-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 17px;
+      flex-shrink: 0;
+    }
+    .clue11-scramble-row {
+      font-family: var(--clue-heading-font);
+      font-size: 18px;
+      font-weight: 700;
+      color: #2c1810;
+      letter-spacing: 4px;
+      line-height: 1;
+      height: 28px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 2px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+    .clue11-solution-col {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+    }
+    .clue11-solution-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 28px;
+      padding-bottom: 2px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .clue11-vertical-key-box {
+      position: absolute;
+      border: 1.5px solid #2c1810;
+      pointer-events: none;
+      box-sizing: border-box;
+      z-index: 5;
+      border-radius: 2px;
+    }
+    .clue11-char-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      height: 28px;
+      box-sizing: border-box;
+    }
+    .clue11-char-slot.first-slot {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 31px;
+    }
+    .clue11-slot-letter {
+      font-family: var(--clue-heading-font);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
+      color: #16a34a;
+      visibility: hidden;
+      margin-bottom: 3px;
+    }
+    .clue11-slot-letter.visible {
+      visibility: visible;
+    }
+    .clue11-dash-line {
+      height: 2px;
+      background: #2c1810;
+      border-radius: 1px;
     }
 
     /* --- CLUE 12: WORD SEARCH GRID --- */
-    .wordsearch-stage {
+    .clue12-grid-wrap {
+      position: absolute;
+      top: 195px;
+      left: 50%;
+      transform: translate(calc(-50% + 0px), 1px);
+      z-index: 15;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin: 8px 0;
-      width: 100%;
     }
-    .wordsearch-matrix {
+    .clue12-word-grid-table {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
-      gap: 4px;
-      background: white;
-      border: 2px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      row-gap: 11px;
+      column-gap: 9px;
+      justify-items: center;
+      align-items: center;
     }
-    .ws-cell {
-      width: 32px;
-      height: 32px;
+    .clue12-grid-cell {
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--clue-heading-font, var(--font-title));
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #1e293b;
-      border-radius: 4px;
-      transition: background 0.2s ease;
+      font-family: 'Roboto', sans-serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: #2c1810;
+      line-height: 1;
+      position: relative;
+      border-radius: 50%;
+      user-select: none;
     }
-    .ws-cell.highlight {
-      background: #fef08a !important;
-      color: #854d0e !important;
+    .clue12-grid-cell.highlight-target {
+      color: #15803d;
       font-weight: 900;
-      box-shadow: 0 0 0 1.5px #eab308;
     }
-    .ws-word-checklist {
+    .clue12-grid-cell.highlight-target::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 2px solid #16a34a;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.15);
+      z-index: -1;
+    }
+    .clue12-answers-wrap {
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translate(-50%, 522px);
+      z-index: 20;
       display: flex;
-      flex-wrap: wrap;
+      align-items: flex-end;
       justify-content: center;
-      gap: 8px 14px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: #64748b;
+      gap: 8px;
+      padding: 6px 12px;
+    }
+    .clue12-ans-char-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .clue12-ans-char {
+      font-family: 'Roboto', sans-serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #16a34a;
+      line-height: 1;
+      visibility: hidden;
+      margin-bottom: 2px;
+    }
+    .clue12-ans-char.visible {
+      visibility: visible;
+    }
+    .clue12-ans-line {
+      height: 2px;
+      background: #2c1810;
+      border-radius: 1px;
+      width: 26px;
     }
 
 
@@ -2941,32 +3947,60 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="badge-easter">🐰 Easter Hunt Customizer</div>
-      <h1>Easter Scavenger Hunt Creator</h1>
-      <p class="subtitle">Customize clues, pick delightful borders, and generate print-ready hunt sheets in just a few clicks.</p>
-    </header>
+  <div class="app-layout">
+    <!-- Left Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-badge-icon">🐰</div>
+        <div class="brand-info">
+          <h1 class="brand-title">Easter Hunt Creator</h1>
+          <span class="brand-subtitle">Printable Clue Cards</span>
+        </div>
+      </div>
 
-    <!-- Stepper Navigation -->
-    <nav class="stepper-nav">
-      <div class="step-item active" id="step-nav-1">
-        <span class="step-circle">1</span>
-        <span>Choose Design</span>
+      <!-- Sidebar Stepper Navigation -->
+      <nav class="sidebar-stepper" aria-label="Creation Steps">
+        <div class="sidebar-section-title">Workflow Steps</div>
+        <div class="step-item active" id="step-nav-1">
+          <span class="step-circle">1</span>
+          <div class="step-info">
+            <span class="step-name">Choose Design</span>
+            <span class="step-hint">Pick theme style</span>
+          </div>
+        </div>
+        <div class="step-item" id="step-nav-2">
+          <span class="step-circle">2</span>
+          <div class="step-info">
+            <span class="step-name">Hiding Spots</span>
+            <span class="step-hint">Customize clues</span>
+          </div>
+        </div>
+        <div class="step-item" id="step-nav-3">
+          <span class="step-circle">3</span>
+          <div class="step-info">
+            <span class="step-name">Hunt Preview</span>
+            <span class="step-hint" id="step3-nav-hint">Inspect all 12 cards</span>
+          </div>
+        </div>
+        <div class="step-item" id="step-nav-4">
+          <span class="step-circle">4</span>
+          <div class="step-info">
+            <span class="step-name">Download & Print</span>
+            <span class="step-hint">Print-ready PDF / sheets</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-status-tag">
+          <span class="status-indicator"></span>
+          <span id="sidebar-clues-ready-text">12 Clues Ready</span>
+        </div>
       </div>
-      <div class="step-item" id="step-nav-2">
-        <span class="step-circle">2</span>
-        <span>Hiding Spots</span>
-      </div>
-      <div class="step-item" id="step-nav-3">
-        <span class="step-circle">3</span>
-        <span>Hunt Preview</span>
-      </div>
-      <div class="step-item" id="step-nav-4">
-        <span class="step-circle">4</span>
-        <span>Download & Print</span>
-      </div>
-    </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="app-main">
 
     <!-- STEP 1: CHOOSE A DESIGN -->
     <main class="step-panel" id="panel-step-1">
@@ -3134,93 +4168,213 @@
         </button>
       </div>
     </main>
-    <!-- STEP 3: SCAVENGER HUNT PREVIEW (DUMMY PLACEHOLDER) -->
-        <!-- STEP 3: SCAVENGER HUNT PREVIEW -->
+    <!-- STEP 3: SCAVENGER HUNT PREVIEW -->
     <main class="step-panel" id="panel-step-3" style="display:none;">
       <div class="panel-header">
         <h2>Step 3: Scavenger Hunt Preview</h2>
-        <p>Interactive preview of your puzzle clues. Switch between clues and toggle Game Card / Answer Key view below!</p>
+        <p>Preview and fine-tune your puzzle clues. Change themes on the fly, customize locations, and inspect Game Cards or Answer Keys side-by-side.</p>
       </div>
 
-      <!-- Preview toolbar controls -->
-      <div class="preview-toolbar">
-        <!-- Next / Prev Stepper Controls -->
-        <div class="clue-stepper-control">
-          <button type="button" class="clue-nav-btn" id="btn-prev-clue" onclick="navigateCluePreview(-1)" title="Previous Clue (← Left Arrow)">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
-            </svg>
-            <span>Prev</span>
-          </button>
+      <!-- Split Layout Workspace -->
+      <div class="step3-workspace-split">
+        <!-- Control Column (Left) -->
+        <div class="step3-control-column">
 
-          <div class="clue-stepper-indicator">
-            <span class="clue-stepper-title" id="clue-stepper-title">Clue 1 of 24</span>
-            <span class="clue-stepper-subtitle" id="clue-stepper-subtitle">Pigpen Cipher</span>
+          <!-- 1. Card Theme Selector -->
+          <div class="step3-deck-card" id="step3-theme-card">
+            <div class="deck-card-header">
+              <span class="deck-tag">Card Theme</span>
+              <span class="step3-active-theme-tag" id="step3-theme-name-tag">Theme 1: Spring Pastel</span>
+            </div>
+
+            <div class="step3-theme-grid">
+              <!-- Theme 1 -->
+              <button type="button" class="step3-theme-btn active" id="step3-theme-chip-1" onclick="selectTheme(1)" title="Theme 1: Spring Pastel">
+                <div class="step3-theme-icon-box">🌸</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Spring Pastel</span>
+                  <span class="step3-theme-sub">3 Floral • Franklin</span>
+                </div>
+              </button>
+
+              <!-- Theme 2 -->
+              <button type="button" class="step3-theme-btn" id="step3-theme-chip-2" onclick="selectTheme(2)" title="Theme 2: Watercolor Eggs">
+                <div class="step3-theme-icon-box">🥚</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Watercolor Eggs</span>
+                  <span class="step3-theme-sub">20 Eggs • Baskerville</span>
+                </div>
+              </button>
+
+              <!-- Theme 3 -->
+              <button type="button" class="step3-theme-btn" id="step3-theme-chip-3" onclick="selectTheme(3)" title="Theme 3: Pastel Stripes">
+                <div class="step3-theme-icon-box">🍭</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Pastel Stripes</span>
+                  <span class="step3-theme-sub">Clean • Franklin</span>
+                </div>
+              </button>
+
+              <!-- Theme 4 -->
+              <button type="button" class="step3-theme-btn" id="step3-theme-chip-4" onclick="selectTheme(4)" title="Theme 4: Easter Variety Collection">
+                <div class="step3-theme-icon-box">🥕</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Easter Variety</span>
+                  <span class="step3-theme-sub">12 Borders • Baskerville</span>
+                </div>
+              </button>
+            </div>
+          </div>
+          
+          <!-- 2. Clue Navigation Card (Scalable to 12, 24, or any number of clues) -->
+          <div class="step3-deck-card">
+            <div class="deck-card-header">
+              <span class="deck-tag">Active Clue</span>
+              <span class="clue-stepper-title" id="clue-stepper-title" style="font-size:0.82rem; color:#6b21a8; font-weight:800; background:#f5f3ff; border:1px solid #e9d5ff; padding:2px 8px; border-radius:6px;">Clue 1 of 12</span>
+            </div>
+            
+            <div class="deck-clue-hero">
+              <div class="deck-clue-icon-wrap">
+                <span id="deck-clue-icon">🗝️</span>
+              </div>
+              <div class="deck-clue-meta">
+                <span class="clue-stepper-tag" id="deck-clue-tag">Puzzle Type</span>
+                <div class="clue-stepper-subtitle" id="clue-stepper-subtitle">Pigpen Cipher</div>
+              </div>
+            </div>
+
+            <div class="deck-nav-buttons">
+              <button type="button" class="deck-btn" id="btn-prev-clue" onclick="navigateCluePreview(-1)" title="Previous Clue (← Left Arrow)">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span>Previous</span>
+                <kbd>←</kbd>
+              </button>
+              <button type="button" class="deck-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
+                <span>Next</span>
+                <kbd>→</kbd>
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Quick Jump Dropdown & Progress (Seamless for 12, 24, etc.) -->
+            <div class="deck-quick-select-wrap">
+              <div class="deck-quick-select-row">
+                <label for="clue-select-dropdown" class="deck-select-label">Jump to:</label>
+                <select id="clue-select-dropdown" class="deck-clue-select" onchange="switchCluePreview(parseInt(this.value))">
+                  <!-- Dynamically populated options -->
+                </select>
+              </div>
+              <div class="deck-progress-track">
+                <div class="deck-progress-fill" id="clue-progress-bar" style="width: 8.33%;"></div>
+              </div>
+            </div>
           </div>
 
-          <button type="button" class="clue-nav-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
-            <span>Next</span>
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-            </svg>
-          </button>
-        </div>
-
-        <div class="preview-mode-switch">
-          <button type="button" class="preview-mode-btn active" id="btn-mode-game" onclick="setCluePreviewMode('game')">
-            🎮 Game Card (For Kids)
-          </button>
-          <button type="button" class="preview-mode-btn" id="btn-mode-answer" onclick="setCluePreviewMode('answer')">
-            🔑 Answer Key (Solved)
-          </button>
-        </div>
-
-        <div class="preview-live-input-box">
-          <label for="preview-clue-input" id="preview-clue-label">📍 Location #1:</label>
-          <div class="preview-input-wrap">
-            <input
-              type="text"
-              id="preview-clue-input"
-              class="preview-live-input"
-              placeholder="Type a location..."
-              value="Television"
-              maxlength="10"
-              oninput="handleLiveSpotInput(this.value)"
-              onkeydown="handleLocationKeydown(event, getMaxLocationLength(currentPreviewClue), document.getElementById('preview-clue-limit-badge'))"
-              onblur="hideLimitNotice(document.getElementById('preview-clue-limit-badge'), this)"
-            >
-            <span id="preview-clue-limit-badge" class="limit-notice-badge"></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card Stage -->
-      <div class="preview-card-stage">
-        <div class="clue-card-paper" id="clue-preview-card-paper">
-          <!-- Background Border Frame -->
-          <div class="clue-card-bg-border" id="clue-preview-border-container">
-            <!-- Rendered by JS matching selected theme -->
+          <!-- 3. Preview Mode Switch -->
+          <div class="step3-deck-card">
+            <div class="deck-card-header">
+              <span class="deck-tag">Card View Mode</span>
+              <span style="font-size:0.75rem; color:#64748b; font-weight:600;" id="stage-mode-name">🎮 Kids Game Card</span>
+            </div>
+            <div class="deck-mode-switch">
+              <button type="button" class="preview-mode-btn active" id="btn-mode-game" onclick="setCluePreviewMode('game')">
+                🎮 Kids Game Card
+              </button>
+              <button type="button" class="preview-mode-btn" id="btn-mode-answer" onclick="setCluePreviewMode('answer')">
+                🔑 Solved Answer Key
+              </button>
+            </div>
           </div>
 
-          <!-- Dynamic Card Content (Clue 1 or Clue 2) -->
-          <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+          <!-- 4. Live Location Customizer -->
+          <div class="step3-deck-card">
+            <div class="step3-input-header">
+              <span class="deck-tag" id="preview-clue-label">📍 Hiding Spot Location:</span>
+              <span id="preview-clue-char-count" class="step3-char-badge">4 / 10 chars</span>
+            </div>
+            <div class="step3-input-box-wrap">
+              <span class="step3-input-icon">📍</span>
+              <input
+                type="text"
+                id="preview-clue-input"
+                class="deck-text-input"
+                placeholder="Type location..."
+                value="Television"
+                maxlength="10"
+                oninput="handleLiveSpotInput(this.value)"
+                onkeydown="handleLocationKeydown(event, getMaxLocationLength(currentPreviewClue), document.getElementById('preview-clue-limit-badge'))"
+                onblur="hideLimitNotice(document.getElementById('preview-clue-limit-badge'), this)"
+              >
+              <span id="preview-clue-limit-badge" class="limit-notice-badge"></span>
+            </div>
+            <span class="deck-hint-text">
+              <span>💡</span>
+              <span>Edits here update puzzle clues and answer keys in real time.</span>
+            </span>
+          </div>
+
+          <!-- 5. Action Buttons -->
+          <div class="deck-actions-card">
+            <button type="button" class="btn-secondary deck-action-btn" onclick="goBackToStep2()">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+              </svg>
+              <span>Back: Spots</span>
+            </button>
+            <button type="button" class="btn-primary deck-action-btn" onclick="proceedToStep4()">
+              <span>Next: Print</span>
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Clue Card Stage Column (Right) -->
+        <div class="step3-card-column">
+          <!-- Studio Mat Backdrop -->
+          <div class="step3-studio-mat">
+            <!-- Studio Mat Header -->
+            <div class="studio-mat-header">
+              <div class="studio-stage-badge">
+                <span class="live-dot"></span>
+                <span id="stage-clue-badge">CLUE #1 • PIGPEN CIPHER</span>
+              </div>
+              <div class="studio-theme-pill">
+                <span>Theme:</span>
+                <strong id="stage-theme-name" style="color:var(--primary-color);">Spring Pastel</strong>
+              </div>
+            </div>
+
+            <!-- Fixed master paper (480px) -->
+            <div class="clue-card-paper" id="clue-preview-card-paper">
+              <!-- Background Border Frame -->
+              <div class="clue-card-bg-border" id="clue-preview-border-container">
+                <!-- Rendered by JS matching selected theme -->
+              </div>
+
+              <!-- Dynamic Card Content -->
+              <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+              </div>
+            </div>
+
+            <!-- Studio Mat Footer -->
+            <div class="studio-mat-footer">
+              <span id="stage-footer-page">Card 1 of 12 (Print Page 1)</span>
+              <div class="studio-hint-kbd">
+                <span>Flip:</span>
+                <kbd>←</kbd>
+                <kbd>→</kbd>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="action-bar">
-        <button type="button" class="btn-secondary" onclick="goBackToStep2()">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
-          </svg>
-          Back: Hiding Spots
-        </button>
-        <button type="button" class="btn-primary" onclick="proceedToStep4()">
-          <span>Next: Download & Print</span>
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </button>
       </div>
     </main>
 
@@ -3317,9 +4471,8 @@
       </div>
     </main>
 
-
-
-  </div>
+    </div><!-- /.app-main -->
+  </div><!-- /.app-layout -->
 
   <script>
     // ASSETS (Direct File References for GitHub Pages / Local Hosting)
@@ -3492,6 +4645,10 @@ const EmbeddedAssets = {
         if (card) card.classList.toggle('selected', i === themeId);
         const ind = document.getElementById(`indicator-${i}`);
         if (ind) ind.textContent = (i === themeId) ? '✓ Selected' : 'Select';
+
+        // Step 3 Theme Chips
+        const chip = document.getElementById(`step3-theme-chip-${i}`);
+        if (chip) chip.classList.toggle('active', i === themeId);
       }
       const labels = {
         1: 'Theme 1: Spring Pastel',
@@ -3499,10 +4656,25 @@ const EmbeddedAssets = {
         3: 'Theme 3: Pastel Stripes',
         4: 'Theme 4: Easter Variety Collection'
       };
+      const shortNames = {
+        1: 'Spring Pastel',
+        2: 'Watercolor Eggs',
+        3: 'Pastel Stripes',
+        4: 'Easter Variety'
+      };
       const label = document.getElementById('selected-theme-label');
       if (label && labels[themeId]) {
         label.textContent = labels[themeId];
       }
+      const step3Label = document.getElementById('step3-theme-name-tag');
+      if (step3Label && labels[themeId]) {
+        step3Label.textContent = labels[themeId];
+      }
+      const stageThemeBadge = document.getElementById('stage-theme-name');
+      if (stageThemeBadge && shortNames[themeId]) {
+        stageThemeBadge.textContent = shortNames[themeId];
+      }
+
       if (typeof renderCurrentCluePreview === 'function') {
         renderCurrentCluePreview();
       }
@@ -3555,10 +4727,10 @@ const EmbeddedAssets = {
       { puzzleId: 6, name: "Grid Coordinates", location: "Door", maxLen: 5, placeholder: "e.g. Door" },
       { puzzleId: 7, name: "Wheel Decoder", location: "Fridge", maxLen: 10, placeholder: "e.g. Fridge" },
       { puzzleId: 8, name: "Missing Letters", location: "Oven", maxLen: 15, placeholder: "e.g. Oven" },
-      { puzzleId: 9, name: "Bunny Maze", location: "Laundry", maxLen: 15, placeholder: "e.g. Laundry" },
+      { puzzleId: 9, name: "Bunny Maze", location: "Waterhose", maxLen: 10, placeholder: "e.g. Waterhose" },
       { puzzleId: 10, name: "Picture Rebus", location: "Sink", maxLen: 15, placeholder: "e.g. Sink" },
-      { puzzleId: 11, name: "Word Scramble", location: "Shower", maxLen: 15, placeholder: "e.g. Shower" },
-      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 15, placeholder: "e.g. Cupboard" }
+      { puzzleId: 11, name: "Word Scramble", location: "Shower", maxLen: 7, placeholder: "e.g. Shower" },
+      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 8, placeholder: "e.g. Cupboard" }
     ];
 
     const DEFAULT_HIDING_SPOTS = DEFAULT_HUNT_CLUES.map(c => c.location);
@@ -3567,6 +4739,11 @@ const EmbeddedAssets = {
 
     function syncHidingSpots() {
       hidingSpots = huntClues.map(c => c.location);
+      const count = huntClues.length || 12;
+      const hint = document.getElementById('step3-nav-hint');
+      if (hint) hint.textContent = `Inspect all ${count} cards`;
+      const ready = document.getElementById('sidebar-clues-ready-text');
+      if (ready) ready.textContent = `${count} Clues Ready`;
     }
 
     function resetDefaultSpots() {
@@ -4105,6 +5282,38 @@ const EmbeddedAssets = {
     let currentPreviewClue = 1;
     let cluePreviewMode = 'game'; // 'game' or 'answer'
 
+    const CLUE_ICONS = ['🗝️', '🔤', '🪞', '🔢', '🧭', '🧪', '⠃', '📡', '🐰', '🧩', '🔀', '🏁'];
+
+    function populateDeckJumpStrip() {
+      const select = document.getElementById('clue-select-dropdown');
+      const total = getTotalCluesCount();
+      if (select) {
+        if (select.options.length !== total) {
+          select.innerHTML = Array.from({ length: total }, (_, i) => {
+            const num = i + 1;
+            const item = (typeof huntClues !== 'undefined' && huntClues[i]) ? huntClues[i] : (DEFAULT_HUNT_CLUES[i] || {});
+            const name = item.name ? item.name : `Clue ${num}`;
+            return `<option value="${num}">Clue ${num}: ${name}</option>`;
+          }).join('');
+        }
+        select.value = currentPreviewClue;
+      }
+
+      const prog = document.getElementById('clue-progress-bar');
+      if (prog && total > 0) {
+        prog.style.width = `${Math.min(100, Math.max(4, (currentPreviewClue / total) * 100))}%`;
+      }
+    }
+
+    function setCardZoom(zoom, btn) {
+      const paper = document.getElementById('clue-preview-card-paper');
+      if (paper) {
+        paper.style.transform = `scale(${zoom})`;
+      }
+      document.querySelectorAll('.card-zoom-toolbar .zoom-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
     function getTotalCluesCount() {
       return (typeof huntClues !== 'undefined' && huntClues.length > 0) ? huntClues.length : 12;
     }
@@ -4116,6 +5325,12 @@ const EmbeddedAssets = {
       if (next > total) next = 1;
       switchCluePreview(next);
     }
+
+    const PUZZLE_TYPE_TAGS = [
+      'Symbol Cipher', 'Path Matching', 'Color Pattern', 'Coordinate Grid',
+      'Audio/Visual Code', 'Grid Logic', 'Cipher Wheel', 'Letter Deduction',
+      'Visual Maze', 'Picture Rebus', 'Word Jumble', 'Word Search'
+    ];
 
     function switchCluePreview(clueNum) {
       const total = getTotalCluesCount();
@@ -4136,6 +5351,19 @@ const EmbeddedAssets = {
         subEl.textContent = item.name;
       }
 
+      const tagEl = document.getElementById('deck-clue-tag');
+      if (tagEl) {
+        tagEl.textContent = PUZZLE_TYPE_TAGS[idx] || 'Easter Clue';
+      }
+
+      const iconEl = document.getElementById('deck-clue-icon');
+      if (iconEl) {
+        iconEl.textContent = CLUE_ICONS[idx % CLUE_ICONS.length] || '🐰';
+      }
+
+      // Populate or update jump strip pills
+      populateDeckJumpStrip();
+
       const label = document.getElementById('preview-clue-label');
       const input = document.getElementById('preview-clue-input');
       const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Location #${clueNum}`;
@@ -4148,6 +5376,22 @@ const EmbeddedAssets = {
       }
       if (label) label.textContent = `📍 Location #${clueNum}:`;
       hideLimitNotice(document.getElementById('preview-clue-limit-badge'), input);
+
+      const charBadge = document.getElementById('preview-clue-char-count');
+      if (charBadge) {
+        charBadge.textContent = `${locText.length} / ${maxLen} chars`;
+        charBadge.classList.toggle('warning', locText.length >= maxLen);
+      }
+
+      const stageBadge = document.getElementById('stage-clue-badge');
+      if (stageBadge && item) {
+        stageBadge.textContent = `CLUE #${clueNum} • ${item.name.toUpperCase()}`;
+      }
+
+      const stageFooterPage = document.getElementById('stage-footer-page');
+      if (stageFooterPage) {
+        stageFooterPage.textContent = `Card ${clueNum} of ${total} (Print Page ${clueNum})`;
+      }
 
       renderCurrentCluePreview();
     }
@@ -4175,6 +5419,10 @@ const EmbeddedAssets = {
       const btnAns = document.getElementById('btn-mode-answer');
       if (btnGame) btnGame.classList.toggle('active', mode === 'game');
       if (btnAns) btnAns.classList.toggle('active', mode === 'answer');
+      const stageModeBadge = document.getElementById('stage-mode-name');
+      if (stageModeBadge) {
+        stageModeBadge.textContent = (mode === 'game') ? '🎮 Kids Game Card' : '🔑 Solved Answer Key';
+      }
       renderCurrentCluePreview();
     }
 
@@ -4190,6 +5438,11 @@ const EmbeddedAssets = {
       if (item) item.location = val;
       syncHidingSpots();
       updatePreviewLimitNotice(val, maxLen);
+      const charBadge = document.getElementById('preview-clue-char-count');
+      if (charBadge) {
+        charBadge.textContent = `${val.length} / ${maxLen} chars`;
+        charBadge.classList.toggle('warning', val.length >= maxLen);
+      }
       renderCurrentCluePreview();
     }
 
@@ -4300,8 +5553,8 @@ const EmbeddedAssets = {
         if (root) {
           const imgs = Array.from(root.querySelectorAll('img'));
           
-          // Wait for all images across all cards to be loaded and decoded
-          await Promise.all(imgs.map(img => {
+          // Wait for all images across all cards to be loaded and decoded with safety timeout
+          const imgPromises = imgs.map(img => {
             if (img.complete && img.naturalHeight !== 0) {
               return Promise.resolve();
             }
@@ -4312,12 +5565,19 @@ const EmbeddedAssets = {
               if (img.decode) {
                 img.decode().then(resolve).catch(resolve);
               }
+              // Fallback timeout per image
+              setTimeout(resolve, 600);
             });
-          }));
+          });
+          // Cap total wait time to 1 second maximum so printing never hangs
+          await Promise.race([
+            Promise.all(imgPromises),
+            new Promise(r => setTimeout(r, 1000))
+          ]);
         }
 
         // Small pause to allow the browser layout engine to finalize render
-        await new Promise(r => setTimeout(r, 250));
+        await new Promise(r => setTimeout(r, 150));
 
         // Trigger browser print dialog
         window.print();
@@ -4388,8 +5648,8 @@ const EmbeddedAssets = {
         return `
             <div class="clue-card-header" style="width:100%; margin-bottom:8px;">
               <div style="transform: translate(0px, -10px); position:relative; width:100%;">
-                <h1 class="clue-main-title" style="font-family:${font}; font-size:2.55rem; letter-spacing:5px; font-weight:900; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
-                  CLUE <span style="font-family:'Roboto', sans-serif; font-weight:${hashWeight}; margin:0 1px;">#</span>${clueNum}
+                <h1 class="clue-main-title" style="font-family:${font}; font-size:2.55rem; letter-spacing:5px; font-weight:700; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
+                  CLUE <span class="clue-hash" style="font-family:'Roboto', sans-serif; font-weight:${hashWeight}; margin:0 1px;">#</span>${clueNum}
                 </h1>
               </div>
               <div style="transform: translate(0px, 1px); max-width:350px; margin:0 auto; position:relative;">
@@ -4503,7 +5763,7 @@ const EmbeddedAssets = {
               }
               return `
                 <div class="cipher-letter-col" style="display:flex; flex-direction:column; align-items:center; width:${symWidth}px !important;">
-                  <div class="cipher-letter-char ${isAnswer ? 'puzzle-ans-highlight' : 'hidden'}" style="font-family:'Franklin Gothic Medium', sans-serif; font-weight:800; font-size:1.15rem; height:22px; line-height:22px; text-align:center; color:${color}; width:${symWidth}px !important;">${escapeHtml(c)}</div>
+                  <div class="cipher-letter-char ${isAnswer ? 'puzzle-ans-highlight' : 'hidden'}" style="font-family:'Franklin Gothic Medium', sans-serif; font-weight:800; font-size:1.15rem; height:22px; line-height:22px; text-align:center; color:${color}; width:${symWidth}px !important;">${isAnswer ? escapeHtml(c) : ''}</div>
                   <div class="cipher-underline" style="width:${symWidth}px !important; height:${strokeW}px !important; background:${color}; margin:2px 0 4px 0 !important; border-radius:1px;"></div>
                   <div class="cipher-symbol-wrap" style="width:${symWidth}px !important; height:${symHeight}px !important; display:flex; align-items:center; justify-content:center;">
                     ${PigpenCipher.getSymbolSvg(c, symWidth, symHeight, strokeW, color)}
@@ -4519,8 +5779,8 @@ const EmbeddedAssets = {
             
             <!-- 1. Title (Direct flex child 1) -->
             <div style="transform: translate(0px, -10px); position:relative; width:100%;">
-              <h1 class="clue-main-title" style="font-family:${(theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)"}; font-size:2.55rem; letter-spacing:5px; font-weight:900; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
-                CLUE <span style="font-family:'Roboto', sans-serif; font-weight:${(theme === 2 || theme === 4) ? "400" : "700"}; margin:0 1px;">#</span>${clueNum || 1}
+              <h1 class="clue-main-title" style="font-family:${(theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)"}; font-size:2.55rem; letter-spacing:5px; font-weight:700; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
+                CLUE <span class="clue-hash" style="font-family:'Roboto', sans-serif; font-weight:${(theme === 2 || theme === 4) ? "400" : "700"}; margin:0 1px;">#</span>${clueNum || 1}
               </h1>
             </div>
 
@@ -4731,7 +5991,7 @@ const EmbeddedAssets = {
             const char = w[i];
             answerSlotsHtml += `
               <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
-                <span style="font-family:'Franklin Gothic Medium', 'Outfit', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? tColor : 'transparent'}; user-select:none;">${char}</span>
+                <span style="font-family:'Franklin Gothic Medium', 'Outfit', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? tColor : 'transparent'}; user-select:none;">${isAnswer ? char : ''}</span>
                 <div style="width:${dW}px; height:${dH}px; background:${dColor}; border-radius:${Math.max(1, Math.round(dH / 2))}px; margin-top:2px;"></div>
               </div>
             `;
@@ -4793,7 +6053,7 @@ const EmbeddedAssets = {
             const char = w[i];
             answerSlotsHtml += `
               <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
-                <span style="font-family:'Franklin Gothic Medium', 'Outfit', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#059669' : 'transparent'}; user-select:none;">${char}</span>
+                <span style="font-family:'Franklin Gothic Medium', 'Outfit', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#059669' : 'transparent'}; user-select:none;">${isAnswer ? char : ''}</span>
                 <div style="width:${dW}px; height:${dH}px; background:${dColor}; border-radius:${Math.max(1, Math.round(dH / 2))}px; margin-top:2px;"></div>
               </div>
             `;
@@ -4870,7 +6130,7 @@ When it's time to eat.</div>
             <div class="clue4-eq-row">
               <span class="clue4-eq-text">${eq}=</span>
               <div class="clue4-eq-blank">
-                <span class="clue4-eq-answer" style="${isAnswer ? 'display:block;' : 'display:none;'}">${letter}</span>
+                <span class="clue4-eq-answer" style="${isAnswer ? 'display:block;' : 'display:none;'}">${isAnswer ? letter : ''}</span>
               </div>
             </div>
           `;
@@ -5146,7 +6406,7 @@ When it's time to eat.</div>
             return `
               <div class="clue6-ans-slot">
                 <div class="clue6-ans-line-wrap">
-                  <span class="clue6-ans-word ${isAnswer ? 'puzzle-ans-highlight' : ''}" style="${isAnswer ? 'display:block;' : 'display:none;'}">${word}</span>
+                  <span class="clue6-ans-word ${isAnswer ? 'puzzle-ans-highlight' : ''}" style="${isAnswer ? 'display:block;' : 'display:none;'}">${isAnswer ? word : ''}</span>
                   <span class="clue6-ans-line"></span>
                 </div>
                 <div class="clue6-ans-coord-label">
@@ -5235,7 +6495,7 @@ When it's time to eat.</div>
             const num = isAlpha ? (ch.charCodeAt(0) - 64) : ch;
             slotsHtml += `
               <div class="clue7-ans-slot">
-                <span class="clue7-ans-letter ${isAnswer ? 'puzzle-ans-highlight' : ''}" style="${isAnswer ? 'display:block;' : 'display:none;'}">${ch}</span>
+                <span class="clue7-ans-letter ${isAnswer ? 'puzzle-ans-highlight' : ''}" style="${isAnswer ? 'display:block;' : 'display:none;'}">${isAnswer ? ch : ''}</span>
                 <div class="clue7-ans-dash"></div>
                 <span class="clue7-ans-num">${num}</span>
               </div>
@@ -5461,118 +6721,168 @@ When it's time to eat.</div>
 
       // --- CLUE 9: EGG-SHAPED LABYRINTH MAZE ---
       renderClue9(spot, isAnswer, themeId, clueNum = 9) {
-        const word = this.cleanLetters(spot || 'WATERHOSE') || 'WATERHOSE';
-        const letters = word.slice(0, 9).split('');
+        const word = this.cleanLetters(spot || 'LAUNDRY') || 'LAUNDRY';
+        const targetChars = word.toUpperCase().slice(0, 10).split('');
 
-        // Waypoints for the true labyrinth path from entrance to exit
-        const waypoints = [
-          { x: 185, y: 55 },   // Step 1: near entrance
-          { x: 155, y: 90 },   // Step 2
-          { x: 110, y: 115 },  // Step 3
-          { x: 150, y: 155 },  // Step 4
-          { x: 195, y: 195 },  // Step 5
-          { x: 150, y: 235 },  // Step 6
-          { x: 100, y: 275 },  // Step 7
-          { x: 150, y: 315 },  // Step 8
-          { x: 130, y: 355 }   // Step 9: near exit
+        // 11 Calibrated solution waypoints along corridor
+        const solutionSlots = [
+          { id: 'entrance',    x: 1426, y: 1134, defaultChar: 'W' }, // 0
+          { id: 'top-horiz',   x: 1261, y: 1181, defaultChar: 'A' }, // 1
+          { id: 'upper-vert',  x: 863,  y: 1279, defaultChar: 'T' }, // 2
+          { id: 'mid-upper',   x: 980,  y: 1540, defaultChar: 'U' }, // 3
+          { id: 'center',      x: 1152, y: 1687, defaultChar: 'E' }, // 4
+          { id: 'center-vert', x: 1380, y: 1850, defaultChar: 'N' }, // 5
+          { id: 'mid-right',   x: 1633, y: 2002, defaultChar: 'R' }, // 6
+          { id: 'lower-right', x: 1430, y: 2320, defaultChar: 'H' }, // 7
+          { id: 'lower-mid',   x: 1163, y: 2286, defaultChar: 'O' }, // 8
+          { id: 'lower-left',  x: 754,  y: 2286, defaultChar: 'S' }, // 9
+          { id: 'exit',        x: 977,  y: 2689, defaultChar: 'E' }  // 10
         ];
 
-        // Decoy letters placed in dead-end passages
-        const decoys = [
-          { char: 'K', x: 205, y: 105 },
-          { char: 'R', x: 95,  y: 165 },
-          { char: 'B', x: 110, y: 200 },
-          { char: 'D', x: 215, y: 250 },
-          { char: 'N', x: 185, y: 335 }
+        // 9 Calibrated decoy letters in dead ends
+        const decoyLetters = [
+          { char: 'R', x: 754,  y: 1485 },
+          { char: 'C', x: 1230, y: 1423 },
+          { char: 'H', x: 1540, y: 1496 },
+          { char: 'K', x: 1602, y: 1713 },
+          { char: 'B', x: 858,  y: 1862 },
+          { char: 'I', x: 1245, y: 1888 },
+          { char: 'D', x: 677,  y: 2023 },
+          { char: 'O', x: 1643, y: 2451 },
+          { char: 'N', x: 1442, y: 2632 }
         ];
 
-        let lettersSvg = '';
-        for (let i = 0; i < letters.length; i++) {
-          const pt = waypoints[i] || waypoints[waypoints.length - 1];
-          const char = letters[i];
-          const isHighlight = isAnswer;
-          lettersSvg += `
-            <g class="maze-letter-node">
-              ${isHighlight ? `<circle cx="${pt.x}" cy="${pt.y - 4}" r="13" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>` : ''}
-              <text x="${pt.x}" y="${pt.y}" font-size="15" font-weight="900" font-family="var(--clue-heading-font, sans-serif)" text-anchor="middle" fill="${isHighlight ? '#16a34a' : '#334155'}">${char}</text>
-            </g>
-          `;
+        // Optimal distribution indices for target words of length 1 to 10
+        function getTargetSlotIndices(len) {
+          if (len <= 0) return [];
+          if (len === 7) return [1, 2, 4, 6, 8, 9, 10];
+          if (len === 9) return [0, 1, 2, 4, 6, 7, 8, 9, 10];
+          if (len === 10) return [0, 1, 2, 4, 5, 6, 7, 8, 9, 10];
+          if (len === 8) return [0, 1, 2, 4, 6, 8, 9, 10];
+          if (len === 6) return [1, 2, 4, 6, 8, 10];
+          if (len === 5) return [1, 2, 4, 8, 10];
+          if (len === 4) return [1, 4, 8, 10];
+          if (len === 3) return [1, 6, 10];
+          if (len === 2) return [1, 10];
+          return [1];
         }
 
-        decoys.forEach(d => {
-          lettersSvg += `
-            <text x="${d.x}" y="${d.y}" font-size="14" font-weight="700" font-family="var(--clue-heading-font, sans-serif)" text-anchor="middle" fill="#94a3b8">${d.char}</text>
+        const activeSlotIndices = getTargetSlotIndices(targetChars.length);
+
+        // 1. Target Letters
+        let lettersHtml = '';
+        activeSlotIndices.forEach((slotIdx, i) => {
+          const slot = solutionSlots[slotIdx];
+          if (!slot) return;
+          const char = targetChars[i] || slot.defaultChar;
+          const leftPct = (slot.x / 2480) * 100;
+          const topPct = (slot.y / 3508) * 100;
+          lettersHtml += `
+            <div class="maze-char-node ${isAnswer ? 'target-highlight' : ''}" style="left:${leftPct}%; top:${topPct}%; font-size:18px; font-weight:${isAnswer ? '700' : '400'};">
+              ${char}
+            </div>
           `;
         });
 
-        const pathPoints = waypoints.slice(0, letters.length).map(p => `${p.x},${p.y - 4}`).join(' L ');
-        const solutionPathSvg = isAnswer ? `
-          <path d="M 195 25 L ${pathPoints} L 130 380" fill="none" stroke="#16a34a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
-        ` : '';
+        // 2. Decoy Letters
+        decoyLetters.forEach(d => {
+          const leftPct = (d.x / 2480) * 100;
+          const topPct = (d.y / 3508) * 100;
+          lettersHtml += `
+            <div class="maze-char-node" style="left:${leftPct}%; top:${topPct}%; font-size:18px; font-weight:400; color:#1e293b;">
+              ${d.char}
+            </div>
+          `;
+        });
 
-        const answerSlotsHtml = letters.map(c => `
-          <div class="tangled-ans-slot ${isAnswer ? 'puzzle-ans-highlight' : ''}">${isAnswer ? c : ''}</div>
+        // 3. Solution Path SVG
+        let solutionSvgHtml = '';
+        if (isAnswer && activeSlotIndices.length > 0) {
+          let d = 'M 1475 950';
+          activeSlotIndices.forEach(idx => {
+            const slot = solutionSlots[idx];
+            if (slot) d += ` L ${slot.x} ${slot.y}`;
+          });
+          d += ' L 1015 3080';
+          solutionSvgHtml = `
+            <svg class="maze-solution-svg" viewBox="0 0 2480 3508" preserveAspectRatio="none">
+              <path d="${d}" fill="none" stroke="#16a34a" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+            </svg>
+          `;
+        }
+
+        // 4. Answer Slots (Underline Dashes) - Match Adjuster Presets
+        const totalLetters = targetChars.length;
+        let ansLineW = 24;
+        let ansGap = 6;
+        let ansFontSize = 20;
+
+        if (totalLetters >= 10) {
+          ansLineW = 17; ansGap = 6; ansFontSize = 18;
+        } else if (totalLetters === 9) {
+          ansLineW = 18; ansGap = 7; ansFontSize = 18;
+        } else if (totalLetters === 8) {
+          ansLineW = 21; ansGap = 6; ansFontSize = 19;
+        }
+
+        const answerSlotsHtml = targetChars.map(c => `
+          <div class="clue9-answer-slot">
+            <span class="clue9-slot-char ${isAnswer ? 'visible' : ''}" style="font-size:${ansFontSize}px;">${isAnswer ? c : ''}</span>
+            <div class="clue9-slot-line" style="width:${ansLineW}px; height:2px;"></div>
+          </div>
         `).join('');
 
+        // 5. Theme filter for maze SVG
+        // Theme 1 & 3: rgb(162, 85, 12)
+        // Theme 2 & 4: rgb(122, 122, 122)
+        const theme = themeId || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
+        const isWarmBrown = (theme === 1 || theme === 3);
+        const mazeFilter = isWarmBrown
+          ? 'url(#eggmaze-filter-warm-brown)'
+          : 'url(#eggmaze-filter-grey) grayscale(1) brightness(0.72)';
+
         return `
-          <div class="clue-card-content">
-            ${this.renderClueHeader(clueNum || 9, `Solve this maze to find the clue<br>and see where it leads you`, themeId)}
+          <div class="clue-card-content" style="position: relative; width: 100%; height: 100%;">
+            ${this.renderClueHeader(clueNum || 9, `Solve this maze to find the clue<br>and see where it leads you!`, theme)}
 
-            <!-- EGG LABYRINTH MAZE SVG -->
-            <div style="width: 100%; max-width: 330px; height: 350px; margin: 4px auto; position: relative;">
-              <svg viewBox="0 0 300 390" style="width: 100%; height: 100%;">
-                <path d="M 180 32 C 270 90, 280 260, 210 345 C 180 380, 150 385, 140 385 M 120 385 C 90 385, 30 330, 25 240 C 20 150, 90 55, 170 32"
-                      fill="#fff1f2" stroke="#fda4af" stroke-width="5" stroke-linecap="round"/>
-
-                <g transform="translate(192, 10)">
-                  <line x1="0" y1="0" x2="-8" y2="16" stroke="#65a30d" stroke-width="4" stroke-linecap="round"/>
-                  <polygon points="-8,16 -14,10 -3,8" fill="#65a30d"/>
-                </g>
-
-                <g transform="translate(130, 375)">
-                  <line x1="0" y1="0" x2="-8" y2="16" stroke="#65a30d" stroke-width="4" stroke-linecap="round"/>
-                  <polygon points="-8,16 -14,10 -3,8" fill="#65a30d"/>
-                </g>
-
-                <g stroke="#fda4af" stroke-width="3" stroke-linecap="round" fill="none">
-                  <path d="M 130 55 L 170 55 L 170 80"/>
-                  <path d="M 175 75 L 205 75 L 205 120"/>
-                  <path d="M 100 80 L 140 80 L 140 110"/>
-                  <path d="M 70 100 L 100 100 L 100 140"/>
-                  <path d="M 125 110 L 175 110"/>
-                  <path d="M 180 115 L 180 160 L 220 160"/>
-                  <path d="M 140 135 L 140 180 L 165 180"/>
-                  <path d="M 65 150 L 115 150 L 115 190"/>
-                  <path d="M 165 170 L 195 170 L 195 220"/>
-                  <path d="M 85 185 L 135 185 L 135 225"/>
-                  <path d="M 170 215 L 230 215 L 230 260"/>
-                  <path d="M 60 220 L 105 220 L 105 260"/>
-                  <path d="M 135 250 L 180 250 L 180 290"/>
-                  <path d="M 110 270 L 155 270 L 155 305"/>
-                  <path d="M 185 285 L 225 285 L 225 320"/>
-                  <path d="M 80 295 L 125 295 L 125 335"/>
-                  <path d="M 140 330 L 180 330 L 180 360"/>
-                  <path d="M 105 340 L 145 340"/>
-                  <path d="M 155 355 L 155 375"/>
-                </g>
-
-                ${solutionPathSvg}
-                ${lettersSvg}
+            <!-- Egg Maze Container -->
+            <div class="clue9-maze-wrap">
+              <!-- SVG Filters for Precise Theme Color Tinting -->
+              <svg style="position:absolute; width:0; height:0; pointer-events:none; overflow:hidden;" aria-hidden="true">
+                <defs>
+                  <!-- Theme 1 & 3: rgb(162, 85, 12) -->
+                  <filter id="eggmaze-filter-warm-brown" color-interpolation-filters="sRGB">
+                    <feColorMatrix type="matrix" values="
+                      0 0 0 0 0.6353
+                      0 0 0 0 0.3333
+                      0 0 0 0 0.0471
+                      0 0 0 1 0
+                    "/>
+                  </filter>
+                  <!-- Theme 2 & 4: rgb(122, 122, 122) -->
+                  <filter id="eggmaze-filter-grey" color-interpolation-filters="sRGB">
+                    <feColorMatrix type="matrix" values="
+                      0 0 0 0 0.4784
+                      0 0 0 0 0.4784
+                      0 0 0 0 0.4784
+                      0 0 0 1 0
+                    "/>
+                  </filter>
+                </defs>
               </svg>
-            </div>
 
-            <!-- Bottom Answer Strip & Flanking Graphics -->
-            <div style="display: flex; align-items: center; justify-content: space-around; width: 100%; max-width: 360px; margin-top: 4px;">
-              ${getThemeClueGraphic(9, themeId, 'width: 50px; height: 50px;')}
-
-              <div style="display: flex; flex-direction: column; align-items: center;">
-                <span style="font-size:0.75rem; font-weight:800; color:#64748b; letter-spacing:1px; text-transform:uppercase;">Maze Path Letters:</span>
-                <div style="display: flex; justify-content: center; gap: 6px; margin-top: 3px;">
-                  ${answerSlotsHtml}
+              <div class="maze-inner-box">
+                <img src="assets/eggmaze.svg" alt="Egg Maze" class="maze-render-svg" style="filter: ${mazeFilter};">
+                ${solutionSvgHtml}
+                <div class="maze-letters-layer">
+                  ${lettersHtml}
                 </div>
               </div>
+            </div>
 
-              ${getThemeClueGraphic(9, themeId, 'width: 50px; height: 50px; transform: scaleX(-1);')}
+            <!-- Underline Answer Slots -->
+            <div class="clue9-answers-wrap" style="transform: translate(-50%, 604px); gap: ${ansGap}px;">
+              ${answerSlotsHtml}
             </div>
           </div>
         `;
@@ -5580,151 +6890,306 @@ When it's time to eat.</div>
 
       // --- CLUE 10: PICTURE REBUS PUZZLE ---
       renderClue10(spot, isAnswer, themeId, clueNum = 10) {
-        const fullSpot = spot || 'Trash Can';
-        const words = fullSpot.trim().split(/\s+/);
-        const firstWord = words[0] || 'Trash';
-        const secondWord = words.slice(1).join(' ') || 'Can';
+        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
+        const textColor = (theme === 2 || theme === 4) ? '#1e293b' : '#3d2314';
+        const targetWord = this.cleanLetters(spot || 'SINK') || 'SINK';
+        const targetChars = targetWord.split('');
+
+        // Rebus component words:
+        // Word 1: SING (Bunny Singing)
+        // Word 2: PINK (Pink Color Block)
+        // Blanks: Word 1 indices [0, 1] (slots 1, 2) + Word 2 indices [2, 3] (slots 3, 4) form SINK
+        const w1Chars = ['S', 'I', 'N', 'G'];
+        const w2Chars = ['P', 'I', 'N', 'K'];
+
+        // Word 1 Letters Row (SING) -> _1 _2 N G
+        const word1Html = w1Chars.map((ch, idx) => {
+          const isBlank = (idx === 0 || idx === 1);
+          const subNum = isBlank ? (idx + 1) : null;
+          const letterVal = isBlank ? (targetChars[idx] || ch) : ch;
+          return `
+            <div class="clue10-rebus-slot">
+              <div class="clue10-rebus-char ${isBlank && isAnswer ? 'answer-revealed' : ''}" style="color:${(isBlank && isAnswer) ? '#16a34a' : textColor};">
+                ${isBlank ? (isAnswer ? letterVal : '') : ch}
+              </div>
+              ${isBlank 
+                ? `<div class="clue10-rebus-underline" style="width:24px; height:2px; background:${textColor};"></div>
+                   <div class="clue10-rebus-sub-number" style="color:${textColor};">${subNum}</div>`
+                : `<div style="height:2px; width:24px;"></div>
+                   <div style="height:15px; margin-top:4px;"></div>`
+              }
+            </div>
+          `;
+        }).join('');
+
+        // Word 2 Letters Row (PINK) -> P I _3 _4
+        const word2Html = w2Chars.map((ch, idx) => {
+          const isBlank = (idx === 2 || idx === 3);
+          const subNum = isBlank ? (idx + 1) : null;
+          const letterVal = isBlank ? (targetChars[idx] || ch) : ch;
+          return `
+            <div class="clue10-rebus-slot">
+              <div class="clue10-rebus-char ${isBlank && isAnswer ? 'answer-revealed' : ''}" style="color:${(isBlank && isAnswer) ? '#16a34a' : textColor};">
+                ${isBlank ? (isAnswer ? letterVal : '') : ch}
+              </div>
+              ${isBlank 
+                ? `<div class="clue10-rebus-underline" style="width:24px; height:2px; background:${textColor};"></div>
+                   <div class="clue10-rebus-sub-number" style="color:${textColor};">${subNum}</div>`
+                : `<div style="height:2px; width:24px;"></div>
+                   <div style="height:15px; margin-top:4px;"></div>`
+              }
+            </div>
+          `;
+        }).join('');
+
+        // Final Answer Row: numbered blanks for each letter of targetWord
+        const finalAnsHtml = targetChars.map((ch, idx) => {
+          return `
+            <div class="clue10-rebus-slot">
+              <div class="clue10-rebus-char ${isAnswer ? 'answer-revealed' : ''}" style="font-size:24px; min-height:24px; color:${isAnswer ? '#16a34a' : textColor}; font-weight:800;">
+                ${isAnswer ? ch : ''}
+              </div>
+              <div class="clue10-rebus-underline" style="width:28px; height:2px; background:${textColor};"></div>
+              <div class="clue10-rebus-sub-number" style="color:${textColor};">${idx + 1}</div>
+            </div>
+          `;
+        }).join('');
 
         return `
-          <div class="clue-card-content">
-            ${this.renderClueHeader(clueNum || 10, `You're moving too fast<br>solve this picture puzzle<br>and have a blast!`, themeId)}
-
-            <div style="display: flex; justify-content: center; margin: 4px auto;">
-              ${getThemeClueGraphic(10, themeId, 'width: 80px; height: 75px;')}
+          <div class="clue-card-content" style="position:relative; width:100%; height:100%; padding:0; display:block;">
+            <!-- Header Group -->
+            <div style="position:absolute; top:54px; left:0; width:100%;">
+              ${this.renderClueHeader(clueNum || 10, `You're moving too fast<br>solve this picture puzzle<br>and have a blast!`, theme)}
             </div>
 
-            <div class="rebus-equation-row">
-              <div class="rebus-item-card">
-                <div style="width: 56px; height: 56px; display:flex; align-items:center; justify-content:center; background:#f8fafc; border-radius:12px; border:1.5px solid #e2e8f0; font-size:1.8rem;">
-                  🗑️
-                </div>
-                <span class="rebus-card-label">${isAnswer ? firstWord : '???'}</span>
-              </div>
-
-              <div class="rebus-operator">+</div>
-
-              <div class="rebus-item-card">
-                <div style="width: 56px; height: 56px; display:flex; align-items:center; justify-content:center; background:#f8fafc; border-radius:12px; border:1.5px solid #e2e8f0; font-size:1.8rem;">
-                  🥫
-                </div>
-                <span class="rebus-card-label">${isAnswer ? secondWord : '???'}</span>
-              </div>
-
-              <div class="rebus-operator">=</div>
-
-              <div class="rebus-result-box ${isAnswer ? 'puzzle-ans-highlight' : ''}">
-                ${isAnswer ? escapeHtml(fullSpot.toUpperCase()) : '________'}
-              </div>
+            <!-- Picture 1 (Singing Bunny) -->
+            <div class="clue10-pic1-wrap">
+              <img src="assets/graphics/bunny_singing.png" alt="Singing Bunny" draggable="false">
             </div>
 
-            <p style="font-size:0.85rem; color:#64748b; font-weight:600; margin-top: 8px;">
-              ${isAnswer ? `Target: <strong>${escapeHtml(fullSpot)}</strong>` : 'Combine the words to find the secret spot!'}
-            </p>
+            <!-- Word 1 Letters Row (SING) -->
+            <div class="clue10-word1-row">
+              ${word1Html}
+            </div>
+
+            <!-- Picture 2 (Pink Block) -->
+            <div class="clue10-pic2-wrap">
+              <div class="clue10-pic2-color-box"></div>
+            </div>
+
+            <!-- Word 2 Letters Row (PINK) -->
+            <div class="clue10-word2-row">
+              ${word2Html}
+            </div>
+
+            <!-- Final Answer Row (SINK) -->
+            <div class="clue10-final-ans-row">
+              ${finalAnsHtml}
+            </div>
           </div>
         `;
       },
 
       // --- CLUE 11: WORD SCRAMBLE ---
       renderClue11(spot, isAnswer, themeId, clueNum = 11) {
-        const targetWord = this.cleanLetters(spot || 'TOOLS') || 'TOOLS';
-        const chars = targetWord.split('');
+        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
+        const font = (theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)";
+        const targetWord = this.cleanLetters(spot || 'SHOWER') || 'SHOWER';
+        const chars = targetWord.slice(0, 7).split('');
 
-        const bank = [
-          { word: 'TULIP', jumble: 'PILUT', keyIdx: 0 },
-          { word: 'BLOOM', jumble: 'MOOLB', keyIdx: 2 },
-          { word: 'ROBIN', jumble: 'BINRO', keyIdx: 1 },
-          { word: 'PLANT', jumble: 'TNALP', keyIdx: 1 },
-          { word: 'SUNNY', jumble: 'YNNUS', keyIdx: 0 }
-        ];
+        const WORD_BANK = {
+          'A': { word: 'APRIL',    jumble: 'LIRPA' },
+          'B': { word: 'BASKET',   jumble: 'TEKSAB' },
+          'C': { word: 'CHICKS',   jumble: 'SKIHC' },
+          'D': { word: 'DAISY',    jumble: 'YSIDA' },
+          'E': { word: 'EASTER',   jumble: 'RASEET' },
+          'F': { word: 'FLOWER',   jumble: 'REWLOF' },
+          'G': { word: 'GARDEN',   jumble: 'NEDRAG' },
+          'H': { word: 'HONEY',    jumble: 'YEOHN' },
+          'I': { word: 'INSECT',   jumble: 'TCESNI' },
+          'J': { word: 'JUMPER',   jumble: 'REPMUJ' },
+          'K': { word: 'KITTEN',   jumble: 'NETTIK' },
+          'L': { word: 'LILY',     jumble: 'YLIL' },
+          'M': { word: 'MEADOW',   jumble: 'WODAEM' },
+          'N': { word: 'NESTLE',   jumble: 'ELTSEN' },
+          'O': { word: 'ORANGE',   jumble: 'RNGAOE' },
+          'P': { word: 'PASTEL',   jumble: 'LETSAP' },
+          'Q': { word: 'QUILT',    jumble: 'TLIUQ' },
+          'R': { word: 'RABBIT',   jumble: 'TABRIB' },
+          'S': { word: 'SCHOOL',   jumble: 'LOOCSH' },
+          'T': { word: 'TULIPS',   jumble: 'SPILUT' },
+          'U': { word: 'UMBRELLA', jumble: 'ALLERBMU' },
+          'V': { word: 'VIOLET',   jumble: 'TELOIV' },
+          'W': { word: 'WHITE',    jumble: 'HIWET' },
+          'X': { word: 'XYLOPHONE',jumble: 'ENOHPOLYX' },
+          'Y': { word: 'YELLOW',   jumble: 'WOLLEY' },
+          'Z': { word: 'ZEBRA',    jumble: 'ARBEZ' }
+        };
 
-        const rowsHtml = chars.map((char, i) => {
-          const item = bank[i % bank.length];
-          const displayWord = item.word.toUpperCase();
-          const jumbled = item.jumble.toUpperCase();
-          const boxes = displayWord.split('').map((c, cIdx) => {
-            const isKey = (cIdx === item.keyIdx);
-            return `<div class="scramble-box ${isKey ? 'key-letter' : ''}">${isAnswer ? c : (isKey ? '★' : '')}</div>`;
-          }).join('');
+        const ROW_HEIGHT = 28;
+        const ROW_GAP = 17;
+        const KEY_BOX_W = 31;
+        const KEY_BOX_PAD_Y = 25;
+        const totalRows = chars.length;
+        const totalBoxH = totalRows * ROW_HEIGHT + Math.max(0, totalRows - 1) * ROW_GAP + (KEY_BOX_PAD_Y * 2);
+
+        const scrambleRowsHtml = chars.map(keyChar => {
+          const item = WORD_BANK[keyChar] || { word: keyChar + 'OTHER', jumble: 'REHTO' + keyChar };
+          return `<div class="clue11-scramble-row" style="font-family:${font};">${item.jumble.toUpperCase()}</div>`;
+        }).join('');
+
+        const solutionRowsHtml = chars.map(keyChar => {
+          const item = WORD_BANK[keyChar] || { word: keyChar + 'OTHER', jumble: 'REHTO' + keyChar };
+          const remainingChars = item.word.toUpperCase().slice(1).split('');
+
+          const dashesHtml = remainingChars.map(c => `
+            <div class="clue11-char-slot">
+              <span class="clue11-slot-letter ${isAnswer ? 'visible' : ''}" style="font-family:${font};">${isAnswer ? c : ''}</span>
+              <div class="clue11-dash-line" style="width: 21px;"></div>
+            </div>
+          `).join('');
 
           return `
-            <div class="scramble-row">
-              <span class="scramble-jumble">${jumbled}</span>
-              <div class="scramble-target">${boxes}</div>
+            <div class="clue11-solution-row">
+              <div class="clue11-char-slot first-slot">
+                <span class="clue11-slot-letter ${isAnswer ? 'visible' : ''}" style="font-family:${font};">${isAnswer ? keyChar : ''}</span>
+                <div class="clue11-dash-line" style="width: 21px;"></div>
+              </div>
+              ${dashesHtml}
             </div>
           `;
         }).join('');
 
         return `
           <div class="clue-card-content">
-            ${this.renderClueHeader(clueNum || 11, `This game has nearly come to an end.<br> Unscramble the words and<br>you will get the answer my friend!`, themeId)}
+            ${this.renderClueHeader(clueNum || 11, `This game has nearly come to an end.<br>Unscramble the words and<br>you will get the answer my friend!`, theme)}
 
-            <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin: 4px 0;">
-              <div class="scramble-list">
-                ${rowsHtml}
+            <!-- Calibrated Clue 11 Puzzle Block -->
+            <div class="clue11-puzzle-wrap">
+              <!-- Left: Scrambled words list -->
+              <div class="clue11-scramble-col">
+                ${scrambleRowsHtml}
               </div>
-              ${getThemeClueGraphic(11, themeId, 'width: 80px; height: 80px;')}
-            </div>
 
-            <div style="margin-top: 8px;">
-              <span style="font-size:0.75rem; font-weight:800; color:#64748b; text-transform:uppercase;">Secret Word:</span>
-              <div style="display:flex; justify-content:center; gap:8px; margin-top:4px;">
-                ${chars.map(c => `
-                  <div class="tangled-ans-slot ${isAnswer ? 'puzzle-ans-highlight' : ''}">${isAnswer ? c : ''}</div>
-                `).join('')}
+              <!-- Right: Solution Dashes + Vertical Key Box -->
+              <div class="clue11-solution-col">
+                <div class="clue11-vertical-key-box" style="left:0px; width:${KEY_BOX_W}px; top:${-KEY_BOX_PAD_Y}px; height:${totalBoxH}px; border-width:1.5px;"></div>
+                ${solutionRowsHtml}
               </div>
             </div>
+
+            <!-- Theme Corner Graphics -->
+            ${(theme === 1) ? `
+              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/3.png" alt="Carrot Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : (theme === 2) ? `
+              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
+                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
+                <img src="assets/graphics/theme1/3.png" alt="Carrot Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : (theme === 3) ? `
+              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/11.png" alt="Theme 3 Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/2.png" alt="Theme 3 Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : (theme === 4) ? `
+              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/2.png" alt="Theme 4 Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/3.png" alt="Theme 4 Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : ''}
           </div>
         `;
       },
 
       // --- CLUE 12: WORD SEARCH GRID ---
       renderClue12(spot, isAnswer, themeId, clueNum = 12) {
-        const target = this.cleanLetters(spot || 'VEHICLE') || 'VEHICLE';
-        const gridSize = 8;
+        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
+        const font = (theme === 2 || theme === 4) ? "var(--font-baskerville)" : "'Franklin Gothic Medium', sans-serif";
+        const target = this.cleanLetters(spot || 'CUPBOARD').toUpperCase().slice(0, 8);
+        const chars = target.split('');
 
-        const matrix = [
-          ['S', 'P', 'R', 'I', 'N', 'G', 'B', 'K'],
-          ['X', 'E', 'G', 'G', 'T', 'W', 'U', 'R'],
-          ['V', 'E', 'H', 'I', 'C', 'L', 'E', 'Q'],
-          ['B', 'U', 'N', 'N', 'Y', 'O', 'P', 'S'],
-          ['T', 'U', 'L', 'I', 'P', 'R', 'K', 'M'],
-          ['F', 'L', 'O', 'W', 'E', 'R', 'S', 'A'],
-          ['H', 'U', 'N', 'T', 'D', 'C', 'H', 'E'],
-          ['Z', 'A', 'M', 'A', 'Z', 'E', 'X', 'P']
+        const REFERENCE_GRID = [
+          ['C', 'D', 'O', 'P', 'O', 'C', 'I', 'U'],
+          ['U', 'D', 'U', 'O', 'R', 'P', 'K', 'O'],
+          ['P', 'O', 'C', 'R', 'D', 'O', 'O', 'A'],
+          ['B', 'A', 'P', 'D', 'G', 'U', 'N', 'R'],
+          ['O', 'U', 'A', 'C', 'J', 'A', 'P', 'C'],
+          ['A', 'P', 'R', 'U', 'L', 'R', 'D', 'U'],
+          ['R', 'C', 'D', 'O', 'B', 'D', 'U', 'P'],
+          ['D', 'K', 'N', 'A', 'U', 'P', 'P', 'D']
         ];
 
-        for (let i = 0; i < Math.min(gridSize, target.length); i++) {
-          matrix[2][i] = target[i];
-        }
-
         let cellsHtml = '';
-        for (let r = 0; r < gridSize; r++) {
-          for (let c = 0; c < gridSize; c++) {
-            const isTargetWord = (r === 2 && c < target.length);
-            const highlightClass = (isAnswer && isTargetWord) ? 'highlight' : '';
-            cellsHtml += `<div class="ws-cell ${highlightClass}">${matrix[r][c]}</div>`;
+        for (let r = 0; r < 8; r++) {
+          for (let c = 0; c < 8; c++) {
+            let char = REFERENCE_GRID[r][c];
+            let isTarget = false;
+
+            if (c === 0 && r < chars.length) {
+              char = chars[r];
+              isTarget = true;
+            }
+
+            const highlightClass = (isAnswer && isTarget) ? 'highlight-target' : '';
+            cellsHtml += `<div class="clue12-grid-cell ${highlightClass}" style="font-family:'Roboto', sans-serif; font-weight:400;">${char}</div>`;
           }
         }
 
+        const answerDashesHtml = chars.map(c => `
+          <div class="clue12-ans-char-slot">
+            <span class="clue12-ans-char ${isAnswer ? 'visible' : ''}" style="font-family:'Roboto', sans-serif; font-weight:400;">${isAnswer ? c : ''}</span>
+            <div class="clue12-ans-line"></div>
+          </div>
+        `).join('');
+
         return `
           <div class="clue-card-content">
-            ${this.renderClueHeader(clueNum || 12, `Solve this word to find the last clue.<br>It is inside somewhere waiting for you!`, themeId)}
+            ${this.renderClueHeader(clueNum || 12, `Solve this word to find the last clue.<br>It is inside somewhere waiting for you!`, theme)}
 
-            <div class="wordsearch-stage" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
-              <div class="wordsearch-matrix">
+            <!-- Calibrated 8x8 Word Search Grid -->
+            <div class="clue12-grid-wrap">
+              <div class="clue12-word-grid-table">
                 ${cellsHtml}
               </div>
-
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                ${getThemeClueGraphic(12, themeId, 'width: 75px; height: 75px;')}
-                <div class="ws-word-checklist">
-                  <span>SPRING</span>
-                  <span>BUNNY</span>
-                  <span>TULIP</span>
-                  <span class="${isAnswer ? 'puzzle-ans-highlight' : ''}">⭐ <strong>${escapeHtml(spot || 'VEHICLE').toUpperCase()}</strong> ⭐</span>
-                </div>
-              </div>
             </div>
+
+            <!-- Calibrated Underline Answer Dashes -->
+            <div class="clue12-answers-wrap">
+              ${answerDashesHtml}
+            </div>
+
+            <!-- Theme Corner Graphics -->
+            ${(theme === 1) ? `
+              <div style="position:absolute !important; left:-14px !important; bottom:-2px !important; width:125px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : (theme === 2) ? `
+              <div style="position:absolute !important; left:-14px !important; bottom:-2px !important; width:125px !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
+                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : (theme === 3) ? `
+              <div style="position:absolute !important; left:2px !important; bottom:2px !important; width:88px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/5.png" alt="Chick" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:2px !important; bottom:2px !important; width:135px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/8.png" alt="Egg Bowl" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : (theme === 4) ? `
+              <div style="position:absolute !important; left:-14px !important; bottom:-2px !important; width:125px !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              </div>
+            ` : ''}
           </div>
         `;
       }
@@ -5859,8 +7324,8 @@ When it's time to eat.</div>
 
     // Run on load
     window.addEventListener('DOMContentLoaded', () => {
-      // Apply font pairing for initial theme
-      applyThemeFonts(AppState.selectedTheme || 1);
+      // Apply initial theme state across Step 1 and Step 3
+      selectTheme(AppState.selectedTheme || 1);
 
       // Theme 1 preview
       const t1 = document.getElementById('theme1-img');
