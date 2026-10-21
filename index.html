@@ -98,16 +98,16 @@
 
     /* Left Sidebar */
     .app-sidebar {
-      width: 290px;
-      min-width: 290px;
-      max-width: 290px;
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(20px);
       border-right: 1px solid rgba(226, 232, 240, 0.9);
-      padding: 32px 22px;
+      padding: 22px 18px;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 14px;
       position: sticky;
       top: 0;
       height: 100vh;
@@ -122,7 +122,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding-bottom: 24px;
+      padding-bottom: 14px;
       border-bottom: 1px solid #f1f5f9;
     }
 
@@ -166,7 +166,7 @@
     .sidebar-stepper {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
       flex: 1;
     }
 
@@ -176,7 +176,8 @@
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: #94a3b8;
-      margin-bottom: 4px;
+      margin-top: 2px;
+      margin-bottom: 2px;
       padding-left: 4px;
     }
 
@@ -260,11 +261,68 @@
       color: white;
     }
 
-    /* Sidebar Footer */
-    .sidebar-footer {
-      margin-top: auto;
-      padding-top: 20px;
-      border-top: 1px solid #f1f5f9;
+    /* Sidebar YouTube Tutorial Link (Placed Before Workflow Steps) */
+    .sidebar-tutorial-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-title);
+      padding: 8px 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: #ffffff;
+      border: 1.5px solid #fee2e2;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      box-shadow: 0 1px 4px rgba(239, 68, 68, 0.06);
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .sidebar-tutorial-btn:hover {
+      background: #fff5f5;
+      border-color: #fca5a5;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.14);
+    }
+
+    .sidebar-tutorial-btn:active {
+      transform: translateY(0);
+    }
+
+    .tutorial-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff0000 0%, #e11d48 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.28);
+      transition: transform 0.2s ease;
+    }
+
+    .sidebar-tutorial-btn:hover .tutorial-circle {
+      transform: scale(1.08);
+    }
+
+    .tutorial-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .tutorial-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.2;
+      transition: color 0.2s ease;
+    }
+
+    .sidebar-tutorial-btn:hover .tutorial-name {
+      color: #dc2626;
     }
 
     .sidebar-status-tag {
@@ -292,7 +350,7 @@
     .app-main {
       flex: 1;
       min-width: 0;
-      padding: 36px 48px 80px;
+      padding: 20px 32px 60px;
       width: 100%;
       box-sizing: border-box;
     }
@@ -303,12 +361,15 @@
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: var(--radius-lg);
-      padding: 36px 32px;
+      padding: 20px 24px 28px;
       box-shadow: var(--shadow-md);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .panel-header {
-      margin-bottom: 32px;
+      margin: 0 0 16px 0;
+      padding: 0;
       text-align: center;
     }
 
@@ -316,14 +377,15 @@
       font-family: var(--font-title);
       font-size: 1.85rem;
       color: #1e1b4b;
-      margin-bottom: 8px;
+      margin: 0;
+      line-height: 1.25;
     }
 
     .panel-header p {
       color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 0.95rem;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 4px auto 0;
     }
 
     /* Themes Grid */
@@ -575,10 +637,18 @@
       transition: all 0.2s ease;
     }
 
-    .theme-card.selected .select-indicator {
+    .theme-card.selected .select-indicator,
+    .print-layout-card.selected .select-indicator {
       background: var(--primary-color);
       border-color: var(--primary-color);
       color: white;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+    }
+
+    .print-layout-card:hover:not(.selected) .select-indicator {
+      border-color: #a78bfa;
+      color: var(--primary-color);
+      background: #faf5ff;
     }
 
     /* Coming Soon Theme Placeholder */
@@ -648,6 +718,36 @@
       transform: translateY(0);
     }
 
+    .btn-answer-key {
+      font-family: var(--font-title);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+      color: #86198f;
+      border: 2px solid #d946ef;
+      padding: 13px 24px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(217, 70, 239, 0.16);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .btn-answer-key:hover {
+      background: linear-gradient(135deg, #fae8ff 0%, #f5d0fe 100%);
+      border-color: #c026d3;
+      color: #701a75;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 70, 239, 0.26);
+    }
+
+    .btn-answer-key:active {
+      transform: translateY(0);
+    }
+
     @media (max-width: 860px) {
       .app-layout {
         flex-direction: column;
@@ -710,6 +810,9 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 20px;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .spots-counter-bar {
@@ -766,6 +869,9 @@
       flex-direction: column;
       gap: 10px;
       margin-bottom: 24px;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .spot-card {
@@ -821,7 +927,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      min-width: 220px;
+      min-width: 90px;
       flex-shrink: 0;
     }
 
@@ -983,6 +1089,17 @@
       transform: translateY(-1px);
     }
 
+    .spot-btn-delete {
+      color: #94a3b8;
+    }
+
+    .spot-btn-delete:hover:not(:disabled) {
+      border-color: #fca5a5 !important;
+      color: #dc2626 !important;
+      background: #fef2f2 !important;
+      transform: translateY(-1px);
+    }
+
     .spot-btn:disabled {
       opacity: 0.25;
       cursor: not-allowed;
@@ -1116,6 +1233,9 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
       margin-bottom: 30px;
+      max-width: 1080px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .print-layout-card {
@@ -1259,6 +1379,9 @@
       display: flex;
       gap: 16px;
       align-items: flex-start;
+      max-width: 1080px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .print-instructions-icon {
@@ -1391,15 +1514,19 @@
         background: white !important;
       }
 
-      /* Landscape: 2 Cards Side-by-Side (Comfortable 1.04 scale, No Collision, Centered Cut Guide) */
+      /* Landscape: 2 Cards Side-by-Side (Maximized Size, Minimal Margins, Edge-to-Edge Cut Line) */
       .landscape-page {
         display: grid !important;
-        grid-template-columns: 1fr auto 1fr !important;
-        padding: 3mm 6mm !important;
+        grid-template-columns: 1fr 1fr !important;
+        padding: 0 !important;
         margin: 0 !important;
         box-sizing: border-box !important;
         align-items: center !important;
+        justify-items: center !important;
         overflow: hidden !important;
+        position: relative !important;
+        width: 100vw !important;
+        height: 100vh !important;
       }
       .landscape-half {
         display: flex !important;
@@ -1407,7 +1534,8 @@
         justify-content: center !important;
         height: 100% !important;
         width: 100% !important;
-        padding: 0 3mm !important;
+        padding: 0 !important;
+        margin: 0 !important;
         box-sizing: border-box !important;
         overflow: hidden !important;
       }
@@ -1419,7 +1547,7 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transform: scale(1.04) !important;
+        transform: scale(1.14) !important;
         transform-origin: center center !important;
         flex-shrink: 0 !important;
       }
@@ -1436,19 +1564,17 @@
         background: white !important;
       }
       .landscape-cut-guide {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 0 !important;
+        height: 100% !important;
         border-left: 1.5px dashed #94a3b8 !important;
-        height: 85% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        position: relative !important;
-        margin: 0 4mm !important;
-      }
-      .cut-scissors {
-        background: white !important;
-        padding: 2mm 0 !important;
-        font-size: 14pt !important;
-        color: #64748b !important;
+        z-index: 10 !important;
+        pointer-events: none !important;
+        margin: 0 !important;
       }
 
             /* High-Definition Print Graphics: Disable filters so Chrome does not downsample to 72 DPI */
@@ -1548,26 +1674,29 @@
       justify-content: center;
       gap: 36px;
       width: 100%;
+      max-width: 1680px;
       margin: 0 auto;
     }
 
     .step3-control-column {
-      flex: 1;
-      min-width: 320px;
-      max-width: 520px;
+      flex: 0 0 clamp(360px, 26vw, 460px);
+      width: clamp(360px, 26vw, 460px);
+      max-width: 480px;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
     .step3-card-column {
-      flex: 0 0 auto;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       justify-content: flex-start;
       position: sticky;
-      top: 24px;
+      top: 20px;
+      min-width: 0;
+      width: 100%;
     }
 
     /* Cards in Control Column */
@@ -1669,15 +1798,15 @@
     }
 
     .step3-theme-icon-box {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       background: white;
       border: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       flex-shrink: 0;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
     }
@@ -1687,21 +1816,21 @@
       flex-direction: column;
       gap: 2px;
       min-width: 0;
+      flex: 1;
     }
 
     .step3-theme-name {
       font-family: var(--font-title);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: #1e1b4b;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.2;
+      white-space: normal;
+      line-height: 1.18;
+      word-break: normal;
     }
 
     .step3-theme-sub {
-      font-size: 0.68rem;
+      font-size: 0.69rem;
       color: #64748b;
       font-weight: 600;
       white-space: nowrap;
@@ -2001,25 +2130,106 @@
 
     /* Studio Canvas Stage (Right Side) */
     .step3-studio-mat {
-      background: linear-gradient(145deg, #ffffff 0%, #faf8ff 100%);
-      border: 1.5px solid rgba(226, 232, 240, 0.95);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: 0 20px 48px -12px rgba(124, 58, 237, 0.12), 0 4px 16px rgba(0, 0, 0, 0.03);
+      width: 100%;
+      box-sizing: border-box;
+      align-self: stretch;
+      background: radial-gradient(circle at 50% 20%, #ffffff 0%, #faf8fe 60%, #f3edf9 100%);
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px 24px 36px;
+      box-shadow: 0 12px 32px -8px rgba(124, 58, 237, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      justify-content: center;
+      min-height: 720px;
+      position: relative;
     }
 
-    .studio-mat-header {
-      width: 100%;
+    /* Clue Navigator Card (Above Card Design on Left) */
+    .clue-nav-card {
+      padding: 12px 16px;
+    }
+
+    .clue-nav-bar-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #f1f5f9;
+      width: 100%;
+    }
+
+    .clue-nav-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .clue-nav-num {
+      font-family: var(--font-title);
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1e1b4b;
+      letter-spacing: 0.2px;
+      line-height: 1.2;
+    }
+
+    .clue-nav-hint {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #64748b;
+      line-height: 1.2;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 160px;
+    }
+
+    .preview-stage-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1.5px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+      border-radius: 10px;
+      font-family: var(--font-title);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .preview-stage-nav-btn:hover {
+      background: #faf5ff;
+      border-color: #d8b4fe;
+      color: var(--primary-color);
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+    }
+
+    .preview-stage-nav-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(124, 58, 237, 0.1);
+    }
+
+    .preview-stage-nav-btn svg {
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .preview-stage-nav-btn:hover svg {
+      transform: scale(1.1);
     }
 
     .studio-stage-badge {
@@ -2071,7 +2281,20 @@
       display: flex;
       flex-direction: column;
       transform-origin: top center;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      transition: opacity 0.2s ease;
+      zoom: 1.30;
+    }
+
+    @media (max-width: 1350px) {
+      .step3-card-column .clue-card-paper {
+        zoom: 1.15;
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .step3-card-column .clue-card-paper {
+        zoom: 1.0;
+      }
     }
 
     .studio-mat-footer {
@@ -3954,9 +4177,20 @@
         <div class="brand-badge-icon">🐰</div>
         <div class="brand-info">
           <h1 class="brand-title">Easter Hunt Creator</h1>
-          <span class="brand-subtitle">Printable Clue Cards</span>
         </div>
       </div>
+
+      <!-- YouTube Tutorial Quick Link -->
+      <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="sidebar-tutorial-btn" id="btn-youtube-tutorial" title="Watch Video Tutorial">
+        <span class="tutorial-circle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" style="margin-left: 2px;">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+        </span>
+        <div class="tutorial-info">
+          <span class="tutorial-name">Watch Tutorial</span>
+        </div>
+      </a>
 
       <!-- Sidebar Stepper Navigation -->
       <nav class="sidebar-stepper" aria-label="Creation Steps">
@@ -3964,176 +4198,31 @@
         <div class="step-item active" id="step-nav-1">
           <span class="step-circle">1</span>
           <div class="step-info">
-            <span class="step-name">Choose Design</span>
-            <span class="step-hint">Pick theme style</span>
+            <span class="step-name">Hiding Spots</span>
           </div>
         </div>
         <div class="step-item" id="step-nav-2">
           <span class="step-circle">2</span>
           <div class="step-info">
-            <span class="step-name">Hiding Spots</span>
-            <span class="step-hint">Customize clues</span>
+            <span class="step-name">Preview Hunt</span>
           </div>
         </div>
         <div class="step-item" id="step-nav-3">
           <span class="step-circle">3</span>
           <div class="step-info">
-            <span class="step-name">Hunt Preview</span>
-            <span class="step-hint" id="step3-nav-hint">Inspect all 12 cards</span>
-          </div>
-        </div>
-        <div class="step-item" id="step-nav-4">
-          <span class="step-circle">4</span>
-          <div class="step-info">
-            <span class="step-name">Download & Print</span>
-            <span class="step-hint">Print-ready PDF / sheets</span>
+            <span class="step-name">Download</span>
           </div>
         </div>
       </nav>
-
-      <div class="sidebar-footer">
-        <div class="sidebar-status-tag">
-          <span class="status-indicator"></span>
-          <span id="sidebar-clues-ready-text">12 Clues Ready</span>
-        </div>
-      </div>
     </aside>
 
     <!-- Main Content Area -->
     <div class="app-main">
 
-    <!-- STEP 1: CHOOSE A DESIGN -->
+    <!-- STEP 1: CHOOSE HIDING SPOTS -->
     <main class="step-panel" id="panel-step-1">
       <div class="panel-header">
-        <h2>Step 1: Choose Your Design Theme</h2>
-        <p>Pick a theme style for your scavenger hunt cards. You can add your hiding spots in the next step.</p>
-      </div>
-
-            <div class="themes-grid">
-        <!-- THEME 1 CARD -->
-        <div class="theme-card selected" onclick="selectTheme(1)" id="card-theme-1">
-          <div class="theme-preview-box">
-            <img class="theme1-main-img" src="" alt="Theme 1 Border 1" id="theme1-img">
-          </div>
-
-          <div class="theme1-subswitcher" onclick="event.stopPropagation()">
-            <span style="font-size:0.75rem; color:#64748b; font-weight:600;">Preview Border:</span>
-            <button class="subswitcher-btn active" onclick="switchTheme1Preview(1, event)" id="btn-t1-1">#1</button>
-            <button class="subswitcher-btn" onclick="switchTheme1Preview(2, event)" id="btn-t1-2">#2</button>
-            <button class="subswitcher-btn" onclick="switchTheme1Preview(3, event)" id="btn-t1-3">#3</button>
-          </div>
-
-          <div class="theme-info">
-            <div class="theme-title-row">
-              <span class="theme-title">Theme 1: Spring Pastel</span>
-              <span class="theme-tag">3 Borders</span>
-            </div>
-            <p class="theme-desc">Rotates through 3 floral pastel borders across the clue pages.</p>
-          </div>
-
-          <div class="card-footer">
-            <span class="feature-badge">✓ 3 Borders • 12 Bunny Graphics • Franklin Font</span>
-            <span class="select-indicator" id="indicator-1">✓ Selected</span>
-          </div>
-        </div>
-
-        <!-- THEME 2 CARD (DYNAMIC WATERCOLOR EGG BORDER) -->
-        <div class="theme-card" onclick="selectTheme(2)" id="card-theme-2">
-          <div class="theme-preview-box" id="theme2-preview-box">
-            <div class="egg-border-frame" id="theme2-egg-frame"></div>
-          </div>
-
-          <div class="theme2-subswitcher" onclick="event.stopPropagation()">
-            <span style="font-size:0.75rem; color:#64748b; font-weight:600;">Preview Egg:</span>
-            <button type="button" class="egg-stepper-btn" onclick="stepTheme2Egg(-1, event)">◀</button>
-            <span class="egg-label-text" id="theme2-egg-label">Egg #1</span>
-            <button type="button" class="egg-stepper-btn" onclick="stepTheme2Egg(1, event)">▶</button>
-          </div>
-
-          <div class="theme-info">
-            <div class="theme-title-row">
-              <span class="theme-title">Theme 2: Watercolor Eggs</span>
-              <span class="theme-tag">20 Egg Styles</span>
-            </div>
-            <p class="theme-desc">Perimeter framed by matching watercolor eggs for a handcrafted look.</p>
-          </div>
-
-          <div class="card-footer">
-            <span class="feature-badge">✓ 20 Egg Borders • 11 Bunny Graphics • Baskerville Font</span>
-            <span class="select-indicator" id="indicator-2">Select</span>
-          </div>
-        </div>
-
-        <!-- THEME 3 CARD (PASTEL STRIPES) -->
-        <div class="theme-card" onclick="selectTheme(3)" id="card-theme-3">
-          <div class="theme-preview-box">
-            <img class="theme1-main-img" src="" alt="Theme 3 Pastel Stripes" id="theme3-img">
-          </div>
-
-          <div class="theme-static-badge">
-            <span>Clean Striped Frame</span>
-          </div>
-
-          <div class="theme-info">
-            <div class="theme-title-row">
-              <span class="theme-title">Theme 3: Pastel Stripes</span>
-              <span class="theme-tag">1 Border</span>
-            </div>
-            <p class="theme-desc">Vibrant vertical pastel stripes for a cheerful, clean modern style.</p>
-          </div>
-
-          <div class="card-footer">
-            <span class="feature-badge">✓ Striped Frame • Franklin Font</span>
-            <span class="select-indicator" id="indicator-3">Select</span>
-          </div>
-        </div>
-
-        <!-- THEME 4 CARD (PATTERNED EGGS - 12 BORDERS) -->
-        <div class="theme-card" onclick="selectTheme(4)" id="card-theme-4">
-          <div class="theme-preview-box">
-            <img class="theme1-main-img" src="" alt="Theme 4 Border" id="theme4-img">
-          </div>
-
-          <div class="theme2-subswitcher" onclick="event.stopPropagation()">
-            <span style="font-size:0.75rem; color:#64748b; font-weight:600;">Preview Border:</span>
-            <button type="button" class="egg-stepper-btn" onclick="stepTheme4Border(-1, event)">◀</button>
-            <span class="egg-label-text" id="theme4-border-label">Border #1</span>
-            <button type="button" class="egg-stepper-btn" onclick="stepTheme4Border(1, event)">▶</button>
-          </div>
-
-          <div class="theme-info">
-            <div class="theme-title-row">
-              <span class="theme-title">Theme 4: Easter Variety Collection</span>
-              <span class="theme-tag">12 Borders</span>
-            </div>
-            <p class="theme-desc">12 festive border designs (bunnies, carrots, eggs & stripes) that cycle across clues.</p>
-          </div>
-
-          <div class="card-footer">
-            <span class="feature-badge">✓ 12 Border Styles • Baskerville Font</span>
-            <span class="select-indicator" id="indicator-4">Select</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-bar">
-        <div class="selection-summary">
-          Currently Selected: <strong id="selected-theme-label">Theme 1: Spring Pastel</strong>
-        </div>
-        <button type="button" class="btn-primary" onclick="proceedToStep2()">
-          <span>Next: Choose Hiding Spots</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
-      </div>
-    </main>
-
-    <!-- STEP 2: CHOOSE HIDING SPOTS -->
-    <main class="step-panel" id="panel-step-2" style="display:none;">
-      <div class="panel-header">
-        <h2>Step 2: Choose Your Hiding Spots</h2>
-        <p>12 pre-written locations are loaded below. Type to edit any spot, or use the arrows and drag handles to reorder!</p>
+        <h2>Step 1: Choose Your Hiding Spots</h2>
       </div>
 
       <!-- Counter bar & quick actions -->
@@ -4141,11 +4230,11 @@
         <div class="spots-counter-bar">
           <span class="spots-counter-icon">🥚</span>
           <div class="spots-counter-text">
-            <span id="spots-count">12</span> Hiding Spot<span id="spots-plural">s</span>
+            <span id="spots-count">24</span> Hiding Spot<span id="spots-plural">s</span>
           </div>
         </div>
-        <button type="button" class="btn-text-action" onclick="resetDefaultSpots()" title="Restore original 12 locations">
-          🔄 Reset to Default 12
+        <button type="button" class="btn-text-action" onclick="resetDefaultSpots()" title="Restore default locations">
+          🔄 Reset to Default
         </button>
       </div>
 
@@ -4153,14 +4242,8 @@
       <div class="spots-list" id="spots-list"></div>
 
       <!-- Action bar -->
-      <div class="action-bar">
-        <button type="button" class="btn-secondary" onclick="goBackToStep1()">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
-          </svg>
-          Back: Choose Design
-        </button>
-        <button type="button" class="btn-primary" onclick="proceedToStep3()">
+      <div class="action-bar" style="justify-content: flex-end;">
+        <button type="button" class="btn-primary" onclick="proceedToStep2()">
           <span>Next: Preview Hunt</span>
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
@@ -4168,11 +4251,10 @@
         </button>
       </div>
     </main>
-    <!-- STEP 3: SCAVENGER HUNT PREVIEW -->
-    <main class="step-panel" id="panel-step-3" style="display:none;">
+    <!-- STEP 2: PREVIEW HUNT -->
+    <main class="step-panel" id="panel-step-2" style="display:none;">
       <div class="panel-header">
-        <h2>Step 3: Scavenger Hunt Preview</h2>
-        <p>Preview and fine-tune your puzzle clues. Change themes on the fly, customize locations, and inspect Game Cards or Answer Keys side-by-side.</p>
+        <h2>Step 2: Preview Hunt</h2>
       </div>
 
       <!-- Split Layout Workspace -->
@@ -4180,121 +4262,77 @@
         <!-- Control Column (Left) -->
         <div class="step3-control-column">
 
-          <!-- 1. Card Theme Selector -->
-          <div class="step3-deck-card" id="step3-theme-card">
-            <div class="deck-card-header">
-              <span class="deck-tag">Card Theme</span>
-              <span class="step3-active-theme-tag" id="step3-theme-name-tag">Theme 1: Spring Pastel</span>
-            </div>
-
-            <div class="step3-theme-grid">
-              <!-- Theme 1 -->
-              <button type="button" class="step3-theme-btn active" id="step3-theme-chip-1" onclick="selectTheme(1)" title="Theme 1: Spring Pastel">
-                <div class="step3-theme-icon-box">🌸</div>
-                <div class="step3-theme-text">
-                  <span class="step3-theme-name">Spring Pastel</span>
-                  <span class="step3-theme-sub">3 Floral • Franklin</span>
-                </div>
-              </button>
-
-              <!-- Theme 2 -->
-              <button type="button" class="step3-theme-btn" id="step3-theme-chip-2" onclick="selectTheme(2)" title="Theme 2: Watercolor Eggs">
-                <div class="step3-theme-icon-box">🥚</div>
-                <div class="step3-theme-text">
-                  <span class="step3-theme-name">Watercolor Eggs</span>
-                  <span class="step3-theme-sub">20 Eggs • Baskerville</span>
-                </div>
-              </button>
-
-              <!-- Theme 3 -->
-              <button type="button" class="step3-theme-btn" id="step3-theme-chip-3" onclick="selectTheme(3)" title="Theme 3: Pastel Stripes">
-                <div class="step3-theme-icon-box">🍭</div>
-                <div class="step3-theme-text">
-                  <span class="step3-theme-name">Pastel Stripes</span>
-                  <span class="step3-theme-sub">Clean • Franklin</span>
-                </div>
-              </button>
-
-              <!-- Theme 4 -->
-              <button type="button" class="step3-theme-btn" id="step3-theme-chip-4" onclick="selectTheme(4)" title="Theme 4: Easter Variety Collection">
-                <div class="step3-theme-icon-box">🥕</div>
-                <div class="step3-theme-text">
-                  <span class="step3-theme-name">Easter Variety</span>
-                  <span class="step3-theme-sub">12 Borders • Baskerville</span>
-                </div>
-              </button>
-            </div>
-          </div>
-          
-          <!-- 2. Clue Navigation Card (Scalable to 12, 24, or any number of clues) -->
-          <div class="step3-deck-card">
-            <div class="deck-card-header">
-              <span class="deck-tag">Active Clue</span>
-              <span class="clue-stepper-title" id="clue-stepper-title" style="font-size:0.82rem; color:#6b21a8; font-weight:800; background:#f5f3ff; border:1px solid #e9d5ff; padding:2px 8px; border-radius:6px;">Clue 1 of 12</span>
-            </div>
-            
-            <div class="deck-clue-hero">
-              <div class="deck-clue-icon-wrap">
-                <span id="deck-clue-icon">🗝️</span>
-              </div>
-              <div class="deck-clue-meta">
-                <span class="clue-stepper-tag" id="deck-clue-tag">Puzzle Type</span>
-                <div class="clue-stepper-subtitle" id="clue-stepper-subtitle">Pigpen Cipher</div>
-              </div>
-            </div>
-
-            <div class="deck-nav-buttons">
-              <button type="button" class="deck-btn" id="btn-prev-clue" onclick="navigateCluePreview(-1)" title="Previous Clue (← Left Arrow)">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+          <!-- 0. Clue Navigator (Previous / Next Clue) -->
+          <div class="step3-deck-card clue-nav-card" id="step3-clue-nav-card">
+            <div class="clue-nav-bar-row">
+              <button type="button" class="preview-stage-nav-btn" id="btn-prev-clue" onclick="navigateCluePreview(-1)" title="Previous Clue (← Left Arrow)">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
                 <span>Previous</span>
-                <kbd>←</kbd>
               </button>
-              <button type="button" class="deck-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
+              <div class="clue-nav-indicator">
+                <span class="clue-nav-num" id="clue-stepper-title">Clue 1 of 12</span>
+                <span class="clue-nav-hint" id="clue-stepper-subtitle">Puzzle Clue</span>
+              </div>
+              <button type="button" class="preview-stage-nav-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
                 <span>Next</span>
-                <kbd>→</kbd>
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                 </svg>
               </button>
             </div>
-
-            <!-- Quick Jump Dropdown & Progress (Seamless for 12, 24, etc.) -->
-            <div class="deck-quick-select-wrap">
-              <div class="deck-quick-select-row">
-                <label for="clue-select-dropdown" class="deck-select-label">Jump to:</label>
-                <select id="clue-select-dropdown" class="deck-clue-select" onchange="switchCluePreview(parseInt(this.value))">
-                  <!-- Dynamically populated options -->
-                </select>
-              </div>
-              <div class="deck-progress-track">
-                <div class="deck-progress-fill" id="clue-progress-bar" style="width: 8.33%;"></div>
-              </div>
-            </div>
           </div>
 
-          <!-- 3. Preview Mode Switch -->
-          <div class="step3-deck-card">
+          <!-- 1. Card Design Selector -->
+          <div class="step3-deck-card" id="step3-theme-card">
             <div class="deck-card-header">
-              <span class="deck-tag">Card View Mode</span>
-              <span style="font-size:0.75rem; color:#64748b; font-weight:600;" id="stage-mode-name">🎮 Kids Game Card</span>
+              <span class="deck-tag">Card Design</span>
             </div>
-            <div class="deck-mode-switch">
-              <button type="button" class="preview-mode-btn active" id="btn-mode-game" onclick="setCluePreviewMode('game')">
-                🎮 Kids Game Card
+
+            <div class="step3-theme-grid">
+              <!-- Design 1 -->
+              <button type="button" class="step3-theme-btn active" id="step3-theme-chip-1" onclick="selectTheme(1)" title="Design 1: Spring Pastel">
+                <div class="step3-theme-icon-box">🌸</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Spring Pastel</span>
+                  <span class="step3-theme-sub">3 Floral</span>
+                </div>
               </button>
-              <button type="button" class="preview-mode-btn" id="btn-mode-answer" onclick="setCluePreviewMode('answer')">
-                🔑 Solved Answer Key
+
+              <!-- Design 2 -->
+              <button type="button" class="step3-theme-btn" id="step3-theme-chip-2" onclick="selectTheme(2)" title="Design 2: Watercolor Eggs">
+                <div class="step3-theme-icon-box">🥚</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Watercolor Eggs</span>
+                  <span class="step3-theme-sub">20 Eggs</span>
+                </div>
+              </button>
+
+              <!-- Design 3 -->
+              <button type="button" class="step3-theme-btn" id="step3-theme-chip-3" onclick="selectTheme(3)" title="Design 3: Pastel Stripes">
+                <div class="step3-theme-icon-box">🍭</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Pastel Stripes</span>
+                  <span class="step3-theme-sub">Clean</span>
+                </div>
+              </button>
+
+              <!-- Design 4 -->
+              <button type="button" class="step3-theme-btn" id="step3-theme-chip-4" onclick="selectTheme(4)" title="Design 4: Easter Variety Collection">
+                <div class="step3-theme-icon-box">🥕</div>
+                <div class="step3-theme-text">
+                  <span class="step3-theme-name">Easter Variety</span>
+                  <span class="step3-theme-sub">12 Borders</span>
+                </div>
               </button>
             </div>
           </div>
 
-          <!-- 4. Live Location Customizer -->
+          <!-- 2. Live Location Customizer -->
           <div class="step3-deck-card">
             <div class="step3-input-header">
-              <span class="deck-tag" id="preview-clue-label">📍 Hiding Spot Location:</span>
-              <span id="preview-clue-char-count" class="step3-char-badge">4 / 10 chars</span>
+              <span class="deck-tag" id="preview-clue-label">Location #1:</span>
             </div>
             <div class="step3-input-box-wrap">
               <span class="step3-input-icon">📍</span>
@@ -4311,22 +4349,33 @@
               >
               <span id="preview-clue-limit-badge" class="limit-notice-badge"></span>
             </div>
-            <span class="deck-hint-text">
-              <span>💡</span>
-              <span>Edits here update puzzle clues and answer keys in real time.</span>
-            </span>
           </div>
 
-          <!-- 5. Action Buttons -->
+          <!-- 3. Preview Mode Switch -->
+          <div class="step3-deck-card">
+            <div class="deck-card-header">
+              <span class="deck-tag">Card View Mode</span>
+            </div>
+            <div class="deck-mode-switch">
+              <button type="button" class="preview-mode-btn active" id="btn-mode-game" onclick="setCluePreviewMode('game')">
+                🎮 Game Card
+              </button>
+              <button type="button" class="preview-mode-btn" id="btn-mode-answer" onclick="setCluePreviewMode('answer')">
+                🔑 Solved Answer Key
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Action Buttons -->
           <div class="deck-actions-card">
-            <button type="button" class="btn-secondary deck-action-btn" onclick="goBackToStep2()">
+            <button type="button" class="btn-secondary deck-action-btn" onclick="goBackToStep1()">
               <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
               </svg>
               <span>Back: Spots</span>
             </button>
-            <button type="button" class="btn-primary deck-action-btn" onclick="proceedToStep4()">
-              <span>Next: Print</span>
+            <button type="button" class="btn-primary deck-action-btn" onclick="proceedToStep3()">
+              <span>Next: Download</span>
               <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
               </svg>
@@ -4339,18 +4388,6 @@
         <div class="step3-card-column">
           <!-- Studio Mat Backdrop -->
           <div class="step3-studio-mat">
-            <!-- Studio Mat Header -->
-            <div class="studio-mat-header">
-              <div class="studio-stage-badge">
-                <span class="live-dot"></span>
-                <span id="stage-clue-badge">CLUE #1 • PIGPEN CIPHER</span>
-              </div>
-              <div class="studio-theme-pill">
-                <span>Theme:</span>
-                <strong id="stage-theme-name" style="color:var(--primary-color);">Spring Pastel</strong>
-              </div>
-            </div>
-
             <!-- Fixed master paper (480px) -->
             <div class="clue-card-paper" id="clue-preview-card-paper">
               <!-- Background Border Frame -->
@@ -4362,16 +4399,6 @@
               <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
               </div>
             </div>
-
-            <!-- Studio Mat Footer -->
-            <div class="studio-mat-footer">
-              <span id="stage-footer-page">Card 1 of 12 (Print Page 1)</span>
-              <div class="studio-hint-kbd">
-                <span>Flip:</span>
-                <kbd>←</kbd>
-                <kbd>→</kbd>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -4379,15 +4406,14 @@
     </main>
 
 
-    <!-- STEP 4: DOWNLOAD & PRINT -->
-    <main class="step-panel" id="panel-step-4" style="display:none;">
+    <!-- STEP 3: DOWNLOAD -->
+    <main class="step-panel" id="panel-step-3" style="display:none;">
       <div class="panel-header">
-        <h2>Step 4: Download & Print</h2>
-        <p>Select your preferred print layout format below, then download or print your scavenger hunt.</p>
+        <h2>Step 3: Download</h2>
       </div>
 
       <div class="print-options-grid">
-        <!-- OPTION 1: 1 PAGE PORTRAIT NORMAL -->
+        <!-- OPTION 1: 1 PER PAGE -->
         <div class="print-layout-card selected" id="layout-card-portrait" onclick="selectPrintLayout('portrait')">
           <div class="print-diagram-box">
             <div class="diagram-sheet-portrait">
@@ -4401,8 +4427,7 @@
           </div>
           <div class="theme-info">
             <div class="theme-title-row">
-              <span class="theme-title">1 Page Portrait (Normal)</span>
-              <span class="theme-tag">Standard</span>
+              <span class="theme-title">1 Per Page</span>
             </div>
             <p class="theme-desc">1 clue card per printed page. Edge-to-edge border right at the page edge with zero margins.</p>
           </div>
@@ -4412,7 +4437,7 @@
           </div>
         </div>
 
-        <!-- OPTION 2: 1 PAGE LANDSCAPE (2 PAGES IN ONE) -->
+        <!-- OPTION 2: 2 PER PAGE -->
         <div class="print-layout-card" id="layout-card-landscape" onclick="selectPrintLayout('landscape')">
           <div class="print-diagram-box">
             <div class="diagram-sheet-landscape">
@@ -4425,13 +4450,11 @@
                 <span style="font-size:0.5rem; color:#94a3b8;">Card 2</span>
               </div>
               <div class="diagram-cut-line"></div>
-              <div class="diagram-cut-icon">✂️</div>
             </div>
           </div>
           <div class="theme-info">
             <div class="theme-title-row">
-              <span class="theme-title">1 Page Landscape (2 per Page)</span>
-              <span class="theme-tag">Paper Saver</span>
+              <span class="theme-title">2 Per Page</span>
             </div>
             <p class="theme-desc">2 clue cards side-by-side on 1 page in landscape. Saves 50% paper with a center cut line.</p>
           </div>
@@ -4442,32 +4465,42 @@
         </div>
       </div>
 
-      <!-- Print Guidance Box -->
+      <!-- Download Guidance Box -->
       <div class="print-instructions-box">
         <div class="print-instructions-icon">💡</div>
         <div>
-          <div class="print-instructions-title">Printing & Saving as PDF</div>
+          <div class="print-instructions-title">Saving as PDF</div>
           <div class="print-instructions-desc">
-            Click <strong>Download / Print Hunt</strong> below. In your browser's print dialog, choose <strong>"Save as PDF"</strong> to save to your device or send to your color printer. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
+            Click <strong>Download</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> to save to your device. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
           </div>
         </div>
       </div>
 
-      <div class="action-bar">
-        <button type="button" class="btn-secondary" onclick="goBackToStep3()">
+      <div class="action-bar" style="max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+        <button type="button" class="btn-secondary" onclick="goBackToStep2()">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
           </svg>
-          Back: Hunt Preview
+          Back: Preview Hunt
         </button>
-        <button type="button" class="btn-primary" id="btn-download-print" onclick="triggerDownloadAndPrint()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 6 2 18 2 18 9"></polyline>
-            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-            <rect x="6" y="14" width="12" height="8"></rect>
-          </svg>
-          <span>Download & Print Hunt</span>
-        </button>
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <button type="button" class="btn-answer-key" id="btn-download-answer" onclick="triggerDownloadAndPrint('answer')" title="Download clue cards with solved answers">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download Answer Key</span>
+          </button>
+          <button type="button" class="btn-primary" id="btn-download-print" onclick="triggerDownloadAndPrint('game')" title="Download game clue cards for players">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download Clue Cards</span>
+          </button>
+        </div>
       </div>
     </main>
 
@@ -4651,10 +4684,10 @@ const EmbeddedAssets = {
         if (chip) chip.classList.toggle('active', i === themeId);
       }
       const labels = {
-        1: 'Theme 1: Spring Pastel',
-        2: 'Theme 2: Watercolor Eggs',
-        3: 'Theme 3: Pastel Stripes',
-        4: 'Theme 4: Easter Variety Collection'
+        1: 'Design 1: Spring Pastel',
+        2: 'Design 2: Watercolor Eggs',
+        3: 'Design 3: Pastel Stripes',
+        4: 'Design 4: Easter Variety Collection'
       };
       const shortNames = {
         1: 'Spring Pastel',
@@ -4717,7 +4750,7 @@ const EmbeddedAssets = {
       }
     }
 
-    // ===== STEP 2: HIDING SPOTS & CLUES LOGIC =====
+    // ===== STEP 1: HIDING SPOTS & CLUES LOGIC =====
     const DEFAULT_HUNT_CLUES = [
       { puzzleId: 1, name: "Pigpen Cipher", location: "Television", maxLen: 10, placeholder: "e.g. Television" },
       { puzzleId: 2, name: "Tangled Paths", location: "Couch", maxLen: 5, placeholder: "e.g. Couch" },
@@ -4730,7 +4763,19 @@ const EmbeddedAssets = {
       { puzzleId: 9, name: "Bunny Maze", location: "Waterhose", maxLen: 10, placeholder: "e.g. Waterhose" },
       { puzzleId: 10, name: "Picture Rebus", location: "Sink", maxLen: 15, placeholder: "e.g. Sink" },
       { puzzleId: 11, name: "Word Scramble", location: "Shower", maxLen: 7, placeholder: "e.g. Shower" },
-      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 8, placeholder: "e.g. Cupboard" }
+      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 8, placeholder: "e.g. Cupboard" },
+      { puzzleId: 1, name: "Pigpen Cipher", location: "Backyard", maxLen: 10, placeholder: "e.g. Backyard" },
+      { puzzleId: 2, name: "Tangled Paths", location: "Chair", maxLen: 5, placeholder: "e.g. Chair" },
+      { puzzleId: 3, name: "Color Coded", location: "Bookshelf", maxLen: 15, placeholder: "e.g. Bookshelf" },
+      { puzzleId: 4, name: "Grid Decoder", location: "Bedroom", maxLen: 8, placeholder: "e.g. Bedroom" },
+      { puzzleId: 5, name: "Morse Code", location: "Blanket", maxLen: 10, placeholder: "e.g. Blanket" },
+      { puzzleId: 6, name: "Grid Coordinates", location: "Clock", maxLen: 5, placeholder: "e.g. Clock" },
+      { puzzleId: 7, name: "Wheel Decoder", location: "Toaster", maxLen: 10, placeholder: "e.g. Toaster" },
+      { puzzleId: 8, name: "Missing Letters", location: "Freezer", maxLen: 15, placeholder: "e.g. Freezer" },
+      { puzzleId: 9, name: "Bunny Maze", location: "Flowerpot", maxLen: 10, placeholder: "e.g. Flowerpot" },
+      { puzzleId: 10, name: "Picture Rebus", location: "Desk", maxLen: 15, placeholder: "e.g. Desk" },
+      { puzzleId: 11, name: "Word Scramble", location: "Mirror", maxLen: 7, placeholder: "e.g. Mirror" },
+      { puzzleId: 12, name: "Hidden Word Grid", location: "Wardrobe", maxLen: 8, placeholder: "e.g. Wardrobe" }
     ];
 
     const DEFAULT_HIDING_SPOTS = DEFAULT_HUNT_CLUES.map(c => c.location);
@@ -4739,18 +4784,20 @@ const EmbeddedAssets = {
 
     function syncHidingSpots() {
       hidingSpots = huntClues.map(c => c.location);
-      const count = huntClues.length || 12;
-      const hint = document.getElementById('step3-nav-hint');
-      if (hint) hint.textContent = `Inspect all ${count} cards`;
-      const ready = document.getElementById('sidebar-clues-ready-text');
-      if (ready) ready.textContent = `${count} Clues Ready`;
+      const count = huntClues.length;
+      const countEl = document.getElementById('spots-count');
+      if (countEl) countEl.textContent = count;
+      const plural = document.getElementById('spots-plural');
+      if (plural) plural.textContent = count === 1 ? '' : 's';
     }
 
     function resetDefaultSpots() {
-      if (confirm("Reset back to the 12 default clues and spots?")) {
+      if (confirm(`Reset back to the ${DEFAULT_HUNT_CLUES.length} default clues and spots?`)) {
         huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
         syncHidingSpots();
         renderSpotsList();
+        if (currentPreviewClue > huntClues.length) currentPreviewClue = 1;
+        renderCurrentCluePreview();
       }
     }
 
@@ -4816,7 +4863,7 @@ const EmbeddedAssets = {
 
       list.innerHTML = huntClues.map((item, i) => {
         const clueNum = i + 1;
-        const maxLen = item.maxLen;
+        const maxLen = item.maxLen || 15;
         return `
         <div
           class="spot-card"
@@ -4831,10 +4878,6 @@ const EmbeddedAssets = {
           <div class="spot-drag-handle" title="Drag to reorder">⠿</div>
           <div class="spot-meta-col">
             <div class="spot-badge">Clue #${clueNum}</div>
-            <div class="spot-puzzle-info">
-              <span class="spot-puzzle-name">${item.name}</span>
-              <span class="spot-puzzle-limit"><span class="spot-limit-tag">Max ${maxLen} chars</span></span>
-            </div>
           </div>
           <div class="spot-input-wrap">
             <input
@@ -4842,7 +4885,7 @@ const EmbeddedAssets = {
               class="spot-input"
               id="spot-input-${i}"
               maxlength="${maxLen}"
-              placeholder="${item.placeholder}"
+              placeholder="${item.placeholder || `Location #${clueNum}`}"
               value="${escapeHtml(item.location)}"
               oninput="updateSpot(${i}, this.value)"
               onkeydown="handleLocationKeydown(event, ${maxLen}, document.getElementById('spot-limit-${i}'))"
@@ -4865,10 +4908,31 @@ const EmbeddedAssets = {
               onclick="moveSpot(${i}, 1)"
               ${i === huntClues.length - 1 ? 'disabled' : ''}
             >▼</button>
+            <button
+              type="button"
+              class="spot-btn spot-btn-delete"
+              title="Remove Clue"
+              onclick="removeClue(${i})"
+            >✕</button>
           </div>
         </div>
       `;
       }).join('');
+    }
+
+    function removeClue(index) {
+      if (huntClues.length <= 1) {
+        alert("You must keep at least 1 clue in your hunt!");
+        return;
+      }
+      huntClues.splice(index, 1);
+      syncHidingSpots();
+      renderSpotsList();
+      if (currentPreviewClue > huntClues.length) {
+        currentPreviewClue = huntClues.length;
+      }
+      populateDeckJumpStrip();
+      renderCurrentCluePreview();
     }
 
     function escapeHtml(str) {
@@ -4958,8 +5022,11 @@ const EmbeddedAssets = {
       document.querySelectorAll('.step-panel').forEach(p => p.style.display = 'none');
       const panel = document.getElementById(`panel-step-${stepNum}`);
       if (panel) panel.style.display = '';
-      if (stepNum === 2) renderSpotsList();
-      if (stepNum === 3) switchCluePreview(currentPreviewClue);
+      if (stepNum === 1) renderSpotsList();
+      if (stepNum === 2) {
+        switchCluePreview(currentPreviewClue);
+        setTimeout(updateClueStageScale, 50);
+      }
       document.querySelectorAll('.step-item').forEach((el, i) => {
         const num = i + 1;
         el.classList.remove('active', 'completed');
@@ -4970,6 +5037,13 @@ const EmbeddedAssets = {
     }
 
     function proceedToStep2() {
+      const filled = hidingSpots.filter(s => s && s.trim() !== '');
+      if (filled.length === 0) {
+        alert('Please enter at least one hiding spot location!');
+        const firstInput = document.getElementById('spot-input-0');
+        if (firstInput) firstInput.focus();
+        return;
+      }
       navigateToStep(2);
     }
 
@@ -4978,15 +5052,16 @@ const EmbeddedAssets = {
     }
 
     function proceedToStep3() {
-      const filled = hidingSpots.filter(s => s && s.trim() !== '');
-      if (filled.length === 0) {
-        alert('Please enter at least one hiding spot location!');
-        const firstInput = document.getElementById('spot-input-0');
-        if (firstInput) firstInput.focus();
-        return;
-      }
       navigateToStep(3);
     }
+
+    function goBackToStep2() {
+      navigateToStep(2);
+    }
+
+    // Backwards-compatible stubs
+    function proceedToStep4() { proceedToStep3(); }
+    function goBackToStep3() { goBackToStep2(); }
 
     // ===== PIGPEN CIPHER ENGINE =====
         const PigpenCipher = {
@@ -5374,7 +5449,7 @@ const EmbeddedAssets = {
         input.maxLength = maxLen;
         input.value = locText;
       }
-      if (label) label.textContent = `📍 Location #${clueNum}:`;
+      if (label) label.textContent = `Location #${clueNum}:`;
       hideLimitNotice(document.getElementById('preview-clue-limit-badge'), input);
 
       const charBadge = document.getElementById('preview-clue-char-count');
@@ -5394,12 +5469,41 @@ const EmbeddedAssets = {
       }
 
       renderCurrentCluePreview();
+      updateClueStageScale();
     }
 
-    // Keyboard Arrow ← / → listener for switching clues in Step 3
+    // Dynamic, screen-agnostic viewport scaler for any monitor (13" laptop up to 56" display)
+    function updateClueStageScale() {
+      const paper = document.getElementById('clue-preview-card-paper');
+      const step2 = document.getElementById('panel-step-2');
+      const stage = document.querySelector('.step3-card-column');
+      if (!paper || !step2 || step2.style.display === 'none' || !stage) return;
+
+      if (window.innerWidth <= 960) {
+        paper.style.zoom = '1';
+        paper.style.transform = 'none';
+        return;
+      }
+
+      // Base scale on available stage width so the clue preview grows significantly on wide screens
+      const availW = Math.max(480, stage.clientWidth - 56);
+      const widthScale = availW / 480;
+
+      // Scale smoothly between 1.0x (13" laptops) up to 1.40x (24"+ monitors, making card up to ~672px wide)
+      const finalScale = Math.max(1.0, Math.min(widthScale * 0.88, 1.40));
+
+      paper.style.zoom = finalScale.toFixed(3);
+      paper.style.transform = 'none';
+    }
+
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(updateClueStageScale);
+    });
+
+    // Keyboard Arrow ← / → listener for switching clues in Step 2 (Preview Hunt)
     window.addEventListener('keydown', (e) => {
-      const step3 = document.getElementById('panel-step-3');
-      if (step3 && step3.style.display !== 'none') {
+      const step2 = document.getElementById('panel-step-2');
+      if (step2 && step2.style.display !== 'none') {
         if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
           return;
         }
@@ -5421,7 +5525,7 @@ const EmbeddedAssets = {
       if (btnAns) btnAns.classList.toggle('active', mode === 'answer');
       const stageModeBadge = document.getElementById('stage-mode-name');
       if (stageModeBadge) {
-        stageModeBadge.textContent = (mode === 'game') ? '🎮 Kids Game Card' : '🔑 Solved Answer Key';
+        stageModeBadge.textContent = (mode === 'game') ? '🎮 Game Card' : '🔑 Solved Answer Key';
       }
       renderCurrentCluePreview();
     }
@@ -5529,8 +5633,10 @@ const EmbeddedAssets = {
 
 
 
-    async function triggerDownloadAndPrint() {
-      const btn = document.getElementById('btn-download-print') || document.querySelector('button[onclick="triggerDownloadAndPrint()"]');
+    async function triggerDownloadAndPrint(mode = 'game') {
+      const isAnswer = (mode === 'answer');
+      const btnId = isAnswer ? 'btn-download-answer' : 'btn-download-print';
+      const btn = document.getElementById(btnId);
       const originalHtml = btn ? btn.innerHTML : '';
 
       try {
@@ -5542,12 +5648,12 @@ const EmbeddedAssets = {
               <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
               <path d="M12 2a10 10 0 0 1 10 10"></path>
             </svg>
-            <span>Preparing Clues for Print...</span>
+            <span>Preparing ${isAnswer ? 'Answer Key...' : 'Clues for Download...'}</span>
           `;
         }
 
         updatePrintPageStyle();
-        preparePrintDocument();
+        preparePrintDocument(isAnswer);
 
         const root = document.getElementById('print-sheet-root');
         if (root) {
@@ -7206,7 +7312,7 @@ When it's time to eat.</div>
     }
 
 
-    function preparePrintDocument() {
+    function preparePrintDocument(isAnswerMode = false) {
       const root = document.getElementById('print-sheet-root');
       if (!root) return;
       root.className = `print-root layout-${PrintState.layout}`;
@@ -7225,7 +7331,7 @@ When it's time to eat.</div>
                   ${getThemeCardBorderHtml(i)}
                 </div>
                 <div class="clue-card-content-wrap">
-                  ${renderClueCardInnerHtml(i, locText, false)}
+                  ${renderClueCardInnerHtml(i, locText, isAnswerMode)}
                 </div>
               </div>
             </div>
@@ -7249,14 +7355,12 @@ When it's time to eat.</div>
                       ${getThemeCardBorderHtml(i)}
                     </div>
                     <div class="clue-card-content-wrap">
-                      ${renderClueCardInnerHtml(i, loc1, false)}
+                      ${renderClueCardInnerHtml(i, loc1, isAnswerMode)}
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="landscape-cut-guide">
-                <span class="cut-scissors">&#x2702;</span>
-              </div>
+              <div class="landscape-cut-guide"></div>
               <div class="landscape-half">
                 ${item2 ? `
                   <div class="card-scaler-landscape">
@@ -7265,7 +7369,7 @@ When it's time to eat.</div>
                         ${getThemeCardBorderHtml(i + 1)}
                       </div>
                       <div class="clue-card-content-wrap">
-                        ${renderClueCardInnerHtml(i + 1, loc2, false)}
+                        ${renderClueCardInnerHtml(i + 1, loc2, isAnswerMode)}
                       </div>
                     </div>
                   </div>
@@ -7342,10 +7446,11 @@ When it's time to eat.</div>
       const t4 = document.getElementById('theme4-img');
       if (t4) t4.src = EmbeddedAssets.theme4Borders[AppState.theme4SubPreview];
 
-      // Step 2 spots & hunt clues
+      // Step 1 spots & hunt clues
       huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
       syncHidingSpots();
       renderSpotsList();
+      navigateToStep(1);
 
       // Make stepper navigation items clickable
       document.querySelectorAll('.step-item').forEach((el, i) => {
@@ -7355,7 +7460,6 @@ When it's time to eat.</div>
           if (targetStep === 1) navigateToStep(1);
           else if (targetStep === 2) proceedToStep2();
           else if (targetStep === 3) proceedToStep3();
-          else if (targetStep === 4) proceedToStep4();
         });
       });
     });
