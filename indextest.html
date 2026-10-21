@@ -127,17 +127,18 @@
     }
 
     .brand-badge-icon {
-      font-size: 2rem;
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 100%);
-      border: 1px solid #fbcfe8;
-      border-radius: 14px;
-      display: flex;
+      font-size: 2.15rem;
+      line-height: 1;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(219, 39, 119, 0.1);
       flex-shrink: 0;
+      user-select: none;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .brand-badge-icon:hover {
+      transform: scale(1.15) rotate(6deg);
     }
 
     .brand-info {
@@ -150,9 +151,14 @@
       font-family: var(--font-title);
       font-size: 1.25rem;
       font-weight: 800;
-      color: #3b0764;
+      color: #1e1b4b;
       line-height: 1.2;
       margin: 0;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-title-accent {
+      color: var(--primary-color);
     }
 
     .brand-subtitle {
@@ -368,17 +374,25 @@
     }
 
     .panel-header {
-      margin: 0 0 16px 0;
+      margin: 0 0 18px 0;
       padding: 0;
       text-align: center;
     }
 
     .panel-header h2 {
       font-family: var(--font-title);
-      font-size: 1.85rem;
+      font-size: clamp(1.4rem, 2.2vw, 1.65rem);
+      font-weight: 500;
       color: #1e1b4b;
       margin: 0;
-      line-height: 1.25;
+      line-height: 1.3;
+      letter-spacing: 0.2px;
+    }
+
+    .panel-step-label {
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-right: 3px;
     }
 
     .panel-header p {
@@ -388,17 +402,9 @@
       margin: 4px auto 0;
     }
 
-    /* Optimized compact layout for Step 2 (Preview Hunt) to prevent vertical scrolling */
+    /* Step 2 padding */
     #panel-step-2 {
-      padding: 14px 20px 16px;
-    }
-
-    #panel-step-2 .panel-header {
-      margin: 0 0 10px 0;
-    }
-
-    #panel-step-2 .panel-header h2 {
-      font-size: 1.55rem;
+      padding: 16px 20px 18px;
     }
 
     /* Themes Grid */
@@ -2281,18 +2287,35 @@
       color: #475569;
     }
 
+    .clue-card-stage-wrap {
+      position: relative;
+      width: 480px;
+      height: 679px;
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+
     .step3-card-column .clue-card-paper {
       width: 480px;
+      height: 679px;
+      min-width: 480px;
       max-width: 480px;
       aspect-ratio: 2480 / 3508;
       background: white;
       border-radius: 14px;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.04);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transform-origin: top center;
+      transform-origin: top left;
+      flex-shrink: 0;
       transition: opacity 0.2s ease;
     }
 
@@ -2384,16 +2407,21 @@
 
       .step3-studio-mat {
         width: 100%;
-        padding: 14px 10px;
+        padding: 12px 8px;
         border-radius: 16px;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .clue-card-stage-wrap {
+        margin: 0 auto;
       }
 
       .step3-card-column .clue-card-paper {
-        width: 480px;
-        max-width: 480px;
-        transform-origin: top center;
-        margin: 0 auto;
+        transform-origin: top left;
+        margin: 0;
       }
     }
 
@@ -4267,7 +4295,7 @@
       <div class="sidebar-brand">
         <div class="brand-badge-icon">🐰</div>
         <div class="brand-info">
-          <h1 class="brand-title">Easter Hunt Creator</h1>
+          <h1 class="brand-title">Easter Hunt <span class="brand-title-accent">Creator</span></h1>
         </div>
       </div>
 
@@ -4313,7 +4341,7 @@
     <!-- STEP 1: CHOOSE HIDING SPOTS -->
     <main class="step-panel" id="panel-step-1">
       <div class="panel-header">
-        <h2>Step 1: Choose Your Hiding Spots</h2>
+        <h2><strong class="panel-step-label">Step 1:</strong> Choose Your Hiding Spots</h2>
       </div>
 
       <!-- Counter bar & quick actions -->
@@ -4345,7 +4373,7 @@
     <!-- STEP 2: PREVIEW HUNT -->
     <main class="step-panel" id="panel-step-2" style="display:none;">
       <div class="panel-header">
-        <h2>Step 2: Preview Hunt</h2>
+        <h2><strong class="panel-step-label">Step 2:</strong> Preview Hunt</h2>
       </div>
 
       <!-- Split Layout Workspace -->
@@ -4479,15 +4507,17 @@
         <div class="step3-card-column">
           <!-- Studio Mat Backdrop -->
           <div class="step3-studio-mat">
-            <!-- Fixed master paper (480px) -->
-            <div class="clue-card-paper" id="clue-preview-card-paper">
-              <!-- Background Border Frame -->
-              <div class="clue-card-bg-border" id="clue-preview-border-container">
-                <!-- Rendered by JS matching selected theme -->
-              </div>
+            <div class="clue-card-stage-wrap" id="clue-card-stage-wrap">
+              <!-- Fixed master paper (480px) -->
+              <div class="clue-card-paper" id="clue-preview-card-paper">
+                <!-- Background Border Frame -->
+                <div class="clue-card-bg-border" id="clue-preview-border-container">
+                  <!-- Rendered by JS matching selected theme -->
+                </div>
 
-              <!-- Dynamic Card Content -->
-              <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+                <!-- Dynamic Card Content -->
+                <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+                </div>
               </div>
             </div>
           </div>
@@ -4500,7 +4530,7 @@
     <!-- STEP 3: DOWNLOAD -->
     <main class="step-panel" id="panel-step-3" style="display:none;">
       <div class="panel-header">
-        <h2>Step 3: Download</h2>
+        <h2><strong class="panel-step-label">Step 3:</strong> Download</h2>
       </div>
 
       <div class="print-options-grid">
@@ -5117,6 +5147,7 @@ const EmbeddedAssets = {
       if (stepNum === 2) {
         switchCluePreview(currentPreviewClue);
         setTimeout(updateClueStageScale, 50);
+        setTimeout(updateClueStageScale, 200);
       }
       document.querySelectorAll('.step-item').forEach((el, i) => {
         const num = i + 1;
@@ -5563,54 +5594,60 @@ const EmbeddedAssets = {
       updateClueStageScale();
     }
 
-    // Dynamic, screen-agnostic viewport scaler for any monitor (13" laptop up to 56" display)
-    // Automatically fits the entire clue card and controls into the screen with ZERO vertical scrolling
+    // Dynamic, screen-agnostic viewport scaler for any monitor (phones up to 56" display)
+    // Automatically fits the entire clue card into view with ZERO right-side cutoff and ZERO scrolling on desktop
     function updateClueStageScale() {
       const paper = document.getElementById('clue-preview-card-paper');
+      const wrap = document.getElementById('clue-card-stage-wrap');
       const step2 = document.getElementById('panel-step-2');
       const stage = document.querySelector('.step3-card-column');
       const mat = document.querySelector('.step3-studio-mat');
       if (!paper || !step2 || step2.style.display === 'none' || !stage) return;
 
-      // On mobile & tablets (<= 960px):
-      // Proportionally scale card to available stage width so all puzzles, borders, and text fit phones cleanly
-      if (window.innerWidth <= 960) {
-        const matEl = mat || stage;
-        const containerW = matEl.clientWidth || (window.innerWidth - 32);
-        const availMobileW = Math.max(260, containerW - 20);
-        const mobileScale = Math.min(availMobileW / baseCardW, 1.0);
-        paper.style.zoom = mobileScale.toFixed(3);
-        paper.style.transform = 'none';
-        return;
-      }
-
-      // Base card paper dimensions (width 480px, aspect-ratio 2480/3508 => height ~679px)
       const baseCardW = 480;
       const baseCardH = 480 * (3508 / 2480); // 678.967px
 
-      // Available Height: Calculate from top of studio mat to the viewport bottom
-      const matEl = mat || stage;
-      const matTopOffset = matEl.getBoundingClientRect().top + (window.scrollY || 0);
-      // Leave at least 24px safety cushion from viewport bottom
-      const availH = Math.max(340, window.innerHeight - matTopOffset - 24);
-      // Available height for the card inside the mat (accounting for mat vertical padding ~38px)
-      const innerAvailH = Math.max(300, availH - 38);
-      const heightScale = innerAvailH / baseCardH;
+      let finalScale = 1.0;
 
-      // Available Width inside the stage column
-      const availW = Math.max(340, stage.clientWidth - 40);
-      const widthScale = availW / baseCardW;
+      // On mobile & tablets (<= 960px):
+      // Scale to fit within the available width with safe margins so it's 100% in front of user
+      if (window.innerWidth <= 960) {
+        const matEl = mat || stage;
+        const containerW = matEl.clientWidth || (window.innerWidth - 24);
+        // Leave 16px horizontal breathing room
+        const availMobileW = Math.max(260, containerW - 16);
+        finalScale = Math.min(availMobileW / baseCardW, 1.0);
+      } else {
+        // On desktop: fit within viewport height and width (contain) with zero scrolling
+        const matEl = mat || stage;
+        const matTopOffset = matEl.getBoundingClientRect().top + (window.scrollY || 0);
+        const availH = Math.max(340, window.innerHeight - matTopOffset - 24);
+        const innerAvailH = Math.max(300, availH - 38);
+        const heightScale = innerAvailH / baseCardH;
 
-      // True 'contain' scale: fits BOTH width and height within viewport with ZERO scroll
-      // Clamped between 0.65x (small 13" laptops) up to 1.35x (large monitors)
-      const finalScale = Math.max(0.65, Math.min(widthScale * 0.92, heightScale, 1.35));
+        const availW = Math.max(340, stage.clientWidth - 40);
+        const widthScale = availW / baseCardW;
 
-      paper.style.zoom = finalScale.toFixed(3);
-      paper.style.transform = 'none';
+        finalScale = Math.max(0.65, Math.min(widthScale * 0.92, heightScale, 1.35));
+      }
+
+      // Apply transform scale (100% supported on all mobile & desktop browsers, zero zoom bugs)
+      paper.style.transform = `scale(${finalScale.toFixed(4)})`;
+      paper.style.transformOrigin = 'top left';
+      paper.style.zoom = '1';
+
+      // Lock wrapper element size to exact scaled dimensions so layout box matches perfectly
+      if (wrap) {
+        wrap.style.width = `${(baseCardW * finalScale).toFixed(1)}px`;
+        wrap.style.height = `${(baseCardH * finalScale).toFixed(1)}px`;
+      }
     }
 
     window.addEventListener('resize', () => {
       requestAnimationFrame(updateClueStageScale);
+    });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(updateClueStageScale, 150);
     });
 
     // Keyboard Arrow ← / → listener for switching clues in Step 2 (Preview Hunt)
