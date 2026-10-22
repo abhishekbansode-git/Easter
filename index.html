@@ -9,29 +9,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Nunito:wght@400;600;700&family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-        /* Franklin Gothic Medium font from OTF */
+    /* Franklin Gothic Medium font from OTF */
     @font-face {
       font-family: 'Franklin Gothic Medium';
       src: url('assets/fonts/OPTIFranklinGothic-Medium.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Franklin Gothic Medium';
-      src: url('assets/fonts/OPTIFranklinGothic-Medium.otf') format('opentype');
-      font-weight: bold;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Franklin Gothic Medium';
-      src: url('assets/fonts/OPTIFranklinGothic-Medium.otf') format('opentype');
-      font-weight: 100 900;
+      font-weight: 400 500;
       font-style: normal;
     }
     @font-face {
       font-family: 'Franklin Gothic Medium';
       src: url('assets/fonts/OPTIFranklinGothic-MediumIt.otf') format('opentype');
-      font-weight: 100 900;
+      font-weight: 400 500;
       font-style: italic;
     }
 /* Baskerville BT Roman font definition */
@@ -98,13 +86,13 @@
 
     /* Left Sidebar */
     .app-sidebar {
-      width: 280px;
-      min-width: 280px;
-      max-width: 280px;
+      width: 290px;
+      min-width: 290px;
+      max-width: 290px;
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(20px);
       border-right: 1px solid rgba(226, 232, 240, 0.9);
-      padding: 22px 18px;
+      padding: 20px 16px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -121,38 +109,50 @@
     .sidebar-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       padding-bottom: 14px;
       border-bottom: 1px solid #f1f5f9;
     }
 
     .brand-badge-icon {
-      font-size: 2rem;
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #fdf2f8 0%, #fae8ff 100%);
-      border: 1px solid #fbcfe8;
-      border-radius: 14px;
-      display: flex;
+      font-size: 2.1rem;
+      line-height: 1;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(219, 39, 119, 0.1);
       flex-shrink: 0;
+      user-select: none;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .brand-badge-icon:hover {
+      transform: scale(1.15) rotate(6deg);
     }
 
     .brand-info {
       display: flex;
       flex-direction: column;
       gap: 2px;
+      min-width: 0;
     }
 
     .brand-title {
-      font-family: var(--font-title);
-      font-size: 1.25rem;
+      font-family: 'Libre Franklin', var(--font-franklin), -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 1.32rem;
       font-weight: 800;
-      color: #3b0764;
+      color: #1e1b4b;
       line-height: 1.2;
       margin: 0;
+      letter-spacing: -0.35px;
+      white-space: nowrap;
+    }
+
+    .brand-title strong {
+      font-weight: 800;
+    }
+
+    .brand-title-accent {
+      color: var(--primary-color);
     }
 
     .brand-subtitle {
@@ -167,7 +167,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      flex: 1;
     }
 
     .sidebar-section-title {
@@ -325,6 +324,16 @@
       color: #dc2626;
     }
 
+    /* Sidebar Tutorial Section (Placed Directly Below Workflow Steps) */
+    .sidebar-footer {
+      margin-top: 4px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .sidebar-status-tag {
       display: inline-flex;
       align-items: center;
@@ -350,7 +359,7 @@
     .app-main {
       flex: 1;
       min-width: 0;
-      padding: 20px 32px 60px;
+      padding: 16px 24px 20px;
       width: 100%;
       box-sizing: border-box;
     }
@@ -368,24 +377,72 @@
     }
 
     .panel-header {
-      margin: 0 0 16px 0;
+      margin: 0 0 clamp(8px, 1.4vh, 14px) 0;
       padding: 0;
-      text-align: center;
+      text-align: left;
     }
 
     .panel-header h2 {
       font-family: var(--font-title);
-      font-size: 1.85rem;
+      font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+      font-weight: 400;
       color: #1e1b4b;
       margin: 0;
       line-height: 1.25;
+      letter-spacing: 0.2px;
+      text-align: left;
+    }
+
+    .panel-step-label {
+      font-weight: 400;
+      color: var(--primary-color);
+      margin-right: 4px;
     }
 
     .panel-header p {
       color: var(--text-muted);
       font-size: 0.95rem;
       max-width: 600px;
-      margin: 4px auto 0;
+      margin: 4px 0 0;
+      text-align: left;
+    }
+
+    .panel-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #64748b;
+      margin: 6px auto 0;
+      line-height: 1.4;
+      letter-spacing: 0.15px;
+    }
+
+    /* Step Panels padding & fluid viewport height */
+    #panel-step-1,
+    #panel-step-2,
+    #panel-step-3 {
+      padding: 14px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 42px);
+      box-sizing: border-box;
+    }
+
+    .step2-panel-header {
+      padding: 0;
+      margin-bottom: 2px;
+      text-align: left;
+    }
+
+    .step2-panel-header h2 {
+      font-family: var(--font-title);
+      font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+      font-weight: 400;
+      color: #1e1b4b;
+      margin: 0;
+      line-height: 1.25;
+      letter-spacing: 0.2px;
+      text-align: left;
     }
 
     /* Themes Grid */
@@ -680,6 +737,11 @@
       align-items: center;
       padding-top: 24px;
       border-top: 1px solid #e2e8f0;
+      max-width: 1080px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .selection-summary {
@@ -714,10 +776,6 @@
       box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
     }
 
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-
     .btn-answer-key {
       font-family: var(--font-title);
       display: inline-flex;
@@ -744,8 +802,19 @@
       box-shadow: 0 6px 20px rgba(217, 70, 239, 0.26);
     }
 
-    .btn-answer-key:active {
-      transform: translateY(0);
+    /* Unified Tactile Button Feedback */
+    .btn-primary:active,
+    .btn-secondary:active,
+    .btn-answer-key:active,
+    .preview-stage-nav-btn:active,
+    .deck-action-btn:active,
+    .sidebar-tutorial-btn:active,
+    .step3-theme-btn:active,
+    .preview-mode-btn:active,
+    .clue-jump-pill:active,
+    .step-item:active {
+      transform: scale(0.96) !important;
+      transition: transform 0.08s ease-out;
     }
 
     @media (max-width: 860px) {
@@ -782,7 +851,10 @@
         display: none;
       }
       .sidebar-footer {
-        display: none;
+        display: flex;
+        margin-top: 6px;
+        padding-top: 8px;
+        border-top: 1px solid #f1f5f9;
       }
       .app-main {
         padding: 20px 16px 60px;
@@ -798,47 +870,101 @@
       .btn-primary {
         justify-content: center;
       }
-      .spots-list { gap: 14px; }
-      .spot-card { padding: 16px; }
+      .spots-list {
+        grid-auto-flow: row;
+        grid-template-rows: none;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .spot-card {
+        padding: 10px 12px;
+      }
     }
 
-    /* ===== STEP 2: HIDING SPOTS ===== */
-    .spots-toolbar {
+    /* ===== STEP 1: HIDING SPOTS ===== */
+    /* ===== STEP 1: HIDING SPOTS (FLUID 3-COLUMN SINGLE SCREEN) ===== */
+    .step1-top-bar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: clamp(6px, 1vh, 10px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .step1-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .step1-title-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 20px;
-      max-width: 920px;
-      margin-left: auto;
-      margin-right: auto;
+      flex-wrap: wrap;
+    }
+
+    .step1-title-row h2 {
+      font-family: var(--font-title);
+      font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+      font-weight: 400;
+      color: #1e1b4b;
+      margin: 0;
+      line-height: 1.25;
+      letter-spacing: 0.2px;
+      align-self: flex-start;
     }
 
     .spots-counter-bar {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       background: linear-gradient(135deg, #f5f3ff, #fdf4ff);
-      border: 1.5px solid #e9d5ff;
-      border-radius: 12px;
-      padding: 10px 18px;
+      border: 1px solid #e9d5ff;
+      border-radius: 999px;
+      padding: 2px 10px;
+      line-height: 1.2;
     }
 
     .spots-counter-icon {
-      font-size: 1.3rem;
+      font-size: 0.92rem;
+      line-height: 1;
     }
 
     .spots-counter-text {
       font-family: var(--font-title);
-      font-size: 0.9rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: #4c1d95;
+      line-height: 1.2;
     }
 
-    .spots-counter-text span {
+    .spots-counter-text #spots-count {
       color: var(--primary-color);
-      font-size: 1.05rem;
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-right: 2px;
+    }
+
+    .step1-reset-btn {
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      line-height: 1.25;
+      border-radius: 8px;
+    }
+
+    .step1-top-next-btn {
+      padding: 9px 18px;
+      font-size: 0.92rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.2);
     }
 
     .btn-text-action {
@@ -865,25 +991,30 @@
     }
 
     .spots-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 24px;
-      max-width: 920px;
-      margin-left: auto;
-      margin-right: auto;
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(var(--spot-rows, 8), minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(6px, 1vh, 10px) clamp(8px, 1.2vw, 14px);
+      margin-bottom: 0;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1;
     }
 
     .spot-card {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
+      gap: 6px;
+      padding: clamp(3px, 0.5vh, 6px) 8px;
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
-      border-radius: var(--radius-md);
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      border-radius: 9px;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      min-width: 0;
+      box-sizing: border-box;
+      height: 100%;
     }
 
     .spot-card:hover {
@@ -901,6 +1032,37 @@
       border-color: var(--primary-color);
       background: #f5f3ff;
       transform: scale(1.01);
+    }
+
+    .spot-card.is-disabled {
+      opacity: 0.44;
+      background: #f8fafc !important;
+      border: 1.5px dashed #cbd5e1 !important;
+      box-shadow: none !important;
+    }
+
+    .spot-card.is-disabled:hover {
+      border-color: #94a3b8 !important;
+      box-shadow: none !important;
+    }
+
+    .spot-card.is-disabled .spot-badge {
+      background: #f1f5f9;
+      color: #94a3b8;
+      border-color: #e2e8f0;
+    }
+
+    .spot-card.is-disabled .spot-input {
+      background: transparent;
+      color: #94a3b8;
+      text-decoration: line-through;
+      border-color: transparent;
+      cursor: not-allowed;
+    }
+
+    .spot-card.is-disabled .spot-drag-handle {
+      opacity: 0.35;
+      cursor: not-allowed;
     }
 
     .spot-drag-handle {
@@ -926,27 +1088,20 @@
     .spot-meta-col {
       display: flex;
       align-items: center;
-      gap: 12px;
-      min-width: 90px;
       flex-shrink: 0;
     }
 
     .spot-badge {
-      min-width: 82px;
-      height: 32px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--primary-color), #a855f7);
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-family: var(--font-title);
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       font-weight: 800;
-      letter-spacing: 0.3px;
-      padding: 0 12px;
-      flex-shrink: 0;
-      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.22);
+      color: #7c3aed;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 6px;
+      padding: 2px 7px;
+      letter-spacing: 0.1px;
+      white-space: nowrap;
     }
 
     .spot-puzzle-info {
@@ -986,25 +1141,31 @@
       position: relative;
       flex: 1;
       min-width: 0;
+      height: 100%;
       display: flex;
       align-items: center;
     }
 
     .spot-card:focus-within {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.14);
+      background: #ffffff;
       z-index: 15;
     }
 
     .spot-input {
       width: 100%;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 10px 14px;
+      height: 100%;
+      min-height: 28px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: clamp(3px, 0.5vh, 6px) 8px;
       font-family: var(--font-body);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 600;
       color: var(--text-dark);
-      background: #fafafa;
-      transition: all 0.2s ease;
+      background: #f8fafc;
+      transition: all 0.18s ease;
       outline: none;
       box-sizing: border-box;
     }
@@ -1062,24 +1223,25 @@
     .spot-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       flex-shrink: 0;
     }
 
     .spot-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1.5px solid #e2e8f0;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      border: 1px solid #e2e8f0;
       background: #f8fafc;
       color: #64748b;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      font-size: 0.68rem;
       line-height: 1;
       transition: all 0.15s ease;
+      padding: 0;
     }
 
     .spot-btn:hover:not(:disabled) {
@@ -1097,6 +1259,21 @@
       border-color: #fca5a5 !important;
       color: #dc2626 !important;
       background: #fef2f2 !important;
+      transform: translateY(-1px);
+    }
+
+    .spot-btn-restore {
+      color: #16a34a !important;
+      background: #f0fdf4 !important;
+      border-color: #bbf7d0 !important;
+      font-size: 0.78rem !important;
+      font-weight: 800 !important;
+    }
+
+    .spot-btn-restore:hover:not(:disabled) {
+      border-color: #86efac !important;
+      color: #15803d !important;
+      background: #dcfce7 !important;
       transform: translateY(-1px);
     }
 
@@ -1227,77 +1404,102 @@
       line-height: 1.6;
     }
 
-    /* ===== STEP 4: DOWNLOAD & PRINT ===== */
+    /* ===== STEP 3: DOWNLOAD & PRINT (A4 STANDARD) ===== */
+
     .print-options-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 30px;
-      max-width: 1080px;
-      margin-left: auto;
-      margin-right: auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(14px, 2vw, 24px);
+      margin-bottom: clamp(10px, 1.6vh, 18px);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .print-layout-card {
-      background: white;
+      background: #ffffff;
       border: 2.5px solid #e2e8f0;
-      border-radius: var(--radius-md);
-      padding: 24px;
+      border-radius: var(--radius-lg);
+      padding: clamp(12px, 1.6vh, 20px);
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
       position: relative;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .print-layout-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       border-color: #c4b5fd;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 16px 32px -6px rgba(124, 58, 237, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
     }
 
     .print-layout-card.selected {
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3.5px var(--primary-light), var(--shadow-md);
-      background: #faf5ff;
+      box-shadow: 0 0 0 3.5px var(--primary-light), 0 16px 32px -6px rgba(124, 58, 237, 0.16);
+      background: #ffffff;
     }
 
+    /* Diagram Stage Box - Paper Framing Showcase */
     .print-diagram-box {
       width: 100%;
-      height: 170px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
+      height: clamp(190px, 28vh, 300px);
+      background-color: #f8fafc;
+      background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+      background-size: 20px 20px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 18px;
+      margin-bottom: clamp(8px, 1.2vh, 14px);
       position: relative;
       overflow: hidden;
+      padding: 8px 12px;
+      box-sizing: border-box;
     }
 
-    /* 1-page Portrait Diagram */
+    /* 1-page Portrait Diagram - Fluid A4 Paper Mockup */
     .diagram-sheet-portrait {
-      width: 105px;
-      height: 145px;
+      height: 94%;
+      max-height: 285px;
+      aspect-ratio: 210 / 297;
+      width: auto;
       background: white;
-      border: 1.5px solid #cbd5e1;
+      border: 1px solid #e2e8f0;
       border-radius: 6px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 8px;
+      padding: 12px 10px;
+      box-sizing: border-box;
+      transition: transform 0.25s ease;
     }
 
-    .diagram-border-sample {
+    .print-layout-card:hover .diagram-sheet-portrait,
+    .print-layout-card:hover .diagram-sheet-landscape {
+      transform: scale(1.02);
+    }
+
+    .diagram-sheet-portrait .diagram-border-sample {
       position: absolute;
-      inset: 0;
-      border: 2.5px solid #a855f7;
+      inset: 8px;
+      border: 2px solid #8b5cf6;
       border-radius: 5px;
+      pointer-events: none;
+    }
+
+    .diagram-sheet-portrait .diagram-border-sample::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px dashed #c4b5fd;
+      border-radius: 3px;
       pointer-events: none;
     }
 
@@ -1305,47 +1507,124 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      width: 100%;
       text-align: center;
       position: relative;
       z-index: 2;
     }
 
-    .diagram-card-badge {
-      font-size: 0.68rem;
+    .diagram-pill-badge {
+      font-size: 0.72rem;
       font-weight: 800;
       font-family: var(--font-title);
       background: #f3e8ff;
       color: #7c3aed;
-      padding: 2px 7px;
-      border-radius: 4px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.3px;
     }
 
-    /* 2-pages Landscape Diagram */
+    .diagram-pill-badge.small {
+      font-size: 0.62rem;
+      padding: 2px 7px;
+    }
+
+    .diagram-sheet-subtitle {
+      font-size: 0.68rem;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .diagram-mock-riddle {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      align-items: center;
+      margin: 8px 0;
+    }
+
+    .diagram-mock-riddle.small {
+      gap: 5px;
+      margin: 6px 0;
+    }
+
+    .diagram-mock-riddle .mock-line {
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 3px;
+    }
+
+    .diagram-mock-riddle.small .mock-line {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
+
+    .diagram-mock-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mock-answer-pill {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #059669;
+      background: #ecfdf5;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #a7f3d0;
+    }
+
+    .mock-page-tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 2-pages Landscape Diagram - Fluid A4 Landscape Mockup */
     .diagram-sheet-landscape {
-      width: 170px;
-      height: 115px;
+      height: 90%;
+      max-height: 260px;
+      aspect-ratio: 297 / 210;
+      width: auto;
+      max-width: 96%;
       background: white;
-      border: 1.5px solid #cbd5e1;
+      border: 1px solid #e2e8f0;
       border-radius: 6px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
       position: relative;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding: 6px;
-      gap: 8px;
+      padding: 8px;
+      gap: 10px;
+      box-sizing: border-box;
+      transition: transform 0.25s ease;
     }
 
     .diagram-landscape-half {
       border: 1.5px dashed #cbd5e1;
-      border-radius: 4px;
+      border-radius: 5px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4px;
+      padding: 6px 4px;
       position: relative;
       background: #fafafa;
+      box-sizing: border-box;
     }
 
     .diagram-cut-line {
@@ -1353,55 +1632,81 @@
       top: 0;
       bottom: 0;
       left: 50%;
-      border-left: 1.5px dashed #f43f5e;
+      border-left: 2px dashed #f43f5e;
       transform: translateX(-50%);
+      z-index: 4;
+      pointer-events: none;
     }
 
-    .diagram-cut-icon {
+    .diagram-cut-badge {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 0.8rem;
-      background: white;
-      padding: 2px;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      z-index: 3;
+      font-size: 0.62rem;
+      font-weight: 700;
+      background: #ffffff;
+      color: #e11d48;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #fecdd3;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      z-index: 5;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Card info pill for sheet count */
+    .sheet-count-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475569;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .sheet-count-pill.eco {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
     }
 
     .print-instructions-box {
       background: #f8fafc;
       border: 1.5px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 28px;
+      border-radius: 12px;
+      padding: clamp(8px, 1.2vh, 12px) 16px;
+      margin-bottom: clamp(10px, 1.4vh, 16px);
       display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      max-width: 1080px;
-      margin-left: auto;
-      margin-right: auto;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .print-instructions-icon {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       line-height: 1;
       flex-shrink: 0;
     }
 
     .print-instructions-title {
       font-family: var(--font-title);
-      font-size: 1rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: #1e293b;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .print-instructions-desc {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: #64748b;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
                             /* Print Root styles */
@@ -1501,6 +1806,12 @@
         transform-origin: center center !important;
         flex-shrink: 0 !important;
       }
+      .paper-letter .card-scaler-portrait {
+        transform: scale(1.58) !important;
+      }
+      .paper-a4 .card-scaler-portrait {
+        transform: scale(1.654) !important;
+      }
       .card-scaler-portrait .clue-card-paper {
         width: 480px !important;
         height: 679px !important;
@@ -1550,6 +1861,12 @@
         transform: scale(1.14) !important;
         transform-origin: center center !important;
         flex-shrink: 0 !important;
+      }
+      .paper-letter .card-scaler-landscape {
+        transform: scale(1.11) !important;
+      }
+      .paper-a4 .card-scaler-landscape {
+        transform: scale(1.14) !important;
       }
       .card-scaler-landscape .clue-card-paper {
         width: 480px !important;
@@ -1670,21 +1987,22 @@
 
     .step3-workspace-split {
       display: flex;
-      align-items: flex-start;
+      align-items: stretch;
       justify-content: center;
-      gap: 36px;
+      gap: 24px;
       width: 100%;
       max-width: 1680px;
       margin: 0 auto;
+      flex: 1;
     }
 
     .step3-control-column {
-      flex: 0 0 clamp(360px, 26vw, 460px);
-      width: clamp(360px, 26vw, 460px);
+      flex: 0 1 clamp(410px, 30vw, 470px);
+      width: clamp(410px, 30vw, 470px);
       max-width: 480px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 8px;
     }
 
     .step3-card-column {
@@ -1692,9 +2010,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      justify-content: flex-start;
-      position: sticky;
-      top: 20px;
+      justify-content: center;
       min-width: 0;
       width: 100%;
     }
@@ -1704,12 +2020,12 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       border: 1.5px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 18px 20px;
+      border-radius: 14px;
+      padding: 12px 16px;
       box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -1798,17 +2114,21 @@
     }
 
     .step3-theme-icon-box {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: white;
-      border: 1px solid #e2e8f0;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.05rem;
+      font-size: 1.45rem;
+      line-height: 1;
       flex-shrink: 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+      user-select: none;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .step3-theme-btn:hover .step3-theme-icon-box {
+      transform: scale(1.18);
     }
 
     .step3-theme-text {
@@ -1824,9 +2144,8 @@
       font-size: 0.82rem;
       font-weight: 800;
       color: #1e1b4b;
-      white-space: normal;
+      white-space: nowrap;
       line-height: 1.18;
-      word-break: normal;
     }
 
     .step3-theme-sub {
@@ -2032,6 +2351,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      white-space: nowrap;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -2118,7 +2438,7 @@
     .deck-actions-card {
       display: flex;
       gap: 12px;
-      margin-top: 4px;
+      margin-top: auto;
     }
 
     .deck-action-btn {
@@ -2126,23 +2446,23 @@
       justify-content: center;
       padding: 13px 20px;
       font-size: 0.95rem;
+      white-space: nowrap;
     }
 
     /* Studio Canvas Stage (Right Side) */
     .step3-studio-mat {
       width: 100%;
+      height: 100%;
       box-sizing: border-box;
-      align-self: stretch;
       background: radial-gradient(circle at 50% 20%, #ffffff 0%, #faf8fe 60%, #f3edf9 100%);
       border: 1.5px solid #e2e8f0;
       border-radius: 20px;
-      padding: 32px 24px 36px;
+      padding: 16px 20px;
       box-shadow: 0 12px 32px -8px rgba(124, 58, 237, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 720px;
       position: relative;
     }
 
@@ -2157,6 +2477,62 @@
       justify-content: space-between;
       gap: 12px;
       width: 100%;
+    }
+
+    /* Jump to Clue Quick Scrubber */
+    .clue-jump-section {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+      width: 100%;
+    }
+
+    .clue-jump-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .clue-jump-track {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 5px;
+      width: 100%;
+    }
+
+    .clue-jump-pill {
+      font-family: var(--font-title);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #475569;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 6px 0;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .clue-jump-pill:hover {
+      background: #f5f3ff;
+      border-color: #c4b5fd;
+      color: var(--primary-color);
+      transform: translateY(-1px);
+    }
+
+    .clue-jump-pill.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.32);
     }
 
     .clue-nav-indicator {
@@ -2176,6 +2552,7 @@
       color: #1e1b4b;
       letter-spacing: 0.2px;
       line-height: 1.2;
+      white-space: nowrap;
     }
 
     .clue-nav-hint {
@@ -2208,6 +2585,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
       user-select: none;
       flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .preview-stage-nav-btn:hover {
@@ -2269,32 +2647,36 @@
       color: #475569;
     }
 
+    .clue-card-stage-wrap {
+      position: relative;
+      width: 480px;
+      height: 679px;
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+
     .step3-card-column .clue-card-paper {
       width: 480px;
+      height: 679px;
+      min-width: 480px;
       max-width: 480px;
       aspect-ratio: 2480 / 3508;
       background: white;
       border-radius: 14px;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.04);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transform-origin: top center;
+      transform-origin: top left;
+      flex-shrink: 0;
       transition: opacity 0.2s ease;
-      zoom: 1.30;
-    }
-
-    @media (max-width: 1350px) {
-      .step3-card-column .clue-card-paper {
-        zoom: 1.15;
-      }
-    }
-
-    @media (max-width: 1080px) {
-      .step3-card-column .clue-card-paper {
-        zoom: 1.0;
-      }
     }
 
     .studio-mat-footer {
@@ -2331,28 +2713,166 @@
     }
 
     @media (max-width: 960px) {
-      .step3-workspace-split {
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 24px;
+      #panel-step-1,
+      #panel-step-2,
+      #panel-step-3 {
+        min-height: auto;
       }
-      .step3-card-column {
-        position: static;
+      .step1-top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .step1-top-next-btn {
         width: 100%;
-        max-width: 480px;
+        justify-content: center;
+      }
+      .spots-list {
+        grid-auto-flow: row;
+        grid-template-rows: none;
+        grid-template-columns: 1fr;
+      }
+
+      .step3-workspace-split {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
         flex: 0 0 auto;
       }
+
       .step3-control-column {
-        width: 100%;
-        max-width: 480px;
+        display: contents;
       }
+
+      #step3-clue-nav-card {
+        order: 1;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .step3-card-column {
+        order: 2;
+        position: static;
+        width: 100%;
+        box-sizing: border-box;
+        flex: 0 0 auto;
+      }
+
+      #step3-theme-card {
+        order: 3;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #step3-location-card {
+        order: 4;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #step3-mode-card {
+        order: 5;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #step3-actions-card {
+        order: 6;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
       .step3-studio-mat {
         width: 100%;
-        padding: 16px;
+        padding: 12px 8px;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
+
+      .clue-card-stage-wrap {
+        margin: 0 auto;
+      }
+
       .step3-card-column .clue-card-paper {
+        transform-origin: top left;
+        margin: 0;
+      }
+    }
+
+    /* Step 3 Action Bar & Download Buttons - Fluid 100% Full Width */
+    .step3-action-bar {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-top: auto;
+      padding-top: clamp(10px, 1.6vh, 18px);
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-sizing: border-box;
+    }
+
+    .step3-download-btns-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 650px) {
+      .step3-action-bar {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .step3-download-btns-wrap {
+        flex-direction: column;
         width: 100%;
-        max-width: 100%;
+        gap: 10px;
+      }
+
+      .step3-download-btns-wrap .btn-answer-key,
+      .step3-download-btns-wrap .btn-primary,
+      .step3-action-bar .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 18px;
+        font-size: 0.92rem;
+      }
+
+      .print-options-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .print-layout-card {
+        padding: 20px;
+      }
+
+      .print-diagram-box {
+        height: 260px;
+      }
+
+      .diagram-sheet-portrait {
+        width: 165px;
+        height: 215px;
+      }
+
+      .diagram-sheet-landscape {
+        width: 275px;
+        height: 185px;
       }
     }
 
@@ -4176,21 +4696,9 @@
       <div class="sidebar-brand">
         <div class="brand-badge-icon">🐰</div>
         <div class="brand-info">
-          <h1 class="brand-title">Easter Hunt Creator</h1>
+          <h1 class="brand-title"><strong>Easter Hunt <span class="brand-title-accent">Creator</span></strong></h1>
         </div>
       </div>
-
-      <!-- YouTube Tutorial Quick Link -->
-      <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="sidebar-tutorial-btn" id="btn-youtube-tutorial" title="Watch Video Tutorial">
-        <span class="tutorial-circle">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" style="margin-left: 2px;">
-            <polygon points="5,3 19,12 5,21"/>
-          </svg>
-        </span>
-        <div class="tutorial-info">
-          <span class="tutorial-name">Watch Tutorial</span>
-        </div>
-      </a>
 
       <!-- Sidebar Stepper Navigation -->
       <nav class="sidebar-stepper" aria-label="Creation Steps">
@@ -4214,6 +4722,20 @@
           </div>
         </div>
       </nav>
+
+      <!-- Sidebar Footer (After Workflow Steps) -->
+      <div class="sidebar-footer">
+        <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="sidebar-tutorial-btn" id="btn-youtube-tutorial" title="Watch Video Tutorial">
+          <span class="tutorial-circle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" style="margin-left: 2px;">
+              <polygon points="5,3 19,12 5,21"/>
+            </svg>
+          </span>
+          <div class="tutorial-info">
+            <span class="tutorial-name">Watch Tutorial</span>
+          </div>
+        </a>
+      </div>
     </aside>
 
     <!-- Main Content Area -->
@@ -4221,46 +4743,46 @@
 
     <!-- STEP 1: CHOOSE HIDING SPOTS -->
     <main class="step-panel" id="panel-step-1">
-      <div class="panel-header">
-        <h2>Step 1: Choose Your Hiding Spots</h2>
-      </div>
-
-      <!-- Counter bar & quick actions -->
-      <div class="spots-toolbar">
-        <div class="spots-counter-bar">
-          <span class="spots-counter-icon">🥚</span>
-          <div class="spots-counter-text">
-            <span id="spots-count">24</span> Hiding Spot<span id="spots-plural">s</span>
+      <!-- Step 1 Top Bar (Header + Counter + Top-Right Next Button) -->
+      <div class="step1-top-bar">
+        <div class="step1-header-left">
+          <div class="step1-title-row">
+            <h2><span class="panel-step-label">Step 1:</span> Choose Your Hiding Spots</h2>
+            <div class="spots-counter-bar">
+              <div class="spots-counter-text">
+                <span id="spots-count">24</span> Hiding Spot<span id="spots-plural">s</span>
+              </div>
+            </div>
+            <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
+              🔄 Reset to Default
+            </button>
           </div>
+          <p class="panel-subtitle" style="margin: 2px 0 0; text-align: left;"><span id="subheading-spots-count">24</span> preloaded locations — edit, reorder, or customize your hunt</p>
         </div>
-        <button type="button" class="btn-text-action" onclick="resetDefaultSpots()" title="Restore default locations">
-          🔄 Reset to Default
-        </button>
-      </div>
 
-      <!-- Dynamic list of spots -->
-      <div class="spots-list" id="spots-list"></div>
-
-      <!-- Action bar -->
-      <div class="action-bar" style="justify-content: flex-end;">
-        <button type="button" class="btn-primary" onclick="proceedToStep2()">
+        <button type="button" class="btn-primary step1-top-next-btn" onclick="proceedToStep2()">
           <span>Next: Preview Hunt</span>
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
           </svg>
         </button>
       </div>
+
+      <!-- Dynamic list of spots (3-Column Single Screen Layout) -->
+      <div class="spots-list" id="spots-list"></div>
     </main>
     <!-- STEP 2: PREVIEW HUNT -->
     <main class="step-panel" id="panel-step-2" style="display:none;">
-      <div class="panel-header">
-        <h2>Step 2: Preview Hunt</h2>
-      </div>
 
       <!-- Split Layout Workspace -->
       <div class="step3-workspace-split">
         <!-- Control Column (Left) -->
         <div class="step3-control-column">
+
+          <!-- Step 2 Heading (Left-aligned above Clue Navigator & Scrubber) -->
+          <div class="step2-panel-header">
+            <h2><span class="panel-step-label">Step 2:</span> Preview Hunt</h2>
+          </div>
 
           <!-- 0. Clue Navigator (Previous / Next Clue) -->
           <div class="step3-deck-card clue-nav-card" id="step3-clue-nav-card">
@@ -4281,6 +4803,13 @@
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                 </svg>
               </button>
+            </div>
+            <!-- Jump to Clue Quick Scrubber -->
+            <div class="clue-jump-section">
+              <div class="clue-jump-header">
+                <span class="deck-tag">Jump to Clue:</span>
+              </div>
+              <div class="clue-jump-track" id="clue-jump-track" role="tablist" aria-label="Jump to Clue"></div>
             </div>
           </div>
 
@@ -4330,7 +4859,7 @@
           </div>
 
           <!-- 2. Live Location Customizer -->
-          <div class="step3-deck-card">
+          <div class="step3-deck-card" id="step3-location-card">
             <div class="step3-input-header">
               <span class="deck-tag" id="preview-clue-label">Location #1:</span>
             </div>
@@ -4352,7 +4881,7 @@
           </div>
 
           <!-- 3. Preview Mode Switch -->
-          <div class="step3-deck-card">
+          <div class="step3-deck-card" id="step3-mode-card">
             <div class="deck-card-header">
               <span class="deck-tag">Card View Mode</span>
             </div>
@@ -4367,7 +4896,7 @@
           </div>
 
           <!-- 4. Action Buttons -->
-          <div class="deck-actions-card">
+          <div class="deck-actions-card" id="step3-actions-card">
             <button type="button" class="btn-secondary deck-action-btn" onclick="goBackToStep1()">
               <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
@@ -4388,15 +4917,17 @@
         <div class="step3-card-column">
           <!-- Studio Mat Backdrop -->
           <div class="step3-studio-mat">
-            <!-- Fixed master paper (480px) -->
-            <div class="clue-card-paper" id="clue-preview-card-paper">
-              <!-- Background Border Frame -->
-              <div class="clue-card-bg-border" id="clue-preview-border-container">
-                <!-- Rendered by JS matching selected theme -->
-              </div>
+            <div class="clue-card-stage-wrap" id="clue-card-stage-wrap">
+              <!-- Fixed master paper (480px) -->
+              <div class="clue-card-paper" id="clue-preview-card-paper">
+                <!-- Background Border Frame -->
+                <div class="clue-card-bg-border" id="clue-preview-border-container">
+                  <!-- Rendered by JS matching selected theme -->
+                </div>
 
-              <!-- Dynamic Card Content -->
-              <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+                <!-- Dynamic Card Content -->
+                <div id="clue-preview-content-root" style="position:absolute; inset:0; width:100%; height:100%; z-index:5;">
+                </div>
               </div>
             </div>
           </div>
@@ -4409,7 +4940,7 @@
     <!-- STEP 3: DOWNLOAD -->
     <main class="step-panel" id="panel-step-3" style="display:none;">
       <div class="panel-header">
-        <h2>Step 3: Download</h2>
+        <h2><span class="panel-step-label">Step 3:</span> Download</h2>
       </div>
 
       <div class="print-options-grid">
@@ -4419,21 +4950,27 @@
             <div class="diagram-sheet-portrait">
               <div class="diagram-border-sample"></div>
               <div class="diagram-card-content">
-                <span class="diagram-card-badge">CLUE #1</span>
-                <span style="font-size:0.62rem; color:#94a3b8; font-weight:700;">1 Card</span>
-                <span style="font-size:0.55rem; color:#64748b;">Full Page</span>
+                <span class="diagram-pill-badge">CLUE #1</span>
+                <span class="diagram-sheet-subtitle">Easter Egg Hunt</span>
+                <div class="diagram-mock-riddle">
+                  <div class="mock-line" style="width: 84%;"></div>
+                  <div class="mock-line" style="width: 96%;"></div>
+                  <div class="mock-line" style="width: 70%;"></div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="theme-info">
-            <div class="theme-title-row">
-              <span class="theme-title">1 Per Page</span>
+          <div class="theme-info" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="theme-title-row" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <span class="theme-title" style="font-size: 1.18rem; font-weight: 700;">1 Clue Per Page</span>
+                <span class="sheet-count-pill" id="sheet-count-portrait">24 Sheets</span>
+              </div>
+              <p class="theme-desc" style="margin: 0 0 8px; font-size: 0.9rem; color: #64748b;">Full A4 page (210 × 297 mm)</p>
             </div>
-            <p class="theme-desc">1 clue card per printed page. Edge-to-edge border right at the page edge with zero margins.</p>
-          </div>
-          <div class="card-footer">
-            <span class="feature-badge">✓ Edge-to-Edge (No Margins)</span>
-            <span class="select-indicator" id="layout-indicator-portrait">✓ Selected</span>
+            <div class="card-footer" style="margin-top: auto; padding-top: 8px; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end;">
+              <span class="select-indicator" id="layout-indicator-portrait">✓ Selected</span>
+            </div>
           </div>
         </div>
 
@@ -4442,25 +4979,40 @@
           <div class="print-diagram-box">
             <div class="diagram-sheet-landscape">
               <div class="diagram-landscape-half">
-                <span class="diagram-card-badge">CLUE #1</span>
-                <span style="font-size:0.5rem; color:#94a3b8;">Card 1</span>
+                <div class="diagram-card-content">
+                  <span class="diagram-pill-badge small">CLUE #1</span>
+                  <div class="diagram-mock-riddle small">
+                    <div class="mock-line" style="width: 82%;"></div>
+                    <div class="mock-line" style="width: 95%;"></div>
+                    <div class="mock-line" style="width: 68%;"></div>
+                  </div>
+                </div>
               </div>
               <div class="diagram-landscape-half">
-                <span class="diagram-card-badge">CLUE #2</span>
-                <span style="font-size:0.5rem; color:#94a3b8;">Card 2</span>
+                <div class="diagram-card-content">
+                  <span class="diagram-pill-badge small">CLUE #2</span>
+                  <div class="diagram-mock-riddle small">
+                    <div class="mock-line" style="width: 82%;"></div>
+                    <div class="mock-line" style="width: 95%;"></div>
+                    <div class="mock-line" style="width: 68%;"></div>
+                  </div>
+                </div>
               </div>
               <div class="diagram-cut-line"></div>
+              <div class="diagram-cut-badge">✂ CUT HERE</div>
             </div>
           </div>
-          <div class="theme-info">
-            <div class="theme-title-row">
-              <span class="theme-title">2 Per Page</span>
+          <div class="theme-info" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="theme-title-row" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <span class="theme-title" style="font-size: 1.18rem; font-weight: 700;">2 Clues Per Page</span>
+                <span class="sheet-count-pill" id="sheet-count-landscape">12 Sheets</span>
+              </div>
+              <p class="theme-desc" style="margin: 0 0 8px; font-size: 0.9rem; color: #64748b;">2 cards per A4 page • A5 size (148 × 210 mm)</p>
             </div>
-            <p class="theme-desc">2 clue cards side-by-side on 1 page in landscape. Saves 50% paper with a center cut line.</p>
-          </div>
-          <div class="card-footer">
-            <span class="feature-badge">✓ 2 Cards / Sheet</span>
-            <span class="select-indicator" id="layout-indicator-landscape">Select</span>
+            <div class="card-footer" style="margin-top: auto; padding-top: 8px; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end;">
+              <span class="select-indicator" id="layout-indicator-landscape">Select</span>
+            </div>
           </div>
         </div>
       </div>
@@ -4471,19 +5023,19 @@
         <div>
           <div class="print-instructions-title">Saving as PDF</div>
           <div class="print-instructions-desc">
-            Click <strong>Download</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> to save to your device. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
+            Click <strong>Download Clue Cards</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> with Paper Size set to <strong>A4</strong>. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
           </div>
         </div>
       </div>
 
-      <div class="action-bar" style="max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+      <div class="action-bar step3-action-bar">
         <button type="button" class="btn-secondary" onclick="goBackToStep2()">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
           </svg>
-          Back: Preview Hunt
+          <span>Back: Preview Hunt</span>
         </button>
-        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <div class="step3-download-btns-wrap">
           <button type="button" class="btn-answer-key" id="btn-download-answer" onclick="triggerDownloadAndPrint('answer')" title="Download clue cards with solved answers">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -4782,13 +5334,25 @@ const EmbeddedAssets = {
     let huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
     let hidingSpots = huntClues.map(c => c.location);
 
+    function getActiveHuntClues() {
+      return (typeof huntClues !== 'undefined' && huntClues.length > 0)
+        ? huntClues.filter(c => !c.disabled)
+        : DEFAULT_HUNT_CLUES;
+    }
+
     function syncHidingSpots() {
-      hidingSpots = huntClues.map(c => c.location);
-      const count = huntClues.length;
+      const active = getActiveHuntClues();
+      hidingSpots = active.map(c => c.location);
+      const count = active.length;
       const countEl = document.getElementById('spots-count');
       if (countEl) countEl.textContent = count;
+      const subCount = document.getElementById('subheading-spots-count');
+      if (subCount) {
+        subCount.textContent = (count === huntClues.length) ? `${count}` : `${count} of ${huntClues.length}`;
+      }
       const plural = document.getElementById('spots-plural');
       if (plural) plural.textContent = count === 1 ? '' : 's';
+      if (typeof updateStep3SheetCounts === 'function') updateStep3SheetCounts();
     }
 
     function resetDefaultSpots() {
@@ -4856,26 +5420,31 @@ const EmbeddedAssets = {
       const list = document.getElementById('spots-list');
       const count = document.getElementById('spots-count');
       const plural = document.getElementById('spots-plural');
-      if (count) count.textContent = huntClues.length;
-      if (plural) plural.textContent = huntClues.length === 1 ? '' : 's';
+      const activeClues = getActiveHuntClues();
+      if (count) count.textContent = activeClues.length;
+      if (plural) plural.textContent = activeClues.length === 1 ? '' : 's';
 
       if (!list) return;
+
+      const rows = Math.max(1, Math.ceil(huntClues.length / 3));
+      list.style.setProperty('--spot-rows', rows);
 
       list.innerHTML = huntClues.map((item, i) => {
         const clueNum = i + 1;
         const maxLen = item.maxLen || 15;
+        const isDisabled = !!item.disabled;
         return `
         <div
-          class="spot-card"
+          class="spot-card ${isDisabled ? 'is-disabled' : ''}"
           id="spot-card-${i}"
-          draggable="true"
-          ondragstart="handleDragStart(event, ${i})"
+          draggable="${!isDisabled}"
+          ondragstart="${isDisabled ? 'return false;' : `handleDragStart(event, ${i})`}"
           ondragover="handleDragOver(event)"
           ondragleave="handleDragLeave(event)"
           ondrop="handleDrop(event, ${i})"
           ondragend="handleDragEnd(event)"
         >
-          <div class="spot-drag-handle" title="Drag to reorder">⠿</div>
+          <div class="spot-drag-handle" title="${isDisabled ? 'Clue excluded from hunt' : 'Drag to reorder'}">⠿</div>
           <div class="spot-meta-col">
             <div class="spot-badge">Clue #${clueNum}</div>
           </div>
@@ -4887,6 +5456,7 @@ const EmbeddedAssets = {
               maxlength="${maxLen}"
               placeholder="${item.placeholder || `Location #${clueNum}`}"
               value="${escapeHtml(item.location)}"
+              ${isDisabled ? 'disabled' : ''}
               oninput="updateSpot(${i}, this.value)"
               onkeydown="handleLocationKeydown(event, ${maxLen}, document.getElementById('spot-limit-${i}'))"
               onblur="hideLimitNotice(document.getElementById('spot-limit-${i}'), this)"
@@ -4899,40 +5469,50 @@ const EmbeddedAssets = {
               class="spot-btn"
               title="Move Up"
               onclick="moveSpot(${i}, -1)"
-              ${i === 0 ? 'disabled' : ''}
+              ${i === 0 || isDisabled ? 'disabled' : ''}
             >▲</button>
             <button
               type="button"
               class="spot-btn"
               title="Move Down"
               onclick="moveSpot(${i}, 1)"
-              ${i === huntClues.length - 1 ? 'disabled' : ''}
+              ${i === huntClues.length - 1 || isDisabled ? 'disabled' : ''}
             >▼</button>
             <button
               type="button"
-              class="spot-btn spot-btn-delete"
-              title="Remove Clue"
-              onclick="removeClue(${i})"
-            >✕</button>
+              class="spot-btn ${isDisabled ? 'spot-btn-restore' : 'spot-btn-delete'}"
+              title="${isDisabled ? 'Include this clue in hunt' : 'Exclude this clue (make lighter)'}"
+              onclick="toggleClueDisabled(${i})"
+            >${isDisabled ? '＋' : '✕'}</button>
           </div>
         </div>
       `;
       }).join('');
     }
 
-    function removeClue(index) {
-      if (huntClues.length <= 1) {
-        alert("You must keep at least 1 clue in your hunt!");
+    function toggleClueDisabled(index) {
+      const activeCount = huntClues.filter(c => !c.disabled).length;
+      if (!huntClues[index].disabled && activeCount <= 1) {
+        alert("You must keep at least 1 active clue in your hunt!");
         return;
       }
-      huntClues.splice(index, 1);
+      huntClues[index].disabled = !huntClues[index].disabled;
       syncHidingSpots();
       renderSpotsList();
-      if (currentPreviewClue > huntClues.length) {
-        currentPreviewClue = huntClues.length;
+      const activeList = getActiveHuntClues();
+      if (currentPreviewClue > activeList.length) {
+        currentPreviewClue = Math.max(1, activeList.length);
       }
-      populateDeckJumpStrip();
-      renderCurrentCluePreview();
+      if (typeof populateDeckJumpStrip === 'function') {
+        populateDeckJumpStrip();
+      }
+      if (typeof renderCurrentCluePreview === 'function') {
+        renderCurrentCluePreview();
+      }
+    }
+
+    function removeClue(index) {
+      toggleClueDisabled(index);
     }
 
     function escapeHtml(str) {
@@ -5018,6 +5598,16 @@ const EmbeddedAssets = {
     function removeHidingSpot() {}
 
     // ===== NAVIGATION =====
+    function updateStep3SheetCounts() {
+      const activeSpots = hidingSpots ? hidingSpots.filter(s => s && s.trim() !== '') : [];
+      const count = activeSpots.length > 0 ? activeSpots.length : (typeof huntClues !== 'undefined' && huntClues ? huntClues.length : 24);
+      const halfCount = Math.ceil(count / 2);
+      const portCountEl = document.getElementById('sheet-count-portrait');
+      const landCountEl = document.getElementById('sheet-count-landscape');
+      if (portCountEl) portCountEl.textContent = `${count} Sheets`;
+      if (landCountEl) landCountEl.textContent = `${halfCount} Sheets`;
+    }
+
     function navigateToStep(stepNum) {
       document.querySelectorAll('.step-panel').forEach(p => p.style.display = 'none');
       const panel = document.getElementById(`panel-step-${stepNum}`);
@@ -5026,6 +5616,10 @@ const EmbeddedAssets = {
       if (stepNum === 2) {
         switchCluePreview(currentPreviewClue);
         setTimeout(updateClueStageScale, 50);
+        setTimeout(updateClueStageScale, 200);
+      }
+      if (stepNum === 3) {
+        updateStep3SheetCounts();
       }
       document.querySelectorAll('.step-item').forEach((el, i) => {
         const num = i + 1;
@@ -5361,12 +5955,13 @@ const EmbeddedAssets = {
 
     function populateDeckJumpStrip() {
       const select = document.getElementById('clue-select-dropdown');
-      const total = getTotalCluesCount();
+      const activeClues = getActiveHuntClues();
+      const total = activeClues.length;
       if (select) {
         if (select.options.length !== total) {
           select.innerHTML = Array.from({ length: total }, (_, i) => {
             const num = i + 1;
-            const item = (typeof huntClues !== 'undefined' && huntClues[i]) ? huntClues[i] : (DEFAULT_HUNT_CLUES[i] || {});
+            const item = activeClues[i] || {};
             const name = item.name ? item.name : `Clue ${num}`;
             return `<option value="${num}">Clue ${num}: ${name}</option>`;
           }).join('');
@@ -5380,6 +5975,47 @@ const EmbeddedAssets = {
       }
     }
 
+    function renderClueJumpTrack() {
+      const container = document.getElementById('clue-jump-track');
+      if (!container) return;
+      const activeClues = getActiveHuntClues();
+      const total = activeClues.length;
+
+      if (container.children.length !== total) {
+        container.innerHTML = '';
+        for (let i = 1; i <= total; i++) {
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.className = 'clue-jump-pill' + (i === currentPreviewClue ? ' active' : '');
+          pill.dataset.clue = i;
+          pill.textContent = i;
+          pill.setAttribute('aria-label', `Jump to Clue ${i}`);
+          pill.onclick = (function(num) {
+            return function() { switchCluePreview(num); };
+          })(i);
+          container.appendChild(pill);
+        }
+      }
+
+      const pills = container.querySelectorAll('.clue-jump-pill');
+      pills.forEach((pill, idx) => {
+        const num = idx + 1;
+        if (num === currentPreviewClue) {
+          pill.classList.add('active');
+          pill.setAttribute('aria-selected', 'true');
+        } else {
+          pill.classList.remove('active');
+          pill.setAttribute('aria-selected', 'false');
+        }
+        const item = activeClues[idx] || (DEFAULT_HUNT_CLUES && DEFAULT_HUNT_CLUES[idx]);
+        if (item && item.location) {
+          pill.title = `Clue ${num}: ${item.location}`;
+        } else {
+          pill.title = `Clue ${num}`;
+        }
+      });
+    }
+
     function setCardZoom(zoom, btn) {
       const paper = document.getElementById('clue-preview-card-paper');
       if (paper) {
@@ -5390,7 +6026,8 @@ const EmbeddedAssets = {
     }
 
     function getTotalCluesCount() {
-      return (typeof huntClues !== 'undefined' && huntClues.length > 0) ? huntClues.length : 12;
+      const active = getActiveHuntClues();
+      return (active && active.length > 0) ? active.length : 1;
     }
 
     function navigateCluePreview(delta) {
@@ -5421,7 +6058,8 @@ const EmbeddedAssets = {
       }
 
       const idx = clueNum - 1;
-      const item = huntClues[idx] || DEFAULT_HUNT_CLUES[idx];
+      const activeClues = getActiveHuntClues();
+      const item = activeClues[idx] || DEFAULT_HUNT_CLUES[idx];
       if (subEl && item) {
         subEl.textContent = item.name;
       }
@@ -5438,6 +6076,7 @@ const EmbeddedAssets = {
 
       // Populate or update jump strip pills
       populateDeckJumpStrip();
+      renderClueJumpTrack();
 
       const label = document.getElementById('preview-clue-label');
       const input = document.getElementById('preview-clue-input');
@@ -5472,32 +6111,65 @@ const EmbeddedAssets = {
       updateClueStageScale();
     }
 
-    // Dynamic, screen-agnostic viewport scaler for any monitor (13" laptop up to 56" display)
+    // Dynamic, screen-agnostic viewport scaler for any monitor (phones up to 56" display)
+    // Automatically fits the entire clue card into view with ZERO right-side cutoff and ZERO scrolling on desktop
     function updateClueStageScale() {
       const paper = document.getElementById('clue-preview-card-paper');
+      const wrap = document.getElementById('clue-card-stage-wrap');
       const step2 = document.getElementById('panel-step-2');
       const stage = document.querySelector('.step3-card-column');
+      const mat = document.querySelector('.step3-studio-mat');
       if (!paper || !step2 || step2.style.display === 'none' || !stage) return;
 
+      const baseCardW = 480;
+      const baseCardH = 480 * (3508 / 2480); // 678.967px
+
+      let finalScale = 1.0;
+
+      // On mobile & tablets (<= 960px):
+      // Scale to fit within the available width with safe margins so it's 100% in front of user
       if (window.innerWidth <= 960) {
-        paper.style.zoom = '1';
-        paper.style.transform = 'none';
-        return;
+        const matEl = mat || stage;
+        const containerW = matEl.clientWidth || (window.innerWidth - 24);
+        // Leave 16px horizontal breathing room
+        const availMobileW = Math.max(260, containerW - 16);
+        finalScale = Math.min(availMobileW / baseCardW, 1.0);
+      } else {
+        // Desktop / Laptop / Fullscreen:
+        // Dynamically fit within studio mat, utilizing all available vertical and horizontal space
+        const matEl = mat || stage;
+        const rect = matEl.getBoundingClientRect();
+        
+        // Viewport-relative available height without artificial throttling:
+        const availH = Math.max(260, window.innerHeight - rect.top - 44);
+        const innerAvailH = Math.max(240, availH - 32);
+        const heightScale = innerAvailH / baseCardH;
+
+        // Available width inside studio mat
+        const availW = Math.max(300, (matEl.clientWidth || stage.clientWidth) - 40);
+        const widthScale = availW / baseCardW;
+
+        // Fluid scale: smoothly grows with fullscreen height up to 1.45
+        finalScale = Math.max(0.55, Math.min(widthScale, heightScale, 1.45));
       }
 
-      // Base scale on available stage width so the clue preview grows significantly on wide screens
-      const availW = Math.max(480, stage.clientWidth - 56);
-      const widthScale = availW / 480;
+      // Apply transform scale (100% supported on all mobile & desktop browsers, zero zoom bugs)
+      paper.style.transform = `scale(${finalScale.toFixed(4)})`;
+      paper.style.transformOrigin = 'top left';
+      paper.style.zoom = '1';
 
-      // Scale smoothly between 1.0x (13" laptops) up to 1.40x (24"+ monitors, making card up to ~672px wide)
-      const finalScale = Math.max(1.0, Math.min(widthScale * 0.88, 1.40));
-
-      paper.style.zoom = finalScale.toFixed(3);
-      paper.style.transform = 'none';
+      // Lock wrapper element size to exact scaled dimensions so layout box matches perfectly
+      if (wrap) {
+        wrap.style.width = `${(baseCardW * finalScale).toFixed(1)}px`;
+        wrap.style.height = `${(baseCardH * finalScale).toFixed(1)}px`;
+      }
     }
 
     window.addEventListener('resize', () => {
       requestAnimationFrame(updateClueStageScale);
+    });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(updateClueStageScale, 150);
     });
 
     // Keyboard Arrow ← / → listener for switching clues in Step 2 (Preview Hunt)
@@ -5573,12 +6245,14 @@ const EmbeddedAssets = {
       if (!root) return;
 
       const idx = currentPreviewClue - 1;
-      const item = huntClues[idx] || DEFAULT_HUNT_CLUES[idx];
+      const activeClues = getActiveHuntClues();
+      const item = activeClues[idx] || DEFAULT_HUNT_CLUES[idx];
       const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Location #${currentPreviewClue}`;
       const locText = (item && item.location) || defaultVal;
       const isAnswer = (cluePreviewMode === 'answer');
 
-      root.innerHTML = renderClueCardInnerHtml(idx, locText, isAnswer);
+      const puzzleId = item ? item.puzzleId : (idx + 1);
+      root.innerHTML = ScavengerHuntClues.renderPuzzle(puzzleId, locText, isAnswer, AppState.selectedTheme, currentPreviewClue);
     }
 
     function renderClue1Preview() {
@@ -5598,9 +6272,10 @@ const EmbeddedAssets = {
       navigateToStep(3);
     }
 
-    // ===== STEP 4: PRINT & DOWNLOAD LOGIC =====
+    // ===== STEP 3: PRINT & DOWNLOAD LOGIC =====
     const PrintState = {
-      layout: 'portrait' // 'portrait' (1 per page) or 'landscape' (2 per page)
+      layout: 'portrait', // 'portrait' (1 per page) or 'landscape' (2 per page)
+      paperSize: 'a4' // Standardized exclusively to A4
     };
 
     function selectPrintLayout(layout) {
@@ -5624,11 +6299,8 @@ const EmbeddedAssets = {
         styleEl.id = 'dynamic-print-page';
         document.head.appendChild(styleEl);
       }
-      if (PrintState.layout === 'landscape') {
-        styleEl.textContent = '@page { size: landscape; margin: 0 !important; }';
-      } else {
-        styleEl.textContent = '@page { size: portrait; margin: 0 !important; }';
-      }
+      const orientation = PrintState.layout || 'portrait';
+      styleEl.textContent = `@page { size: a4 ${orientation}; margin: 0 !important; }`;
     }
 
 
@@ -7303,7 +7975,8 @@ When it's time to eat.</div>
 
 
     function renderClueCardInnerHtml(i, spot, isAnswer) {
-      const clueItem = (typeof huntClues !== 'undefined' && huntClues[i]) ? huntClues[i] : null;
+      const activeClues = getActiveHuntClues();
+      const clueItem = activeClues[i] || ((typeof huntClues !== 'undefined' && huntClues[i]) ? huntClues[i] : null);
       const puzzleId = clueItem ? clueItem.puzzleId : (i + 1);
       const clueNum = i + 1;
       const defaultVal = clueItem ? (clueItem.placeholder ? clueItem.placeholder.replace('e.g. ', '') : `Location #${clueNum}`) : `Location #${clueNum}`;
@@ -7315,9 +7988,9 @@ When it's time to eat.</div>
     function preparePrintDocument(isAnswerMode = false) {
       const root = document.getElementById('print-sheet-root');
       if (!root) return;
-      root.className = `print-root layout-${PrintState.layout}`;
+      root.className = `print-root layout-${PrintState.layout} paper-a4`;
 
-      const cluesToPrint = (typeof huntClues !== 'undefined' && huntClues.length > 0) ? huntClues : DEFAULT_HUNT_CLUES;
+      const cluesToPrint = getActiveHuntClues();
 
       if (PrintState.layout === 'portrait') {
         // 1 card per page: Uniform scale, 100% synchronized with Step 3, strictly 12 pages
@@ -7450,6 +8123,7 @@ When it's time to eat.</div>
       huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
       syncHidingSpots();
       renderSpotsList();
+      renderClueJumpTrack();
       navigateToStep(1);
 
       // Make stepper navigation items clickable
