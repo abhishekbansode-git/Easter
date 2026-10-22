@@ -4397,6 +4397,12 @@
       position: absolute;
       pointer-events: auto;
     }
+    .clue9-corner-graphic img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
 
     /* --- CLUE 10: PICTURE REBUS (Calibrated from clue10adjuster.html) --- */
     .clue10-pic1-wrap {
@@ -6936,9 +6942,20 @@ When it's time to eat.</div>
           </svg>
         `;
 
-        // Corner Graphics: Theme 3
+        // Corner Graphics: Theme 1 & Theme 3
         let graphicsHtml = '';
-        if (theme === 3) {
+        if (theme === 1) {
+          graphicsHtml = `
+            <div class="clue4-bottom-container">
+              <div class="clue4-corner-graphic" style="width:130px; left:0px; bottom:0px; transform:translate(1px, 0px);">
+                <img src="assets/graphics/theme1/21.png" alt="Left Graphic">
+              </div>
+              <div class="clue4-corner-graphic" style="width:107px; right:0px; bottom:0px; transform:translate(1px, 1px);">
+                <img src="assets/graphics/theme1/22.png" alt="Right Graphic">
+              </div>
+            </div>
+          `;
+        } else if (theme === 3) {
           graphicsHtml = `
             <div class="clue4-bottom-container">
               <div class="clue4-corner-graphic" style="width:165px; left:-24px; bottom:6px;">
@@ -7090,7 +7107,7 @@ When it's time to eat.</div>
               <div class="clue5-corner-graphic" style="width:145px; left:-17px; bottom:-9px;">
                 <img src="assets/graphics/theme1/3.png" alt="Left Graphic">
               </div>
-              <div class="clue5-corner-graphic" style="width:163px; right:-36px; bottom:-10px;">
+              <div class="clue5-corner-graphic" style="width:171px; right:-41px; bottom:-16px;">
                 <img src="assets/graphics/theme1/10.png" alt="Right Graphic">
               </div>
             </div>
@@ -7098,6 +7115,9 @@ When it's time to eat.</div>
         } else if (theme === 3) {
           graphicsHtml = `
             <div class="clue5-bottom-container">
+              <div class="clue5-corner-graphic" style="width:137px; left:1px; bottom:2px;">
+                <img src="assets/graphics/theme3/15.png" alt="Left Graphic">
+              </div>
               <div class="clue5-corner-graphic" style="width:146px; right:-33px; bottom:4px;">
                 <img src="assets/graphics/theme3/9.png" alt="Right Graphic">
               </div>
@@ -7207,6 +7227,9 @@ When it's time to eat.</div>
               <div class="clue6-corner-graphic" style="width:137px; left:-26px; bottom:-22px; transform: rotate(-15deg); transform-origin: center center;">
                 <img src="assets/graphics/theme1/11.png" alt="Left Graphic">
               </div>
+              <div class="clue6-corner-graphic" style="width:99px; right:-17px; bottom:1px; transform: rotate(0deg); transform-origin: center center;">
+                <img src="assets/graphics/theme1/21.png" alt="Right Graphic">
+              </div>
             </div>
           `;
         } else if (theme === 3) {
@@ -7214,6 +7237,9 @@ When it's time to eat.</div>
             <div class="clue6-bottom-container">
               <div class="clue6-corner-graphic" style="width:127px; left:-16px; bottom:7px; transform: rotate(0deg); transform-origin: center center;">
                 <img src="assets/graphics/theme3/6.png" alt="Left Graphic">
+              </div>
+              <div class="clue6-corner-graphic" style="width:103px; right:-11px; bottom:10px; transform: rotate(0deg); transform-origin: center center;">
+                <img src="assets/graphics/theme3/12.png" alt="Right Graphic">
               </div>
             </div>
           `;
@@ -7463,6 +7489,11 @@ When it's time to eat.</div>
             </div>
           `;
         } else if (theme === 3) {
+          leftGfxHtml = `
+            <div class="clue8-corner-graphic" style="width: 138px; left: -10px; bottom: -17px; transform: rotate(9deg) scaleX(1); transform-origin: center center;">
+              <img src="assets/graphics/theme3/13.png" alt="Clue 8 Left Graphic" style="width: 100%; height: auto; display: block;">
+            </div>
+          `;
           rightGfxHtml = `
             <div class="clue8-corner-graphic" style="width: 150px; right: -32px; bottom: 3px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
               <img src="assets/graphics/theme3/11.png" alt="Clue 8 Right Graphic" style="width: 100%; height: auto; display: block;">
@@ -7619,6 +7650,24 @@ When it's time to eat.</div>
           ? 'url(#eggmaze-filter-warm-brown)'
           : 'url(#eggmaze-filter-grey) grayscale(1) brightness(0.72)';
 
+        // 6. Corner Graphics (Calibrated via clue9adjuster.html)
+        let leftGfxHtml = '';
+        let rightGfxHtml = '';
+
+        if (theme === 1) {
+          rightGfxHtml = `
+            <div class="clue9-corner-graphic" style="width: 162px; right: -32px; bottom: -12px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
+              <img src="assets/graphics/theme1/7.png" alt="Clue 9 Right Graphic" style="width: 100%; height: auto; display: block;">
+            </div>
+          `;
+        } else if (theme === 3) {
+          leftGfxHtml = `
+            <div class="clue9-corner-graphic" style="width: 114px; left: 1px; bottom: -1px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
+              <img src="assets/graphics/theme3/16.png" alt="Clue 9 Left Graphic" style="width: 100%; height: auto; display: block;">
+            </div>
+          `;
+        }
+
         return `
           <div class="clue-card-content" style="position: relative; width: 100%; height: 100%;">
             ${this.renderClueHeader(clueNum || 9, `Solve this maze to find the clue<br>and see where it leads you!`, theme)}
@@ -7661,6 +7710,12 @@ When it's time to eat.</div>
             <!-- Underline Answer Slots -->
             <div class="clue9-answers-wrap" style="transform: translate(-50%, 604px); gap: ${ansGap}px;">
               ${answerSlotsHtml}
+            </div>
+
+            <!-- Bottom Corner Graphics -->
+            <div class="clue9-bottom-container">
+              ${leftGfxHtml}
+              ${rightGfxHtml}
             </div>
           </div>
         `;
@@ -7872,11 +7927,11 @@ When it's time to eat.</div>
                 <img src="assets/graphics/theme1/3.png" alt="Carrot Bunny" style="width:100%; height:auto; display:block;" />
               </div>
             ` : (theme === 3) ? `
-              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme3/11.png" alt="Theme 3 Graphic" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; left:-3px !important; bottom:-5px !important; width:115px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/17.png" alt="Theme 3 Left Graphic" style="width:100%; height:auto; display:block;" />
               </div>
-              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme3/2.png" alt="Theme 3 Graphic" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; right:0px !important; bottom:-1px !important; width:128px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/20.png" alt="Theme 3 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : (theme === 4) ? `
               <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
@@ -7949,23 +8004,35 @@ When it's time to eat.</div>
 
             <!-- Theme Corner Graphics -->
             ${(theme === 1) ? `
-              <div style="position:absolute !important; left:-14px !important; bottom:-2px !important; width:125px !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; left:4px !important; bottom:2px !important; width:140px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/26.png" alt="Theme 1 Left Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-3px !important; bottom:-4px !important; width:130px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/25.png" alt="Theme 1 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : (theme === 2) ? `
-              <div style="position:absolute !important; left:-14px !important; bottom:-2px !important; width:125px !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
-                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; left:4px !important; bottom:2px !important; width:140px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
+                <img src="assets/graphics/theme1/26.png" alt="Theme 2 Left Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-3px !important; bottom:-4px !important; width:130px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
+                <img src="assets/graphics/theme1/25.png" alt="Theme 2 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : (theme === 3) ? `
-              <div style="position:absolute !important; left:2px !important; bottom:2px !important; width:88px !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme3/5.png" alt="Chick" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; left:-21px !important; bottom:3px !important; width:120px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/12.png" alt="Theme 3 Left Graphic" style="width:100%; height:auto; display:block;" />
               </div>
-              <div style="position:absolute !important; right:2px !important; bottom:2px !important; width:135px !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme3/8.png" alt="Egg Bowl" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; right:-56px !important; bottom:-33px !important; width:227px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/8.png" alt="Theme 3 Right Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:70px !important; bottom:-1px !important; width:63px !important; transform:rotate(9deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme3/8(1).png" alt="Theme 3 Right Graphic 2" style="width:100%; height:auto; display:block;" />
               </div>
             ` : (theme === 4) ? `
-              <div style="position:absolute !important; left:-14px !important; bottom:-2px !important; width:125px !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
+              <div style="position:absolute !important; left:4px !important; bottom:2px !important; width:140px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/26.png" alt="Theme 4 Left Graphic" style="width:100%; height:auto; display:block;" />
+              </div>
+              <div style="position:absolute !important; right:-3px !important; bottom:-4px !important; width:130px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+                <img src="assets/graphics/theme1/25.png" alt="Theme 4 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : ''}
           </div>
