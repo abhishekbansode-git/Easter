@@ -1743,9 +1743,17 @@
       line-height: 1.4;
     }
 
-                            /* Print Root styles */
+                            /* Print Root styles (off-screen pre-rendered for instant snap download) */
     #print-sheet-root {
-      display: none;
+      position: fixed;
+      top: -99999px;
+      left: -99999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -999;
     }
 
     @keyframes spin {
@@ -1759,8 +1767,8 @@
         print-color-adjust: exact !important;
       }
       @page {
-      margin: 0 !important;
-    }
+        margin: 0 !important;
+      }
       html, body {
         width: 100% !important;
         height: auto !important;
@@ -1771,6 +1779,17 @@
       }
       body * {
         visibility: hidden;
+      }
+      #print-sheet-root {
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
       }
       #print-sheet-root,
       #print-sheet-root * {
@@ -2043,10 +2062,19 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      justify-content: center;
+      align-items: center;
+      justify-content: flex-start;
       min-width: 0;
       width: 100%;
+      gap: 12px;
+    }
+
+    #step3-clue-nav-card {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      flex: 0 0 auto;
+      box-sizing: border-box;
     }
 
     /* Cards in Control Column */
@@ -2486,7 +2514,8 @@
     /* Studio Canvas Stage (Right Side) */
     .step3-studio-mat {
       width: 100%;
-      height: 100%;
+      flex: 1;
+      min-height: 0;
       box-sizing: border-box;
       background: radial-gradient(circle at 50% 20%, #ffffff 0%, #faf8fe 60%, #f3edf9 100%);
       border: 1.5px solid #e2e8f0;
@@ -2500,7 +2529,7 @@
       position: relative;
     }
 
-    /* Clue Navigator Card (Above Card Design on Left) */
+    /* Clue Navigator Card (Above Card Preview) */
     .clue-nav-card {
       padding: 12px 16px;
     }
@@ -2782,18 +2811,19 @@
         display: contents;
       }
 
-      #step3-clue-nav-card {
-        order: 1;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
       .step3-card-column {
         order: 2;
         position: static;
         width: 100%;
         box-sizing: border-box;
         flex: 0 0 auto;
+        gap: 10px;
+      }
+
+      #step3-clue-nav-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       #step3-theme-card {
@@ -4818,30 +4848,9 @@
         <!-- Control Column (Left) -->
         <div class="step3-control-column">
 
-          <!-- Step 2 Heading (Left-aligned above Clue Navigator & Scrubber) -->
+          <!-- Step 2 Heading (Left-aligned) -->
           <div class="step2-panel-header">
             <h2><span class="panel-step-label">Step 2:</span> Choose a Design</h2>
-          </div>
-
-          <!-- 0. Clue Navigator (Previous / Next Clue) -->
-          <div class="step3-deck-card clue-nav-card" id="step3-clue-nav-card">
-            <div class="clue-nav-bar-row">
-              <button type="button" class="preview-stage-nav-btn" id="btn-prev-clue" onclick="navigateCluePreview(-1)" title="Previous Clue (← Left Arrow)">
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span>Previous</span>
-              </button>
-              <div class="clue-nav-indicator">
-                <span class="clue-nav-num" id="clue-stepper-title">Clue 1 of 12</span>
-              </div>
-              <button type="button" class="preview-stage-nav-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
-                <span>Next</span>
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-              </button>
-            </div>
           </div>
 
           <!-- 1. Card Design Selector -->
@@ -4946,6 +4955,27 @@
 
         <!-- Clue Card Stage Column (Right) -->
         <div class="step3-card-column">
+          <!-- Clue Navigator (Above the Card) -->
+          <div class="step3-deck-card clue-nav-card" id="step3-clue-nav-card">
+            <div class="clue-nav-bar-row">
+              <button type="button" class="preview-stage-nav-btn" id="btn-prev-clue" onclick="navigateCluePreview(-1)" title="Previous Clue (← Left Arrow)">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                <span>Previous</span>
+              </button>
+              <div class="clue-nav-indicator">
+                <span class="clue-nav-num" id="clue-stepper-title">Clue 1 of 24</span>
+              </div>
+              <button type="button" class="preview-stage-nav-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
+                <span>Next</span>
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Studio Mat Backdrop -->
           <div class="step3-studio-mat">
             <div class="clue-card-stage-wrap" id="clue-card-stage-wrap">
@@ -4987,7 +5017,6 @@
               <div class="diagram-border-sample"></div>
               <div class="diagram-card-content">
                 <span class="diagram-pill-badge">CLUE #1</span>
-                <span class="diagram-sheet-subtitle">Easter Egg Hunt</span>
                 <div class="diagram-mock-riddle">
                   <div class="mock-line" style="width: 84%;"></div>
                   <div class="mock-line" style="width: 96%;"></div>
@@ -5059,7 +5088,7 @@
         <div>
           <div class="print-instructions-title">Saving as PDF</div>
           <div class="print-instructions-desc">
-            Click <strong>Download Clue Cards</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> with Paper Size set to <strong>A4 or US Letter</strong>. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
+            Click <strong>Download Clue Cards</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> with Paper Size set to <strong>A4 or US Letter</strong>.
           </div>
         </div>
       </div>
@@ -5299,6 +5328,9 @@ const EmbeddedAssets = {
       if (typeof renderCurrentCluePreview === 'function') {
         renderCurrentCluePreview();
       }
+      if (typeof invalidatePrintWarmup === 'function') {
+        invalidatePrintWarmup();
+      }
     }
 
 
@@ -5389,6 +5421,7 @@ const EmbeddedAssets = {
       const plural = document.getElementById('spots-plural');
       if (plural) plural.textContent = count === 1 ? '' : 's';
       if (typeof updateStep3SheetCounts === 'function') updateStep3SheetCounts();
+      if (typeof invalidatePrintWarmup === 'function') invalidatePrintWarmup();
     }
 
     function resetDefaultSpots() {
@@ -5661,6 +5694,9 @@ const EmbeddedAssets = {
       }
       if (stepNum === 3) {
         updateStep3SheetCounts();
+        if (typeof warmupPrintDocument === 'function') {
+          warmupPrintDocument('game');
+        }
       }
       document.querySelectorAll('.step-item').forEach((el, i) => {
         const num = i + 1;
@@ -6326,6 +6362,9 @@ const EmbeddedAssets = {
       if (btnA4) btnA4.classList.toggle('active', size === 'a4');
       if (btnLetter) btnLetter.classList.toggle('active', size === 'letter');
       updatePrintPageStyle();
+      if (typeof warmupPrintDocument === 'function') {
+        warmupPrintDocument(printWarmState.mode || 'game');
+      }
     }
 
     function selectPrintLayout(layout) {
@@ -6340,6 +6379,9 @@ const EmbeddedAssets = {
       if (portInd) portInd.textContent = (layout === 'portrait') ? '✓ Selected' : 'Select';
       if (landInd) landInd.textContent = (layout === 'landscape') ? '✓ Selected' : 'Select';
       updatePrintPageStyle();
+      if (typeof warmupPrintDocument === 'function') {
+        warmupPrintDocument(printWarmState.mode || 'game');
+      }
     }
 
     function updatePrintPageStyle() {
@@ -6354,6 +6396,92 @@ const EmbeddedAssets = {
       styleEl.textContent = `@page { size: ${paper} ${orientation}; margin: 0 !important; }`;
     }
 
+    // ===== BACKGROUND PRINT PRE-WARMING ENGINE (PRODUCTION ZERO-WAIT) =====
+    let printWarmState = {
+      isWarmed: false,
+      mode: null,
+      layout: null,
+      paper: null,
+      theme: null,
+      cluesCount: 0
+    };
+
+    function invalidatePrintWarmup() {
+      printWarmState.isWarmed = false;
+      const step3 = document.getElementById('panel-step-3');
+      if (step3 && step3.style.display !== 'none') {
+        warmupPrintDocument(printWarmState.mode || 'game');
+      }
+    }
+
+    function warmupPrintDocument(targetMode = 'game') {
+      const activeClues = getActiveHuntClues();
+      const currentTheme = AppState.selectedTheme;
+      const currentLayout = PrintState.layout || 'portrait';
+      const currentPaper = PrintState.paperSize || 'a4';
+
+      if (printWarmState.isWarmed &&
+          printWarmState.mode === targetMode &&
+          printWarmState.layout === currentLayout &&
+          printWarmState.paper === currentPaper &&
+          printWarmState.theme === currentTheme &&
+          printWarmState.cluesCount === activeClues.length) {
+        return;
+      }
+
+      updatePrintPageStyle();
+      preparePrintDocument(targetMode === 'answer');
+
+      printWarmState = {
+        isWarmed: true,
+        mode: targetMode,
+        layout: currentLayout,
+        paper: currentPaper,
+        theme: currentTheme,
+        cluesCount: activeClues.length
+      };
+
+      // Silently pre-decode all rendered images in the background into GPU memory
+      const root = document.getElementById('print-sheet-root');
+      if (root) {
+        const imgs = root.querySelectorAll('img');
+        imgs.forEach(img => {
+          if (img.decode && !img.complete) {
+            img.decode().catch(() => {});
+          }
+        });
+      }
+    }
+
+    // Silent background asset preloader running during idle dwell time
+    function preloadAllThemeAssets() {
+      const urls = [
+        'assets/eggmaze.svg',
+        'assets/graphics/theme1/20.png',
+        'assets/theme 3/border.png',
+        'assets/theme 2/eggs/grass.png'
+      ];
+      for (let i = 1; i <= 3; i++) urls.push(`assets/theme 1/border/Border ${i}.png`);
+      for (let i = 1; i <= 26; i++) urls.push(`assets/graphics/theme1/${i}.png`);
+      for (let i = 1; i <= 20; i++) urls.push(`assets/graphics/theme3/${i}.png`);
+      for (let i = 1; i <= 12; i++) urls.push(`assets/theme 4/border ${i}.png`);
+      for (let i = 1; i <= 20; i++) urls.push(`assets/theme 2/eggs/E${i}.png`);
+
+      urls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+        if (img.decode) img.decode().catch(() => {});
+      });
+    }
+
+    if (typeof window !== 'undefined') {
+      const idleRunner = window.requestIdleCallback || ((cb) => setTimeout(cb, 600));
+      idleRunner(() => {
+        preloadAllThemeAssets();
+        warmupPrintDocument('game');
+      });
+    }
+
     async function triggerDownloadAndPrint(mode = 'game') {
       const isAnswer = (mode === 'answer');
       const btnId = isAnswer ? 'btn-download-answer' : 'btn-download-print';
@@ -6362,55 +6490,71 @@ const EmbeddedAssets = {
       const originalTitle = document.title;
 
       try {
-        if (btn) {
-          btn.disabled = true;
-          btn.style.opacity = '0.85';
-          btn.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px;">
-              <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
-              <path d="M12 2a10 10 0 0 1 10 10"></path>
-            </svg>
-            <span>Preparing ${isAnswer ? 'Answers...' : 'Clues...'}</span>
-          `;
-        }
-
         // Set document.title so browser's "Save as PDF" defaults the file name to "Clues" or "Answers"
         document.title = isAnswer ? 'Answers' : 'Clues';
 
-        updatePrintPageStyle();
-        preparePrintDocument(isAnswer);
+        const activeClues = getActiveHuntClues();
+        const isWarm = (
+          printWarmState.isWarmed &&
+          printWarmState.mode === mode &&
+          printWarmState.layout === PrintState.layout &&
+          printWarmState.paper === PrintState.paperSize &&
+          printWarmState.theme === AppState.selectedTheme &&
+          printWarmState.cluesCount === activeClues.length
+        );
+
+        if (!isWarm) {
+          updatePrintPageStyle();
+          preparePrintDocument(isAnswer);
+          printWarmState = {
+            isWarmed: true,
+            mode: mode,
+            layout: PrintState.layout,
+            paper: PrintState.paperSize,
+            theme: AppState.selectedTheme,
+            cluesCount: activeClues.length
+          };
+        }
 
         const root = document.getElementById('print-sheet-root');
         if (root) {
           const imgs = Array.from(root.querySelectorAll('img'));
-          
-          // Wait for all images across all cards to be loaded and decoded with safety timeout
-          const imgPromises = imgs.map(img => {
-            if (img.complete && img.naturalHeight !== 0) {
-              return Promise.resolve();
+          const pendingImgs = imgs.filter(img => !img.complete || img.naturalHeight === 0);
+
+          // Fast path: if all images are already loaded/decoded (warmed), launch immediately!
+          if (pendingImgs.length > 0) {
+            if (btn) {
+              btn.disabled = true;
+              btn.style.opacity = '0.85';
+              btn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation: spin 0.8s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px;">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10"></path>
+                </svg>
+                <span>Preparing ${isAnswer ? 'Answers...' : 'Clues...'}</span>
+              `;
             }
-            return new Promise(resolve => {
-              const onDone = () => resolve();
-              img.addEventListener('load', onDone, { once: true });
-              img.addEventListener('error', onDone, { once: true });
-              if (img.decode) {
-                img.decode().then(resolve).catch(resolve);
-              }
-              // Fallback timeout per image
-              setTimeout(resolve, 600);
+
+            const imgPromises = pendingImgs.map(img => {
+              return new Promise(resolve => {
+                const onDone = () => resolve();
+                img.addEventListener('load', onDone, { once: true });
+                img.addEventListener('error', onDone, { once: true });
+                if (img.decode) {
+                  img.decode().then(resolve).catch(resolve);
+                }
+                setTimeout(resolve, 300);
+              });
             });
-          });
-          // Cap total wait time to 1 second maximum so printing never hangs
-          await Promise.race([
-            Promise.all(imgPromises),
-            new Promise(r => setTimeout(r, 1000))
-          ]);
+
+            await Promise.race([
+              Promise.all(imgPromises),
+              new Promise(r => setTimeout(r, 450))
+            ]);
+          }
         }
 
-        // Small pause to allow the browser layout engine to finalize render
-        await new Promise(r => setTimeout(r, 150));
-
-        // Trigger browser print dialog
+        // Trigger browser print dialog in a snap!
         window.print();
       } catch (err) {
         console.error('Print preparation error:', err);
