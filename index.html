@@ -993,7 +993,7 @@
     .spots-list {
       display: grid;
       grid-auto-flow: column;
-      grid-template-rows: repeat(var(--spot-rows, 8), minmax(0, 1fr));
+      grid-template-rows: repeat(8, minmax(0, 1fr));
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(6px, 1vh, 10px) clamp(8px, 1.2vw, 14px);
       margin-bottom: 0;
@@ -1063,6 +1063,11 @@
     .spot-card.is-disabled .spot-drag-handle {
       opacity: 0.35;
       cursor: not-allowed;
+    }
+
+    .spot-card.is-disabled .spot-btn-restore {
+      opacity: 1 !important;
+      cursor: pointer !important;
     }
 
     .spot-drag-handle {
@@ -5565,24 +5570,27 @@ const EmbeddedAssets = {
 
       if (!list) return;
 
-      const rows = Math.max(1, Math.ceil(huntClues.length / 3));
-      list.style.setProperty('--spot-rows', rows);
+      // Permanently lock structure to 8 rows per column so columns never reflow
+      list.style.setProperty('--spot-rows', '8');
 
       list.innerHTML = huntClues.map((item, i) => {
+        const isActive = !item.disabled;
         const clueNum = i + 1;
         const maxLen = item.maxLen || 15;
+        const disabledClass = isActive ? '' : 'is-disabled';
+
         return `
         <div
-          class="spot-card"
+          class="spot-card ${disabledClass}"
           id="spot-card-${i}"
-          draggable="true"
-          ondragstart="handleDragStart(event, ${i})"
-          ondragover="handleDragOver(event)"
-          ondragleave="handleDragLeave(event)"
-          ondrop="handleDrop(event, ${i})"
-          ondragend="handleDragEnd(event)"
+          draggable="${isActive ? 'true' : 'false'}"
+          ondragstart="${isActive ? `handleDragStart(event, ${i})` : ''}"
+          ondragover="${isActive ? 'handleDragOver(event)' : ''}"
+          ondragleave="${isActive ? 'handleDragLeave(event)' : ''}"
+          ondrop="${isActive ? `handleDrop(event, ${i})` : ''}"
+          ondragend="${isActive ? 'handleDragEnd(event)' : ''}"
         >
-          <div class="spot-drag-handle" title="Drag to reorder">⠿</div>
+          <div class="spot-drag-handle" title="${isActive ? 'Drag to reorder' : 'Clue is excluded'}">⠿</div>
           <div class="spot-meta-col">
             <div class="spot-badge">Clue #${clueNum}</div>
           </div>
@@ -5592,8 +5600,9 @@ const EmbeddedAssets = {
               class="spot-input"
               id="spot-input-${i}"
               maxlength="${maxLen}"
-              placeholder="${item.placeholder || `Location #${clueNum}`}"
+              placeholder="${item.placeholder || `Location #${i + 1}`}"
               value="${escapeHtml(item.location)}"
+              ${isActive ? '' : 'disabled'}
               oninput="updateSpot(${i}, this.value)"
               onkeydown="handleLocationKeydown(event, ${maxLen}, document.getElementById('spot-limit-${i}'))"
               onblur="hideLimitNotice(document.getElementById('spot-limit-${i}'), this)"
@@ -5606,37 +5615,69 @@ const EmbeddedAssets = {
               class="spot-btn"
               title="Move Up"
               onclick="moveSpot(${i}, -1)"
-              ${i === 0 ? 'disabled' : ''}
+              ${(!isActive || i === 0) ? 'disabled' : ''}
             >▲</button>
             <button
               type="button"
               class="spot-btn"
               title="Move Down"
               onclick="moveSpot(${i}, 1)"
-              ${i === huntClues.length - 1 ? 'disabled' : ''}
+              ${(!isActive || i >= activeClues.length - 1) ? 'disabled' : ''}
             >▼</button>
-            <button
-              type="button"
-              class="spot-btn spot-btn-delete"
-              title="Remove clue"
-              onclick="removeClue(${i})"
-            >✕</button>
+            ${isActive ? `
+              <button
+                type="button"
+                class="spot-btn spot-btn-delete"
+                title="Remove clue (moves to end)"
+                onclick="toggleClueDisabled(${i})"
+              >✕</button>
+            ` : `
+              <button
+                type="button"
+                class="spot-btn spot-btn-restore"
+                title="Restore clue to hunt"
+                onclick="toggleClueDisabled(${i})"
+              >+</button>
+            `}
           </div>
         </div>
       `;
       }).join('');
     }
 
-    function removeClue(index) {
-      if (huntClues.length <= 1) {
-        alert("You must keep at least 1 clue in your hunt!");
-        return;
+    function toggleClueDisabled(index) {
+      if (!huntClues[index]) return;
+      const willDisable = !huntClues[index].disabled;
+
+      // Ensure at least 1 clue remains active in the hunt
+      if (willDisable) {
+        const activeCount = huntClues.filter(c => !c.disabled).length;
+        if (activeCount <= 1) {
+          alert("You must keep at least 1 active clue in your hunt!");
+          return;
+        }
+        // Move to the end of the array when removed
+        const [removedItem] = huntClues.splice(index, 1);
+        removedItem.disabled = true;
+        huntClues.push(removedItem);
+      } else {
+        // Restoring to active hunt: insert right after currently active clues
+        const [restoredItem] = huntClues.splice(index, 1);
+        restoredItem.disabled = false;
+        const firstDisabledIndex = huntClues.findIndex(c => c.disabled);
+        if (firstDisabledIndex === -1) {
+          huntClues.push(restoredItem);
+        } else {
+          huntClues.splice(firstDisabledIndex, 0, restoredItem);
+        }
       }
-      huntClues.splice(index, 1);
+
       syncHidingSpots();
       renderSpotsList();
-      if (currentPreviewClue > huntClues.length) {
-        currentPreviewClue = Math.max(1, huntClues.length);
+
+      const activeClues = getActiveHuntClues();
+      if (currentPreviewClue > activeClues.length) {
+        currentPreviewClue = Math.max(1, activeClues.length);
       }
       if (typeof populateDeckJumpStrip === 'function') {
         populateDeckJumpStrip();
@@ -5650,10 +5691,13 @@ const EmbeddedAssets = {
       if (typeof updateStep3SheetCounts === 'function') {
         updateStep3SheetCounts();
       }
+      if (typeof invalidatePrintWarmup === 'function') {
+        invalidatePrintWarmup();
+      }
     }
 
-    function toggleClueDisabled(index) {
-      removeClue(index);
+    function removeClue(index) {
+      toggleClueDisabled(index);
     }
 
     function escapeHtml(str) {
@@ -5684,8 +5728,9 @@ const EmbeddedAssets = {
     }
 
     function moveSpot(index, delta) {
+      const activeClues = getActiveHuntClues();
       const target = index + delta;
-      if (target < 0 || target >= huntClues.length) return;
+      if (target < 0 || target >= activeClues.length) return;
       const item = huntClues.splice(index, 1)[0];
       huntClues.splice(target, 0, item);
       syncHidingSpots();
@@ -5720,6 +5765,8 @@ const EmbeddedAssets = {
       const card = e.currentTarget.closest('.spot-card');
       if (card) card.classList.remove('drag-over');
       if (draggedIndex === null || draggedIndex === targetIndex) return;
+      const activeClues = getActiveHuntClues();
+      if (targetIndex >= activeClues.length || draggedIndex >= activeClues.length) return;
       const item = huntClues.splice(draggedIndex, 1)[0];
       huntClues.splice(targetIndex, 0, item);
       draggedIndex = null;
