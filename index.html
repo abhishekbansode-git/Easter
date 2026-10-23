@@ -1327,16 +1327,70 @@
     }
 
     @media (max-width: 650px) {
-      .spot-card {
-        flex-wrap: wrap;
+      .step1-top-bar {
         gap: 10px;
-        padding: 12px 14px;
       }
-      .spot-drag-handle { display: none; }
-      .spot-meta-col { width: 100%; min-width: 0; justify-content: flex-start; gap: 10px; }
-      .spot-badge { min-width: 70px; height: 28px; font-size: 0.75rem; }
-      .spot-input-wrap { width: calc(100% - 90px); }
-      .spot-actions { margin-left: auto; }
+      .step1-title-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 8px;
+      }
+      .step1-reset-btn {
+        padding: 5px 10px;
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+      .spot-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 0;
+        padding: 10px 12px;
+        border-radius: 10px;
+      }
+      .spot-drag-handle {
+        display: none;
+      }
+      .spot-meta-col {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+      }
+      .spot-badge {
+        font-size: 0.78rem;
+        font-weight: 800;
+        padding: 3px 8px;
+        border-radius: 6px;
+      }
+      .spot-actions {
+        order: 2;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .spot-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.82rem;
+        border-radius: 6px;
+      }
+      .spot-input-wrap {
+        order: 3;
+        width: 100%;
+        margin-top: 2px;
+      }
+      .spot-input {
+        min-height: 38px;
+        font-size: 0.95rem;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: #f8fafc;
+      }
     }
 
     .btn-secondary {
@@ -2895,6 +2949,19 @@
     }
 
     @media (max-width: 650px) {
+      .deck-actions-card {
+        flex-direction: column-reverse;
+        width: 100%;
+        gap: 10px;
+      }
+
+      .deck-action-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 18px;
+        font-size: 0.92rem;
+      }
+
       .step3-action-bar {
         flex-direction: column-reverse;
         align-items: stretch;
