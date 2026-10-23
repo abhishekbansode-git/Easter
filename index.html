@@ -1676,6 +1676,40 @@
       border: 1px solid #a7f3d0;
     }
 
+    .paper-size-picker {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f8fafc;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    .paper-size-btn {
+      padding: 4px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .paper-size-btn:hover {
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    .paper-size-btn.active {
+      background: #ffffff;
+      color: var(--primary-color);
+      border-color: #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
     .print-instructions-box {
       background: #f8fafc;
       border: 1.5px solid #e2e8f0;
@@ -3912,37 +3946,39 @@
       position: absolute;
       top: 172px;
       left: 50%;
-      transform: translate(calc(-50% + 0px), -13px);
+      transform: translate(calc(-50% + 20px), -7px);
       z-index: 10;
       box-sizing: border-box;
     }
 
     .clue6-grid-inner {
       display: flex;
-      flex-direction: row;
-      align-items: flex-end;
+      flex-direction: column;
       position: relative;
+      box-sizing: border-box;
     }
 
     .clue6-row-icons-col {
+      position: absolute;
+      right: 100%;
+      bottom: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
+      align-items: flex-end;
       box-sizing: border-box;
-      flex-shrink: 0;
-      margin-right: 10px;
+      margin-right: -14px;
       gap: 10px;
+      z-index: 12;
     }
 
     .clue6-row-icon-cell {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
       box-sizing: border-box;
       flex-shrink: 0;
-      width: 30px;
       height: 50px;
+      overflow: visible;
     }
 
     .clue6-matrix-area {
@@ -3958,7 +3994,7 @@
       justify-content: flex-start;
       width: 100%;
       box-sizing: border-box;
-      margin-bottom: 8px;
+      margin-bottom: 2px;
       gap: 8px;
     }
 
@@ -3971,9 +4007,10 @@
       flex-shrink: 0;
       box-sizing: border-box;
       width: 50px;
-      font-size: 23px;
+      font-size: 25px;
       font-weight: 400;
       color: #1e293b;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .clue6-boxes-matrix {
@@ -4019,13 +4056,13 @@
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(calc(-50% + 3px), 514px);
+      transform: translate(calc(-50% + 0px), 514px);
       z-index: 10;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 31px;
+      gap: 23px;
     }
 
     .clue6-ans-row {
@@ -4070,11 +4107,11 @@
     .clue6-ans-line {
       display: block;
       box-sizing: border-box;
-      border-radius: 1px;
-      width: 60px;
-      height: 1.5px;
+      border-radius: 0;
+      width: 57px;
+      height: 1px;
       background-color: #1e293b;
-      margin-bottom: 6px;
+      margin-bottom: 0px;
     }
 
     .clue6-ans-coord-label {
@@ -4084,7 +4121,7 @@
       justify-content: center;
       box-sizing: border-box;
       line-height: 1;
-      gap: 3px;
+      gap: 0px;
     }
 
     .clue6-coord-icon-box {
@@ -4092,16 +4129,17 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      width: 18px;
-      height: 18px;
+      width: 39px;
+      height: 39px;
     }
 
     .clue6-coord-num {
       line-height: 1;
       display: inline-block;
-      font-size: 23px;
+      font-size: 25px;
       font-weight: 400;
       color: #1e293b;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     /* --- CLUE 7: CIPHER WHEEL --- */
@@ -4536,7 +4574,7 @@
       flex-shrink: 0;
     }
     .clue11-scramble-row {
-      font-family: var(--clue-heading-font);
+      font-family: var(--font-franklin), 'Franklin Gothic Medium', sans-serif;
       font-size: 18px;
       font-weight: 700;
       color: #2c1810;
@@ -4588,7 +4626,7 @@
       width: 31px;
     }
     .clue11-slot-letter {
-      font-family: var(--clue-heading-font);
+      font-family: var(--font-franklin), 'Franklin Gothic Medium', sans-serif;
       font-size: 18px;
       font-weight: 800;
       line-height: 1;
@@ -4708,17 +4746,17 @@
 
       <!-- Sidebar Stepper Navigation -->
       <nav class="sidebar-stepper" aria-label="Creation Steps">
-        <div class="sidebar-section-title">Workflow Steps</div>
+        <div class="sidebar-section-title">Build your own hunt</div>
         <div class="step-item active" id="step-nav-1">
           <span class="step-circle">1</span>
           <div class="step-info">
-            <span class="step-name">Hiding Spots</span>
+            <span class="step-name">Select Hiding Spots</span>
           </div>
         </div>
         <div class="step-item" id="step-nav-2">
           <span class="step-circle">2</span>
           <div class="step-info">
-            <span class="step-name">Preview Hunt</span>
+            <span class="step-name">Choose a Design</span>
           </div>
         </div>
         <div class="step-item" id="step-nav-3">
@@ -4747,27 +4785,22 @@
     <!-- Main Content Area -->
     <div class="app-main">
 
-    <!-- STEP 1: CHOOSE HIDING SPOTS -->
+    <!-- STEP 1: SELECT HIDING SPOTS -->
     <main class="step-panel" id="panel-step-1">
       <!-- Step 1 Top Bar (Header + Counter + Top-Right Next Button) -->
       <div class="step1-top-bar">
         <div class="step1-header-left">
           <div class="step1-title-row">
-            <h2><span class="panel-step-label">Step 1:</span> Choose Your Hiding Spots</h2>
-            <div class="spots-counter-bar">
-              <div class="spots-counter-text">
-                <span id="spots-count">24</span> Hiding Spot<span id="spots-plural">s</span>
-              </div>
-            </div>
+            <h2><span class="panel-step-label">Step 1:</span> Select Hiding Spots</h2>
             <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
               🔄 Reset to Default
             </button>
           </div>
-          <p class="panel-subtitle" style="margin: 2px 0 0; text-align: left;"><span id="subheading-spots-count">24</span> preloaded locations — edit, reorder, or customize your hunt</p>
+          <p class="panel-subtitle" style="margin: 2px 0 0; text-align: left;">Edit, reorder or remove a clue</p>
         </div>
 
         <button type="button" class="btn-primary step1-top-next-btn" onclick="proceedToStep2()">
-          <span>Next: Preview Hunt</span>
+          <span>Next: Choose a Design</span>
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
           </svg>
@@ -4777,7 +4810,7 @@
       <!-- Dynamic list of spots (3-Column Single Screen Layout) -->
       <div class="spots-list" id="spots-list"></div>
     </main>
-    <!-- STEP 2: PREVIEW HUNT -->
+    <!-- STEP 2: CHOOSE A DESIGN -->
     <main class="step-panel" id="panel-step-2" style="display:none;">
 
       <!-- Split Layout Workspace -->
@@ -4787,7 +4820,7 @@
 
           <!-- Step 2 Heading (Left-aligned above Clue Navigator & Scrubber) -->
           <div class="step2-panel-header">
-            <h2><span class="panel-step-label">Step 2:</span> Preview Hunt</h2>
+            <h2><span class="panel-step-label">Step 2:</span> Choose a Design</h2>
           </div>
 
           <!-- 0. Clue Navigator (Previous / Next Clue) -->
@@ -4801,7 +4834,6 @@
               </button>
               <div class="clue-nav-indicator">
                 <span class="clue-nav-num" id="clue-stepper-title">Clue 1 of 12</span>
-                <span class="clue-nav-hint" id="clue-stepper-subtitle">Puzzle Clue</span>
               </div>
               <button type="button" class="preview-stage-nav-btn" id="btn-next-clue" onclick="navigateCluePreview(1)" title="Next Clue (Right Arrow →)">
                 <span>Next</span>
@@ -4810,19 +4842,12 @@
                 </svg>
               </button>
             </div>
-            <!-- Jump to Clue Quick Scrubber -->
-            <div class="clue-jump-section">
-              <div class="clue-jump-header">
-                <span class="deck-tag">Jump to Clue:</span>
-              </div>
-              <div class="clue-jump-track" id="clue-jump-track" role="tablist" aria-label="Jump to Clue"></div>
-            </div>
           </div>
 
           <!-- 1. Card Design Selector -->
           <div class="step3-deck-card" id="step3-theme-card">
             <div class="deck-card-header">
-              <span class="deck-tag">Card Design</span>
+              <span class="deck-tag">Design</span>
             </div>
 
             <div class="step3-theme-grid">
@@ -4864,18 +4889,18 @@
             </div>
           </div>
 
-          <!-- 2. Live Location Customizer -->
+          <!-- 2. Live Answer Customizer -->
           <div class="step3-deck-card" id="step3-location-card">
             <div class="step3-input-header">
-              <span class="deck-tag" id="preview-clue-label">Location #1:</span>
+              <span class="deck-tag" id="preview-clue-label">Answer #1:</span>
             </div>
             <div class="step3-input-box-wrap">
-              <span class="step3-input-icon">📍</span>
+              <span class="step3-input-icon">✏️</span>
               <input
                 type="text"
                 id="preview-clue-input"
                 class="deck-text-input"
-                placeholder="Type location..."
+                placeholder="Type answer..."
                 value="Television"
                 maxlength="10"
                 oninput="handleLiveSpotInput(this.value)"
@@ -4907,7 +4932,7 @@
               <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
               </svg>
-              <span>Back: Spots</span>
+              <span>Back: Select Hiding Spots</span>
             </button>
             <button type="button" class="btn-primary deck-action-btn" onclick="proceedToStep3()">
               <span>Next: Download</span>
@@ -4945,8 +4970,13 @@
 
     <!-- STEP 3: DOWNLOAD -->
     <main class="step-panel" id="panel-step-3" style="display:none;">
-      <div class="panel-header">
+      <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
         <h2><span class="panel-step-label">Step 3:</span> Download</h2>
+        <div class="paper-size-picker">
+          <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; padding-left: 6px;">Size:</span>
+          <button type="button" class="paper-size-btn active" id="paper-btn-a4" onclick="selectPaperSize('a4')" title="A4 (210 × 297 mm)">A4</button>
+          <button type="button" class="paper-size-btn" id="paper-btn-letter" onclick="selectPaperSize('letter')" title="US Letter (8.5 × 11 in)">US Letter</button>
+        </div>
       </div>
 
       <div class="print-options-grid">
@@ -4972,7 +5002,7 @@
                 <span class="theme-title" style="font-size: 1.18rem; font-weight: 700;">1 Clue Per Page</span>
                 <span class="sheet-count-pill" id="sheet-count-portrait">24 Sheets</span>
               </div>
-              <p class="theme-desc" style="margin: 0 0 8px; font-size: 0.9rem; color: #64748b;">Full A4 page (210 × 297 mm)</p>
+              <p class="theme-desc" style="margin: 0 0 8px; font-size: 0.9rem; color: #64748b;">Full page • A4 or US Letter</p>
             </div>
             <div class="card-footer" style="margin-top: auto; padding-top: 8px; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end;">
               <span class="select-indicator" id="layout-indicator-portrait">✓ Selected</span>
@@ -5014,7 +5044,7 @@
                 <span class="theme-title" style="font-size: 1.18rem; font-weight: 700;">2 Clues Per Page</span>
                 <span class="sheet-count-pill" id="sheet-count-landscape">12 Sheets</span>
               </div>
-              <p class="theme-desc" style="margin: 0 0 8px; font-size: 0.9rem; color: #64748b;">2 cards per A4 page • A5 size (148 × 210 mm)</p>
+              <p class="theme-desc" style="margin: 0 0 8px; font-size: 0.9rem; color: #64748b;">2 cards per page • A4 or US Letter</p>
             </div>
             <div class="card-footer" style="margin-top: auto; padding-top: 8px; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end;">
               <span class="select-indicator" id="layout-indicator-landscape">Select</span>
@@ -5029,7 +5059,7 @@
         <div>
           <div class="print-instructions-title">Saving as PDF</div>
           <div class="print-instructions-desc">
-            Click <strong>Download Clue Cards</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> with Paper Size set to <strong>A4</strong>. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
+            Click <strong>Download Clue Cards</strong> below. In your browser's dialog, choose <strong>"Save as PDF"</strong> with Paper Size set to <strong>A4 or US Letter</strong>. Make sure <em>"Background graphics"</em> is checked for vivid border artwork!
           </div>
         </div>
       </div>
@@ -5039,7 +5069,7 @@
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L6.414 9H16a1 1 0 110 2H6.414l3.293 3.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
           </svg>
-          <span>Back: Preview Hunt</span>
+          <span>Back: Choose a Design</span>
         </button>
         <div class="step3-download-btns-wrap">
           <button type="button" class="btn-answer-key" id="btn-download-answer" onclick="triggerDownloadAndPrint('answer')" title="Download clue cards with solved answers">
@@ -5367,6 +5397,9 @@ const EmbeddedAssets = {
         syncHidingSpots();
         renderSpotsList();
         if (currentPreviewClue > huntClues.length) currentPreviewClue = 1;
+        if (typeof populateDeckJumpStrip === 'function') populateDeckJumpStrip();
+        if (typeof renderClueJumpTrack === 'function') renderClueJumpTrack();
+        if (typeof updateStep3SheetCounts === 'function') updateStep3SheetCounts();
         renderCurrentCluePreview();
       }
     }
@@ -5438,19 +5471,18 @@ const EmbeddedAssets = {
       list.innerHTML = huntClues.map((item, i) => {
         const clueNum = i + 1;
         const maxLen = item.maxLen || 15;
-        const isDisabled = !!item.disabled;
         return `
         <div
-          class="spot-card ${isDisabled ? 'is-disabled' : ''}"
+          class="spot-card"
           id="spot-card-${i}"
-          draggable="${!isDisabled}"
-          ondragstart="${isDisabled ? 'return false;' : `handleDragStart(event, ${i})`}"
+          draggable="true"
+          ondragstart="handleDragStart(event, ${i})"
           ondragover="handleDragOver(event)"
           ondragleave="handleDragLeave(event)"
           ondrop="handleDrop(event, ${i})"
           ondragend="handleDragEnd(event)"
         >
-          <div class="spot-drag-handle" title="${isDisabled ? 'Clue excluded from hunt' : 'Drag to reorder'}">⠿</div>
+          <div class="spot-drag-handle" title="Drag to reorder">⠿</div>
           <div class="spot-meta-col">
             <div class="spot-badge">Clue #${clueNum}</div>
           </div>
@@ -5462,7 +5494,6 @@ const EmbeddedAssets = {
               maxlength="${maxLen}"
               placeholder="${item.placeholder || `Location #${clueNum}`}"
               value="${escapeHtml(item.location)}"
-              ${isDisabled ? 'disabled' : ''}
               oninput="updateSpot(${i}, this.value)"
               onkeydown="handleLocationKeydown(event, ${maxLen}, document.getElementById('spot-limit-${i}'))"
               onblur="hideLimitNotice(document.getElementById('spot-limit-${i}'), this)"
@@ -5475,50 +5506,54 @@ const EmbeddedAssets = {
               class="spot-btn"
               title="Move Up"
               onclick="moveSpot(${i}, -1)"
-              ${i === 0 || isDisabled ? 'disabled' : ''}
+              ${i === 0 ? 'disabled' : ''}
             >▲</button>
             <button
               type="button"
               class="spot-btn"
               title="Move Down"
               onclick="moveSpot(${i}, 1)"
-              ${i === huntClues.length - 1 || isDisabled ? 'disabled' : ''}
+              ${i === huntClues.length - 1 ? 'disabled' : ''}
             >▼</button>
             <button
               type="button"
-              class="spot-btn ${isDisabled ? 'spot-btn-restore' : 'spot-btn-delete'}"
-              title="${isDisabled ? 'Include this clue in hunt' : 'Exclude this clue (make lighter)'}"
-              onclick="toggleClueDisabled(${i})"
-            >${isDisabled ? '＋' : '✕'}</button>
+              class="spot-btn spot-btn-delete"
+              title="Remove clue"
+              onclick="removeClue(${i})"
+            >✕</button>
           </div>
         </div>
       `;
       }).join('');
     }
 
-    function toggleClueDisabled(index) {
-      const activeCount = huntClues.filter(c => !c.disabled).length;
-      if (!huntClues[index].disabled && activeCount <= 1) {
-        alert("You must keep at least 1 active clue in your hunt!");
+    function removeClue(index) {
+      if (huntClues.length <= 1) {
+        alert("You must keep at least 1 clue in your hunt!");
         return;
       }
-      huntClues[index].disabled = !huntClues[index].disabled;
+      huntClues.splice(index, 1);
       syncHidingSpots();
       renderSpotsList();
-      const activeList = getActiveHuntClues();
-      if (currentPreviewClue > activeList.length) {
-        currentPreviewClue = Math.max(1, activeList.length);
+      if (currentPreviewClue > huntClues.length) {
+        currentPreviewClue = Math.max(1, huntClues.length);
       }
       if (typeof populateDeckJumpStrip === 'function') {
         populateDeckJumpStrip();
       }
+      if (typeof renderClueJumpTrack === 'function') {
+        renderClueJumpTrack();
+      }
       if (typeof renderCurrentCluePreview === 'function') {
         renderCurrentCluePreview();
       }
+      if (typeof updateStep3SheetCounts === 'function') {
+        updateStep3SheetCounts();
+      }
     }
 
-    function removeClue(index) {
-      toggleClueDisabled(index);
+    function toggleClueDisabled(index) {
+      removeClue(index);
     }
 
     function escapeHtml(str) {
@@ -6086,7 +6121,7 @@ const EmbeddedAssets = {
 
       const label = document.getElementById('preview-clue-label');
       const input = document.getElementById('preview-clue-input');
-      const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Location #${clueNum}`;
+      const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Answer #${clueNum}`;
       let locText = (item && item.location !== undefined && item.location !== '') ? item.location : defaultVal;
 
       const maxLen = item ? item.maxLen : 15;
@@ -6094,7 +6129,7 @@ const EmbeddedAssets = {
         input.maxLength = maxLen;
         input.value = locText;
       }
-      if (label) label.textContent = `Location #${clueNum}:`;
+      if (label) label.textContent = `Answer #${clueNum}:`;
       hideLimitNotice(document.getElementById('preview-clue-limit-badge'), input);
 
       const charBadge = document.getElementById('preview-clue-char-count');
@@ -6178,7 +6213,7 @@ const EmbeddedAssets = {
       setTimeout(updateClueStageScale, 150);
     });
 
-    // Keyboard Arrow ← / → listener for switching clues in Step 2 (Preview Hunt)
+    // Keyboard Arrow ← / → listener for switching clues in Step 2 (Choose a Design)
     window.addEventListener('keydown', (e) => {
       const step2 = document.getElementById('panel-step-2');
       if (step2 && step2.style.display !== 'none') {
@@ -6253,7 +6288,7 @@ const EmbeddedAssets = {
       const idx = currentPreviewClue - 1;
       const activeClues = getActiveHuntClues();
       const item = activeClues[idx] || DEFAULT_HUNT_CLUES[idx];
-      const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Location #${currentPreviewClue}`;
+      const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Answer #${currentPreviewClue}`;
       const locText = (item && item.location) || defaultVal;
       const isAnswer = (cluePreviewMode === 'answer');
 
@@ -6281,8 +6316,17 @@ const EmbeddedAssets = {
     // ===== STEP 3: PRINT & DOWNLOAD LOGIC =====
     const PrintState = {
       layout: 'portrait', // 'portrait' (1 per page) or 'landscape' (2 per page)
-      paperSize: 'a4' // Standardized exclusively to A4
+      paperSize: 'a4' // 'a4' or 'letter'
     };
+
+    function selectPaperSize(size) {
+      PrintState.paperSize = size;
+      const btnA4 = document.getElementById('paper-btn-a4');
+      const btnLetter = document.getElementById('paper-btn-letter');
+      if (btnA4) btnA4.classList.toggle('active', size === 'a4');
+      if (btnLetter) btnLetter.classList.toggle('active', size === 'letter');
+      updatePrintPageStyle();
+    }
 
     function selectPrintLayout(layout) {
       PrintState.layout = layout;
@@ -6306,16 +6350,16 @@ const EmbeddedAssets = {
         document.head.appendChild(styleEl);
       }
       const orientation = PrintState.layout || 'portrait';
-      styleEl.textContent = `@page { size: a4 ${orientation}; margin: 0 !important; }`;
+      const paper = (PrintState.paperSize === 'letter') ? 'letter' : 'a4';
+      styleEl.textContent = `@page { size: ${paper} ${orientation}; margin: 0 !important; }`;
     }
-
-
 
     async function triggerDownloadAndPrint(mode = 'game') {
       const isAnswer = (mode === 'answer');
       const btnId = isAnswer ? 'btn-download-answer' : 'btn-download-print';
       const btn = document.getElementById(btnId);
       const originalHtml = btn ? btn.innerHTML : '';
+      const originalTitle = document.title;
 
       try {
         if (btn) {
@@ -6326,9 +6370,12 @@ const EmbeddedAssets = {
               <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
               <path d="M12 2a10 10 0 0 1 10 10"></path>
             </svg>
-            <span>Preparing ${isAnswer ? 'Answer Key...' : 'Clues for Download...'}</span>
+            <span>Preparing ${isAnswer ? 'Answers...' : 'Clues...'}</span>
           `;
         }
+
+        // Set document.title so browser's "Save as PDF" defaults the file name to "Clues" or "Answers"
+        document.title = isAnswer ? 'Answers' : 'Clues';
 
         updatePrintPageStyle();
         preparePrintDocument(isAnswer);
@@ -6368,6 +6415,7 @@ const EmbeddedAssets = {
       } catch (err) {
         console.error('Print preparation error:', err);
       } finally {
+        document.title = originalTitle;
         if (btn) {
           btn.disabled = false;
           btn.style.opacity = '1';
@@ -6746,7 +6794,7 @@ const EmbeddedAssets = {
           const colCenter = slotIdx * masterColW + masterColW / 2;
           let gfx = { x: 0, y: 0, w: 44, scaleX: 1, scaleY: 1, rot: 0, z: 10 };
           if (themeId === 1 && theme1Gfx[slotIdx]) gfx = theme1Gfx[slotIdx];
-          else if (themeId === 2 && theme2Gfx[slotIdx]) gfx = theme2Gfx[slotIdx];
+          else if ((themeId === 2 || themeId === 4) && theme2Gfx[slotIdx]) gfx = theme2Gfx[slotIdx];
           else if (themeId === 3 && theme3Gfx[slotIdx]) gfx = theme3Gfx[slotIdx];
           return `
             <div style="position: absolute; left: ${colCenter}px; top: 30px; transform: translate(calc(-50% + ${gfx.x}px), calc(-50% + ${gfx.y}px)) rotate(${gfx.rot}deg) scale(${gfx.scaleX}, ${gfx.scaleY}); width: ${gfx.w}px; height: auto; z-index: ${gfx.z};">
@@ -6784,9 +6832,9 @@ const EmbeddedAssets = {
         });
 
         let noun = 'bunny';
-        if (themeId === 2) {
+        if (themeId === 2 || themeId === 4) {
           noun = 'egg';
-        } else if (themeId === 3 || themeId === 4) {
+        } else if (themeId === 3) {
           noun = 'item';
         }
 
@@ -6808,7 +6856,7 @@ const EmbeddedAssets = {
             </div>
 
             <!-- Clue 2 Answer Slots -->
-            <div class="clue2-answer-container" style="display: flex; justify-content: center; align-items: center; width: fit-content; max-width: 100%; margin: 8px auto 0; transform: translate(${themeId === 2 ? '3px, -35px' : '5px, -33px'}); position: relative; z-index: 15; flex-shrink: 0;">
+            <div class="clue2-answer-container" style="display: flex; justify-content: center; align-items: center; width: fit-content; max-width: 100%; margin: 8px auto 0; transform: translate(${(themeId === 2 || themeId === 4) ? '3px, -35px' : '5px, -33px'}); position: relative; z-index: 15; flex-shrink: 0;">
               <div style="display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; user-select: none;">
                 ${answerSlotsHtml}
               </div>
@@ -7166,10 +7214,36 @@ When it's time to eat.</div>
           colNumsHtml += `<div class="clue6-col-num-cell">${i}</div>`;
         }
 
-        // 5 Rows of Row Icons (layout space preserved for icons)
+        const isEggTheme = (theme === 2 || theme === 4);
+        const rowIcons = isEggTheme
+          ? [
+              'assets/theme 2/eggs/E1.png',
+              'assets/theme 2/eggs/E16.png',
+              'assets/theme 2/eggs/E2.png',
+              'assets/theme 2/eggs/E7.png',
+              'assets/theme 2/eggs/E19.png'
+            ]
+          : [
+              'assets/graphics/theme1/13.png',
+              'assets/graphics/theme1/14.png',
+              'assets/graphics/theme1/15.png',
+              'assets/graphics/theme1/16.png',
+              'assets/graphics/theme1/17.png'
+            ];
+
+        const rowIconSize = isEggTheme ? 52 : 76;
+        const rowIconsX = isEggTheme ? -9 : 3;
+        const rowIconsY = -3;
+        const rowIconsRot = isEggTheme ? -15 : 0;
+
+        // 5 Rows of Row Icons
         let rowIconsHtml = '';
         for (let r = 0; r < 5; r++) {
-          rowIconsHtml += `<div class="clue6-row-icon-cell"></div>`;
+          rowIconsHtml += `
+            <div class="clue6-row-icon-cell" style="width:${rowIconSize}px; height:50px; display:flex; align-items:center; justify-content:flex-end;">
+              <img src="${rowIcons[r]}" alt="Row ${r + 1}" style="width:${rowIconSize}px; height:${rowIconSize}px; object-fit:contain; flex-shrink:0; display:block; transform:rotate(${rowIconsRot}deg);" />
+            </div>
+          `;
         }
 
         // 5x5 Matrix of Square Word Boxes
@@ -7201,6 +7275,7 @@ When it's time to eat.</div>
         const renderAnswerRow = (slots) => {
           return slots.map(s => {
             const word = (gridWords[s.row - 1] && gridWords[s.row - 1][s.col - 1]) || '';
+            const iconSrc = rowIcons[s.row - 1] || '';
             return `
               <div class="clue6-ans-slot">
                 <div class="clue6-ans-line-wrap">
@@ -7208,7 +7283,9 @@ When it's time to eat.</div>
                   <span class="clue6-ans-line"></span>
                 </div>
                 <div class="clue6-ans-coord-label">
-                  <span class="clue6-coord-icon-box"></span>
+                  <span class="clue6-coord-icon-box">
+                    ${iconSrc ? `<img src="${iconSrc}" alt="Row ${s.row}" style="width:100%; height:100%; object-fit:contain; display:block;" />` : ''}
+                  </span>
                   <span class="clue6-coord-num">${s.col}</span>
                 </div>
               </div>
@@ -7252,7 +7329,7 @@ When it's time to eat.</div>
             <!-- 5x5 Coordinate Word Grid -->
             <div class="clue6-grid-wrap">
               <div class="clue6-grid-inner">
-                <div class="clue6-row-icons-col">
+                <div class="clue6-row-icons-col" style="width:${rowIconSize}px; transform:translate(${rowIconsX}px, ${rowIconsY}px);">
                   ${rowIconsHtml}
                 </div>
                 <div class="clue6-matrix-area">
@@ -7389,7 +7466,7 @@ When it's time to eat.</div>
         let gfxY = -8;
         let gfxRot = 0;
 
-        if (theme === 2) {
+        if (theme === 2 || theme === 4) {
           centerGfxSrc = 'assets/theme 2/eggs/E15.png';
           gfxW = 128;
           gfxX = 0;
@@ -7797,7 +7874,7 @@ When it's time to eat.</div>
 
             <!-- Picture 1 (Singing Bunny) -->
             <div class="clue10-pic1-wrap">
-              <img src="assets/graphics/bunny_singing.png" alt="Singing Bunny" draggable="false">
+              <img src="assets/graphics/theme1/20.png" alt="Singing Bunny" draggable="false">
             </div>
 
             <!-- Word 1 Letters Row (SING) -->
@@ -7826,7 +7903,6 @@ When it's time to eat.</div>
       // --- CLUE 11: WORD SCRAMBLE ---
       renderClue11(spot, isAnswer, themeId, clueNum = 11) {
         const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
-        const font = (theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)";
         const targetWord = this.cleanLetters(spot || 'SHOWER') || 'SHOWER';
         const chars = targetWord.slice(0, 7).split('');
 
@@ -7868,7 +7944,7 @@ When it's time to eat.</div>
 
         const scrambleRowsHtml = chars.map(keyChar => {
           const item = WORD_BANK[keyChar] || { word: keyChar + 'OTHER', jumble: 'REHTO' + keyChar };
-          return `<div class="clue11-scramble-row" style="font-family:${font};">${item.jumble.toUpperCase()}</div>`;
+          return `<div class="clue11-scramble-row">${item.jumble.toUpperCase()}</div>`;
         }).join('');
 
         const solutionRowsHtml = chars.map(keyChar => {
@@ -7877,7 +7953,7 @@ When it's time to eat.</div>
 
           const dashesHtml = remainingChars.map(c => `
             <div class="clue11-char-slot">
-              <span class="clue11-slot-letter ${isAnswer ? 'visible' : ''}" style="font-family:${font};">${isAnswer ? c : ''}</span>
+              <span class="clue11-slot-letter ${isAnswer ? 'visible' : ''}">${isAnswer ? c : ''}</span>
               <div class="clue11-dash-line" style="width: 21px;"></div>
             </div>
           `).join('');
@@ -7885,7 +7961,7 @@ When it's time to eat.</div>
           return `
             <div class="clue11-solution-row">
               <div class="clue11-char-slot first-slot">
-                <span class="clue11-slot-letter ${isAnswer ? 'visible' : ''}" style="font-family:${font};">${isAnswer ? keyChar : ''}</span>
+                <span class="clue11-slot-letter ${isAnswer ? 'visible' : ''}">${isAnswer ? keyChar : ''}</span>
                 <div class="clue11-dash-line" style="width: 21px;"></div>
               </div>
               ${dashesHtml}
@@ -7919,26 +7995,12 @@ When it's time to eat.</div>
               <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme1/3.png" alt="Carrot Bunny" style="width:100%; height:auto; display:block;" />
               </div>
-            ` : (theme === 2) ? `
-              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
-                <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
-              </div>
-              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
-                <img src="assets/graphics/theme1/3.png" alt="Carrot Bunny" style="width:100%; height:auto; display:block;" />
-              </div>
             ` : (theme === 3) ? `
-              <div style="position:absolute !important; left:-3px !important; bottom:-5px !important; width:115px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
+              <div style="position:absolute !important; left:1px !important; bottom:2px !important; width:108px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme3/17.png" alt="Theme 3 Left Graphic" style="width:100%; height:auto; display:block;" />
               </div>
               <div style="position:absolute !important; right:0px !important; bottom:-1px !important; width:128px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme3/20.png" alt="Theme 3 Right Graphic" style="width:100%; height:auto; display:block;" />
-              </div>
-            ` : (theme === 4) ? `
-              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme1/2.png" alt="Theme 4 Graphic" style="width:100%; height:auto; display:block;" />
-              </div>
-              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme1/3.png" alt="Theme 4 Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : ''}
           </div>
@@ -8010,13 +8072,6 @@ When it's time to eat.</div>
               <div style="position:absolute !important; right:-3px !important; bottom:-4px !important; width:130px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme1/25.png" alt="Theme 1 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
-            ` : (theme === 2) ? `
-              <div style="position:absolute !important; left:4px !important; bottom:2px !important; width:140px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
-                <img src="assets/graphics/theme1/26.png" alt="Theme 2 Left Graphic" style="width:100%; height:auto; display:block;" />
-              </div>
-              <div style="position:absolute !important; right:-3px !important; bottom:-4px !important; width:130px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none; filter:grayscale(1) brightness(0.65) contrast(1.1);">
-                <img src="assets/graphics/theme1/25.png" alt="Theme 2 Right Graphic" style="width:100%; height:auto; display:block;" />
-              </div>
             ` : (theme === 3) ? `
               <div style="position:absolute !important; left:-21px !important; bottom:3px !important; width:120px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme3/12.png" alt="Theme 3 Left Graphic" style="width:100%; height:auto; display:block;" />
@@ -8026,13 +8081,6 @@ When it's time to eat.</div>
               </div>
               <div style="position:absolute !important; right:70px !important; bottom:-1px !important; width:63px !important; transform:rotate(9deg) scaleX(1) !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme3/8(1).png" alt="Theme 3 Right Graphic 2" style="width:100%; height:auto; display:block;" />
-              </div>
-            ` : (theme === 4) ? `
-              <div style="position:absolute !important; left:4px !important; bottom:2px !important; width:140px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme1/26.png" alt="Theme 4 Left Graphic" style="width:100%; height:auto; display:block;" />
-              </div>
-              <div style="position:absolute !important; right:-3px !important; bottom:-4px !important; width:130px !important; transform:rotate(0deg) scaleX(1) !important; z-index:20; pointer-events:none;">
-                <img src="assets/graphics/theme1/25.png" alt="Theme 4 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : ''}
           </div>
@@ -8055,7 +8103,7 @@ When it's time to eat.</div>
     function preparePrintDocument(isAnswerMode = false) {
       const root = document.getElementById('print-sheet-root');
       if (!root) return;
-      root.className = `print-root layout-${PrintState.layout} paper-a4`;
+      root.className = `print-root layout-${PrintState.layout} paper-${PrintState.paperSize || 'a4'}`;
 
       const cluesToPrint = getActiveHuntClues();
 
