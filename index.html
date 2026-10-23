@@ -3105,6 +3105,16 @@
       box-shadow: 0 0 0 3px var(--primary-light);
     }
 
+    #step3-location-card {
+      position: relative;
+      z-index: 50;
+    }
+
+    #step3-mode-card {
+      position: relative;
+      z-index: 10;
+    }
+
     .limit-notice-badge {
       display: none;
       position: absolute;
@@ -3119,9 +3129,9 @@
       border-radius: 6px;
       letter-spacing: 0.3px;
       pointer-events: none;
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 6px 16px rgba(220, 38, 38, 0.16), 0 2px 4px rgba(0, 0, 0, 0.08);
       white-space: nowrap;
-      z-index: 25;
+      z-index: 100;
     }
 
     .limit-notice-badge::before {
@@ -3871,7 +3881,7 @@
       left: 50%;
       transform: translateX(-50%);
       font-weight: 800;
-      color: #e11d48;
+      color: #16a34a;
       font-size: 0.95em;
     }
     .clue4-bottom-container {
@@ -3950,7 +3960,7 @@
       font-family: 'Outfit', sans-serif;
       font-weight: 800;
       font-size: 13px;
-      color: #e11d48;
+      color: #16a34a;
       white-space: nowrap;
       pointer-events: none;
     }
@@ -4203,7 +4213,7 @@
       font-weight: 700;
       font-family: 'Outfit', sans-serif;
       font-size: 14px;
-      color: #e11d48;
+      color: #16a34a;
     }
 
     .clue6-ans-line {
@@ -4273,7 +4283,7 @@
       font-family: 'Outfit', sans-serif;
       font-weight: 700;
       font-size: 24px;
-      color: #e11d48;
+      color: #16a34a;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -4391,7 +4401,7 @@
       font-family: var(--font-franklin), 'Franklin Gothic Medium', sans-serif !important;
       font-size: 22px;
       font-weight: 700;
-      color: #1e293b;
+      color: #16a34a;
       height: 28px;
       line-height: 28px;
       display: flex;
@@ -4547,10 +4557,10 @@
     /* --- CLUE 10: PICTURE REBUS (Calibrated from clue10adjuster.html) --- */
     .clue10-pic1-wrap {
       position: absolute;
-      left: 38px;
+      left: -2px;
       top: 190px;
-      width: 160px;
-      height: 218px;
+      width: 251px;
+      height: auto;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -4558,16 +4568,16 @@
     }
     .clue10-pic1-wrap img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: auto;
+      display: block;
       pointer-events: none;
     }
     .clue10-pic2-wrap {
       position: absolute;
-      left: 280px;
-      top: 244px;
-      width: 138px;
-      height: 158px;
+      left: 283px;
+      top: 254px;
+      width: 139px;
+      height: 139px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -4582,73 +4592,93 @@
     }
     .clue10-word1-row {
       position: absolute;
-      left: 50px;
-      top: 432px;
+      left: 71px;
+      top: 428px;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: center;
-      gap: 14px;
+      gap: 4px;
       z-index: 10;
     }
     .clue10-word2-row {
       position: absolute;
       left: 288px;
-      top: 432px;
+      top: 428px;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: center;
-      gap: 14px;
+      gap: 4px;
       z-index: 10;
     }
     .clue10-final-ans-row {
       position: absolute;
       left: 50%;
-      top: 535px;
-      transform: translateX(-50%);
+      top: 506px;
+      transform: translateX(calc(-50% + 1px));
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: center;
-      gap: 18px;
+      gap: 4px;
       z-index: 10;
     }
     .clue10-rebus-slot {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: flex-start;
       position: relative;
+    }
+    .clue10-rebus-char-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      width: 100%;
+      min-height: 29px;
     }
     .clue10-rebus-char {
       font-family: 'Roboto', sans-serif;
-      font-weight: 700;
+      font-weight: 400;
       color: #3d2314;
       line-height: 1;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       text-align: center;
-      margin-bottom: 2px;
-      font-size: 24px;
-      min-height: 24px;
+      font-size: 29px;
+    }
+    .clue10-given-char {
+      transform: translateY(7px);
     }
     .clue10-rebus-char.answer-revealed {
       color: #16a34a !important;
       font-weight: 800;
     }
+    .clue10-rebus-underline-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 2px;
+      margin-top: 0px;
+    }
     .clue10-rebus-underline {
+      width: 37px;
+      height: 2px;
       background: #3d2314;
       border-radius: 1px;
     }
     .clue10-rebus-sub-number {
       font-family: 'Roboto', sans-serif;
-      font-weight: 700;
+      font-weight: 400;
       color: #3d2314;
       text-align: center;
       line-height: 1;
-      margin-top: 4px;
-      font-size: 15px;
+      margin-top: 0px;
+      font-size: 21px;
     }
-    .theme-font-baskerville .clue10-rebus-char,
+    .theme-font-baskerville .clue10-rebus-char {
+      color: #1e293b;
+    }
     .theme-font-baskerville .clue10-rebus-sub-number {
       color: #1e293b;
     }
@@ -4780,8 +4810,8 @@
       user-select: none;
     }
     .clue12-grid-cell.highlight-target {
-      color: #15803d;
-      font-weight: 900;
+      color: #16a34a;
+      font-weight: 700;
     }
     .clue12-grid-cell.highlight-target::before {
       content: '';
@@ -4789,7 +4819,7 @@
       inset: -3px;
       border: 2px solid #16a34a;
       border-radius: 50%;
-      background: rgba(34, 197, 94, 0.15);
+      background: rgba(22, 163, 74, 0.14);
       z-index: -1;
     }
     .clue12-answers-wrap {
@@ -4813,7 +4843,7 @@
     .clue12-ans-char {
       font-family: 'Roboto', sans-serif;
       font-size: 19px;
-      font-weight: 400;
+      font-weight: 700;
       color: #16a34a;
       line-height: 1;
       visibility: hidden;
@@ -5455,10 +5485,9 @@ const EmbeddedAssets = {
       { puzzleId: 9, name: "Bunny Maze", location: "Waterhose", maxLen: 10, placeholder: "e.g. Waterhose" },
       { puzzleId: 10, name: "Picture Rebus", location: "Sink", maxLen: 15, placeholder: "e.g. Sink" },
       { puzzleId: 11, name: "Word Scramble", location: "Shower", maxLen: 7, placeholder: "e.g. Shower" },
-      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 8, placeholder: "e.g. Cupboard" },
-      { puzzleId: 1, name: "Pigpen Cipher", location: "Backyard", maxLen: 10, placeholder: "e.g. Backyard" },
-      { puzzleId: 2, name: "Tangled Paths", location: "Chair", maxLen: 5, placeholder: "e.g. Chair" },
-      { puzzleId: 3, name: "Color Coded", location: "Bookshelf", maxLen: 15, placeholder: "e.g. Bookshelf" },
+      { puzzleId: 12, name: "Hidden Word Grid", location: "Wardrobe", maxLen: 8, placeholder: "e.g. Wardrobe" },
+      { puzzleId: 13, name: "Picture Puzzle", location: "Trash Can", maxLen: 15, placeholder: "e.g. Trash Can" },
+      { puzzleId: 14, name: "Mirrored Text", location: "Mailbox", maxLen: 15, placeholder: "e.g. Mailbox" },
       { puzzleId: 4, name: "Grid Decoder", location: "Bedroom", maxLen: 8, placeholder: "e.g. Bedroom" },
       { puzzleId: 5, name: "Morse Code", location: "Blanket", maxLen: 10, placeholder: "e.g. Blanket" },
       { puzzleId: 6, name: "Grid Coordinates", location: "Clock", maxLen: 5, placeholder: "e.g. Clock" },
@@ -5467,7 +5496,7 @@ const EmbeddedAssets = {
       { puzzleId: 9, name: "Bunny Maze", location: "Flowerpot", maxLen: 10, placeholder: "e.g. Flowerpot" },
       { puzzleId: 10, name: "Picture Rebus", location: "Desk", maxLen: 15, placeholder: "e.g. Desk" },
       { puzzleId: 11, name: "Word Scramble", location: "Mirror", maxLen: 7, placeholder: "e.g. Mirror" },
-      { puzzleId: 12, name: "Hidden Word Grid", location: "Wardrobe", maxLen: 8, placeholder: "e.g. Wardrobe" }
+      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 8, placeholder: "e.g. Cupboard" }
     ];
 
     const DEFAULT_HIDING_SPOTS = DEFAULT_HUNT_CLUES.map(c => c.location);
@@ -5714,12 +5743,15 @@ const EmbeddedAssets = {
       const maxLen = item ? item.maxLen : 15;
       const input = document.getElementById(`spot-input-${index}`);
       const badge = document.getElementById(`spot-limit-${index}`);
+      
       if (value.length > maxLen) {
         value = value.substring(0, maxLen);
         if (input) input.value = value;
       }
+
       if (item) item.location = value;
       syncHidingSpots();
+      
       if (value.length >= maxLen) {
         showLimitNoticeTemporarily(badge, input, maxLen, 1800);
       } else {
@@ -6279,7 +6311,9 @@ const EmbeddedAssets = {
         input.maxLength = maxLen;
         input.value = locText;
       }
-      if (label) label.textContent = `Answer #${clueNum}:`;
+      if (label) {
+        label.textContent = `Answer #${clueNum}:`;
+      }
       hideLimitNotice(document.getElementById('preview-clue-limit-badge'), input);
 
       const charBadge = document.getElementById('preview-clue-char-count');
@@ -6397,14 +6431,17 @@ const EmbeddedAssets = {
       const idx = currentPreviewClue - 1;
       const item = huntClues[idx] || DEFAULT_HUNT_CLUES[idx];
       const maxLen = item ? item.maxLen : 15;
+
       if (val.length > maxLen) {
         val = val.substring(0, maxLen);
         const input = document.getElementById('preview-clue-input');
         if (input) input.value = val;
       }
+
       if (item) item.location = val;
       syncHidingSpots();
       updatePreviewLimitNotice(val, maxLen);
+
       const charBadge = document.getElementById('preview-clue-char-count');
       if (charBadge) {
         charBadge.textContent = `${val.length} / ${maxLen} chars`;
@@ -6823,6 +6860,8 @@ const EmbeddedAssets = {
           case 10: return this.renderClue10(spot, isAnswer, themeId, num);
           case 11: return this.renderClue11(spot, isAnswer, themeId, num);
           case 12: return this.renderClue12(spot, isAnswer, themeId, num);
+          case 13: return this.renderClue13(spot, isAnswer, themeId, num);
+          case 14: return this.renderClue14(spot, isAnswer, themeId, num);
           default:
             return `
               <div class="print-card-inner">
@@ -6853,7 +6892,7 @@ const EmbeddedAssets = {
               }
               return `
                 <div class="cipher-letter-col" style="display:flex; flex-direction:column; align-items:center; width:${symWidth}px !important;">
-                  <div class="cipher-letter-char ${isAnswer ? 'puzzle-ans-highlight' : 'hidden'}" style="font-family:'Franklin Gothic Medium', sans-serif; font-weight:800; font-size:1.15rem; height:22px; line-height:22px; text-align:center; color:${color}; width:${symWidth}px !important;">${isAnswer ? escapeHtml(c) : ''}</div>
+                  <div class="cipher-letter-char ${isAnswer ? 'puzzle-ans-highlight' : 'hidden'}" style="font-family:'Franklin Gothic Medium', sans-serif; font-weight:800; font-size:1.15rem; height:22px; line-height:22px; text-align:center; color:${isAnswer ? '#16a34a' : color}; width:${symWidth}px !important;">${isAnswer ? escapeHtml(c) : ''}</div>
                   <div class="cipher-underline" style="width:${symWidth}px !important; height:${strokeW}px !important; background:${color}; margin:2px 0 4px 0 !important; border-radius:1px;"></div>
                   <div class="cipher-symbol-wrap" style="width:${symWidth}px !important; height:${symHeight}px !important; display:flex; align-items:center; justify-content:center;">
                     ${PigpenCipher.getSymbolSvg(c, symWidth, symHeight, strokeW, color)}
@@ -7070,7 +7109,7 @@ const EmbeddedAssets = {
         const dGap = 7;
         const wGap = dGap * 3;
         const dColor = '#1e293b';
-        const tColor = '#059669';
+        const tColor = '#16a34a';
         const fSize = 18;
 
         const words = word.split(/\s+/);
@@ -7143,7 +7182,7 @@ const EmbeddedAssets = {
             const char = w[i];
             answerSlotsHtml += `
               <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
-                <span style="font-family:'Franklin Gothic Medium', 'Outfit', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#059669' : 'transparent'}; user-select:none;">${isAnswer ? char : ''}</span>
+                <span style="font-family:'Franklin Gothic Medium', 'Outfit', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? char : ''}</span>
                 <div style="width:${dW}px; height:${dH}px; background:${dColor}; border-radius:${Math.max(1, Math.round(dH / 2))}px; margin-top:2px;"></div>
               </div>
             `;
@@ -7731,10 +7770,10 @@ When it's time to eat.</div>
           gfxY = 7;
           gfxRot = 0;
         } else if (theme === 3) {
-          centerGfxSrc = 'assets/graphics/theme3/5.png';
-          gfxW = 299;
+          centerGfxSrc = 'assets/graphics/theme3/14.png';
+          gfxW = 183;
           gfxX = 0;
-          gfxY = 12;
+          gfxY = 8;
           gfxRot = 0;
         }
 
@@ -7990,6 +8029,11 @@ When it's time to eat.</div>
         let rightGfxHtml = '';
 
         if (theme === 1) {
+          leftGfxHtml = `
+            <div class="clue9-corner-graphic" style="width: 127px; left: 0px; bottom: -1px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
+              <img src="assets/graphics/theme1/24.png" alt="Clue 9 Left Graphic" style="width: 100%; height: auto; display: block;">
+            </div>
+          `;
           rightGfxHtml = `
             <div class="clue9-corner-graphic" style="width: 162px; right: -32px; bottom: -12px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
               <img src="assets/graphics/theme1/7.png" alt="Clue 9 Right Graphic" style="width: 100%; height: auto; display: block;">
@@ -7999,6 +8043,11 @@ When it's time to eat.</div>
           leftGfxHtml = `
             <div class="clue9-corner-graphic" style="width: 114px; left: 1px; bottom: -1px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
               <img src="assets/graphics/theme3/16.png" alt="Clue 9 Left Graphic" style="width: 100%; height: auto; display: block;">
+            </div>
+          `;
+          rightGfxHtml = `
+            <div class="clue9-corner-graphic" style="width: 83px; right: -1px; bottom: 6px; transform: rotate(0deg) scaleX(1); transform-origin: center center;">
+              <img src="assets/graphics/theme3/27.png" alt="Clue 9 Right Graphic" style="width: 100%; height: auto; display: block;">
             </div>
           `;
         }
@@ -8077,15 +8126,15 @@ When it's time to eat.</div>
           const letterVal = isBlank ? (targetChars[idx] || ch) : ch;
           return `
             <div class="clue10-rebus-slot">
-              <div class="clue10-rebus-char ${isBlank && isAnswer ? 'answer-revealed' : ''}" style="color:${(isBlank && isAnswer) ? '#16a34a' : textColor};">
-                ${isBlank ? (isAnswer ? letterVal : '') : ch}
+              <div class="clue10-rebus-char-wrap">
+                <div class="clue10-rebus-char ${isBlank && isAnswer ? 'answer-revealed' : ''} ${!isBlank ? 'clue10-given-char' : ''}" style="color:${(isBlank && isAnswer) ? '#16a34a' : textColor};">
+                  ${isBlank ? (isAnswer ? letterVal : '') : ch}
+                </div>
               </div>
-              ${isBlank 
-                ? `<div class="clue10-rebus-underline" style="width:24px; height:2px; background:${textColor};"></div>
-                   <div class="clue10-rebus-sub-number" style="color:${textColor};">${subNum}</div>`
-                : `<div style="height:2px; width:24px;"></div>
-                   <div style="height:15px; margin-top:4px;"></div>`
-              }
+              <div class="clue10-rebus-underline-wrap">
+                ${isBlank ? `<div class="clue10-rebus-underline"></div>` : ``}
+              </div>
+              ${isBlank ? `<div class="clue10-rebus-sub-number" style="color:${textColor};">${subNum}</div>` : ``}
             </div>
           `;
         }).join('');
@@ -8097,15 +8146,15 @@ When it's time to eat.</div>
           const letterVal = isBlank ? (targetChars[idx] || ch) : ch;
           return `
             <div class="clue10-rebus-slot">
-              <div class="clue10-rebus-char ${isBlank && isAnswer ? 'answer-revealed' : ''}" style="color:${(isBlank && isAnswer) ? '#16a34a' : textColor};">
-                ${isBlank ? (isAnswer ? letterVal : '') : ch}
+              <div class="clue10-rebus-char-wrap">
+                <div class="clue10-rebus-char ${isBlank && isAnswer ? 'answer-revealed' : ''} ${!isBlank ? 'clue10-given-char' : ''}" style="color:${(isBlank && isAnswer) ? '#16a34a' : textColor};">
+                  ${isBlank ? (isAnswer ? letterVal : '') : ch}
+                </div>
               </div>
-              ${isBlank 
-                ? `<div class="clue10-rebus-underline" style="width:24px; height:2px; background:${textColor};"></div>
-                   <div class="clue10-rebus-sub-number" style="color:${textColor};">${subNum}</div>`
-                : `<div style="height:2px; width:24px;"></div>
-                   <div style="height:15px; margin-top:4px;"></div>`
-              }
+              <div class="clue10-rebus-underline-wrap">
+                ${isBlank ? `<div class="clue10-rebus-underline"></div>` : ``}
+              </div>
+              ${isBlank ? `<div class="clue10-rebus-sub-number" style="color:${textColor};">${subNum}</div>` : ``}
             </div>
           `;
         }).join('');
@@ -8114,10 +8163,14 @@ When it's time to eat.</div>
         const finalAnsHtml = targetChars.map((ch, idx) => {
           return `
             <div class="clue10-rebus-slot">
-              <div class="clue10-rebus-char ${isAnswer ? 'answer-revealed' : ''}" style="font-size:24px; min-height:24px; color:${isAnswer ? '#16a34a' : textColor}; font-weight:800;">
-                ${isAnswer ? ch : ''}
+              <div class="clue10-rebus-char-wrap">
+                <div class="clue10-rebus-char ${isAnswer ? 'answer-revealed' : ''}" style="color:${isAnswer ? '#16a34a' : textColor}; font-weight:800;">
+                  ${isAnswer ? ch : ''}
+                </div>
               </div>
-              <div class="clue10-rebus-underline" style="width:28px; height:2px; background:${textColor};"></div>
+              <div class="clue10-rebus-underline-wrap">
+                <div class="clue10-rebus-underline"></div>
+              </div>
               <div class="clue10-rebus-sub-number" style="color:${textColor};">${idx + 1}</div>
             </div>
           `;
@@ -8247,10 +8300,10 @@ When it's time to eat.</div>
 
             <!-- Theme Corner Graphics -->
             ${(theme === 1) ? `
-              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; z-index:20; pointer-events:none;">
+              <div style="position:absolute !important; left:-25px !important; bottom:-2px !important; width:157px !important; transform-origin:center bottom !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme1/2.png" alt="Painter Bunny" style="width:100%; height:auto; display:block;" />
               </div>
-              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; z-index:20; pointer-events:none;">
+              <div style="position:absolute !important; right:-34px !important; bottom:-1px !important; width:150px !important; transform:rotate(-21deg) scaleX(-1) !important; transform-origin:center bottom !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme1/3.png" alt="Carrot Bunny" style="width:100%; height:auto; display:block;" />
               </div>
             ` : (theme === 3) ? `
@@ -8301,7 +8354,7 @@ When it's time to eat.</div>
 
         const answerDashesHtml = chars.map(c => `
           <div class="clue12-ans-char-slot">
-            <span class="clue12-ans-char ${isAnswer ? 'visible' : ''}" style="font-family:'Roboto', sans-serif; font-weight:400;">${isAnswer ? c : ''}</span>
+            <span class="clue12-ans-char ${isAnswer ? 'visible' : ''}" style="font-family:'Roboto', sans-serif; font-weight:700;">${isAnswer ? c : ''}</span>
             <div class="clue12-ans-line"></div>
           </div>
         `).join('');
@@ -8341,6 +8394,106 @@ When it's time to eat.</div>
                 <img src="assets/graphics/theme3/8(1).png" alt="Theme 3 Right Graphic 2" style="width:100%; height:auto; display:block;" />
               </div>
             ` : ''}
+          </div>
+        `;
+      },
+
+      // --- CLUE 13: PICTURE PUZZLE (TRASH CAN) ---
+      renderClue13(spot, isAnswer, themeId, clueNum = 13) {
+        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
+        const w1Chars = ['T', 'R', 'A', 'S', 'H'];
+        const w2Chars = ['C', 'A', 'N'];
+        const dW = 35;
+        const dH = 2;
+        const gap = 6;
+        const fSize = 24;
+
+        const w1Html = w1Chars.map(ch => `
+          <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
+            <span style="font-family:'Franklin Gothic Medium', 'Roboto', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? ch : ''}</span>
+            <div style="width:${dW}px; height:${dH}px; background:#1e293b; border-radius:1px; margin-top:2px;"></div>
+          </div>
+        `).join('');
+
+        const w2Html = w2Chars.map(ch => `
+          <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
+            <span style="font-family:'Franklin Gothic Medium', 'Roboto', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? ch : ''}</span>
+            <div style="width:${dW}px; height:${dH}px; background:#1e293b; border-radius:1px; margin-top:2px;"></div>
+          </div>
+        `).join('');
+
+        return `
+          <div class="clue-card-content" style="justify-content: flex-start;">
+            ${this.renderClueHeader(clueNum || 13, `You're moving too fast<br>solve this picture puzzle<br>and have a blast!`, theme)}
+
+            <!-- Picture 1 (Trash Bag: 19.png) -->
+            <div style="position:absolute; left:29px; top:183px; width:231px; z-index:10; pointer-events:none;">
+              <img src="assets/graphics/theme3/19.png" alt="Trash Bag" style="width:100%; height:auto; display:block;" />
+            </div>
+
+            <!-- Picture 2 (Soda Can: 18.png) -->
+            <div style="position:absolute; left:269px; top:236px; width:185px; z-index:10; pointer-events:none;">
+              <img src="assets/graphics/theme3/18.png" alt="Soda Can" style="width:100%; height:auto; display:block;" />
+            </div>
+
+            <!-- Word 1 Dashes (5 dashes: TRASH) -->
+            <div style="position:absolute; left:55px; top:468px; display:flex; align-items:flex-end; gap:${gap}px; z-index:12;">
+              ${w1Html}
+            </div>
+
+            <!-- Word 2 Dashes (3 dashes: CAN) -->
+            <div style="position:absolute; left:307px; top:468px; display:flex; align-items:flex-end; gap:${gap}px; z-index:12;">
+              ${w2Html}
+            </div>
+          </div>
+        `;
+      },
+
+      // --- CLUE 14: MIRRORED TEXT (MAILBOX) ---
+      renderClue14(spot, isAnswer, themeId, clueNum = 14) {
+        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
+        const answerWord = (spot || 'MAILBOX').trim().toUpperCase().replace(/\s+/g, '');
+        const words = [answerWord];
+        const dW = 21;
+        const dH = 2;
+        const dGap = 3;
+        const wGap = 11;
+        const dColor = '#1e293b';
+        const fSize = 18;
+
+        let answerSlotsHtml = '';
+        words.forEach((w, wIdx) => {
+          answerSlotsHtml += `<div style="display:inline-flex; align-items:flex-end; gap:${dGap}px; ${wIdx < words.length - 1 ? `margin-right:${wGap}px;` : ''}">`;
+          for (let i = 0; i < w.length; i++) {
+            const char = w[i];
+            answerSlotsHtml += `
+              <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
+                <span style="font-family:'Franklin Gothic Medium', 'Roboto', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? char : ''}</span>
+                <div style="width:${dW}px; height:${dH}px; background:${dColor}; border-radius:${Math.max(1, Math.round(dH / 2))}px; margin-top:2px;"></div>
+              </div>
+            `;
+          }
+          answerSlotsHtml += '</div>';
+        });
+
+        return `
+          <div class="clue-card-content" style="justify-content: flex-start;">
+            ${this.renderClueHeader(clueNum || 14, `Here's your next clue for you<br>to inspect. You may take a<br>moment to sit and reflect.`, theme)}
+            ${this.getClue3Graphics(theme)}
+
+            <!-- Clue 14 Mirrored Text -->
+            <div class="clue14-mirrored-text-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; margin:10px auto; transform: translate(0px, -146px); position:relative; z-index:10; flex-shrink:0;">
+              <div style="display:inline-block; text-align:center; transform:scaleX(-1); white-space:pre-line; user-select:none; font-family:'Roboto', sans-serif; font-size:24px; line-height:1.6; letter-spacing:0px; word-spacing:0px; font-weight:400; color:#1e293b;">You can do it, you'll not fail
+If you look where we
+ usually find mail</div>
+            </div>
+
+            <!-- Clue 14 Answer Slots -->
+            <div class="clue14-answer-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; margin:14px auto; transform: translate(0px, -168px); position:relative; z-index:10; flex-shrink:0;">
+              <div style="display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; user-select:none;">
+                ${answerSlotsHtml}
+              </div>
+            </div>
           </div>
         `;
       }
@@ -8445,24 +8598,41 @@ When it's time to eat.</div>
       9: 19,
       10: 0,
       11: 12,
-      12: 2
+      12: 2,
+      13: 0, // Clue 13 has same border as Clue 10 (no border)
+      14: 0  // Clue 14 has same border as Clue 3 (no border)
     };
 
     function getThemeCardBorderHtml(index) {
       const theme = AppState.selectedTheme;
+      let effectiveIndex = index;
+      const puzzleId = (typeof huntClues !== 'undefined' && huntClues[index]) ? huntClues[index].puzzleId : (index + 1);
+
+      // Clue 13 has the exact same border as Clue 10 for each theme
+      // Clue 14 has the exact same border as Clue 3 for each theme
+      if (puzzleId === 13) {
+        const c10Idx = (typeof huntClues !== 'undefined') ? huntClues.findIndex(c => c.puzzleId === 10) : 9;
+        effectiveIndex = c10Idx !== -1 ? c10Idx : 9;
+      } else if (puzzleId === 14) {
+        const c3Idx = (typeof huntClues !== 'undefined') ? huntClues.findIndex(c => c.puzzleId === 3) : 2;
+        effectiveIndex = c3Idx !== -1 ? c3Idx : 2;
+      }
+
       if (theme === 1) {
-        const borderIdx = (index % 3) + 1;
+        const borderIdx = (effectiveIndex % 3) + 1;
         const src = EmbeddedAssets.theme1Borders[borderIdx];
         return `<img class="print-border-img" src="${src}" alt="Border">`;
       } else if (theme === 3) {
         return `<img class="print-border-img" src="${EmbeddedAssets.theme3Border}" alt="Border">`;
       } else if (theme === 4) {
-        const borderIdx = (index % 12) + 1;
+        const borderIdx = (effectiveIndex % 12) + 1;
         const src = EmbeddedAssets.theme4Borders[borderIdx];
         return `<img class="print-border-img" src="${src}" alt="Border">`;
       } else if (theme === 2) {
-        const puzzleId = (typeof huntClues !== 'undefined' && huntClues[index]) ? huntClues[index].puzzleId : (index + 1);
-        const eggIdx = (puzzleId in theme2ClueEggs) ? theme2ClueEggs[puzzleId] : ((index % 20) + 1);
+        let effPuzzleId = puzzleId;
+        if (effPuzzleId === 13) effPuzzleId = 10;
+        if (effPuzzleId === 14) effPuzzleId = 3;
+        const eggIdx = (effPuzzleId in theme2ClueEggs) ? theme2ClueEggs[effPuzzleId] : ((effectiveIndex % 20) + 1);
         if (!eggIdx || eggIdx === "none" || eggIdx === 0) {
           return "";
         }
