@@ -5566,7 +5566,11 @@ const EmbeddedAssets = {
       { puzzleId: 4, name: "Grid Decoder", maxLen: 8 },
       { puzzleId: 12, name: "Hidden Word Grid", maxLen: 8 },
       { puzzleId: 11, name: "Word Scramble", maxLen: 7 },
-      { puzzleId: 2, name: "Tangled Paths", maxLen: 5 }
+      { puzzleId: 2, name: "Tangled Paths", maxLen: 5 },
+      // Duplicate dynamic templates to ensure all 12 slots can be 100% custom locations (12, 10, 8)
+      { puzzleId: 1, name: "Pigpen Cipher", maxLen: 12, isDuplicate: true },
+      { puzzleId: 9, name: "Egg Maze", maxLen: 10, isDuplicate: true },
+      { puzzleId: 4, name: "Grid Decoder", maxLen: 8, isDuplicate: true }
     ];
 
     // Master Catalog of Static Clues (artwork and riddles are fixed to these locations)
@@ -5651,60 +5655,44 @@ const EmbeddedAssets = {
       const staticMatch = MASTER_STATIC_PUZZLES.find(sp => sp.location === currentLoc);
       if (staticMatch) return staticMatch.maxLen;
 
-      // Master dynamic pool clone
-      const availableDynamic = MASTER_DYNAMIC_PUZZLES.map(p => ({ ...p }));
-      
-      // Simulate Best-Fit claims for all OTHER active non-empty slots
+      // Extract letter counts of all other non-static active clues
       const activeClues = huntClues.filter(c => !c.disabled);
-      const otherSlots = [];
+      const otherWords = [];
       activeClues.forEach(c => {
         const origIdx = huntClues.indexOf(c);
         if (origIdx === slotIndex) return;
         const loc = (c.location || '').trim();
         if (!loc) return;
-        // If other slot is static, it doesn't consume dynamic pool
-        const isOtherStatic = MASTER_STATIC_PUZZLES.some(sp => sp.location === loc.toUpperCase());
-        if (isOtherStatic) return;
-        const letterLen = getLetterCount(loc);
-        if (letterLen > 0) {
-          otherSlots.push({ idx: origIdx, len: letterLen });
-        }
+        if (MASTER_STATIC_PUZZLES.some(sp => sp.location === loc.toUpperCase())) return;
+        const ll = getLetterCount(loc);
+        if (ll > 0) otherWords.push(ll);
       });
 
-      // Sort other slots descending by letter count (longest claims first)
-      otherSlots.sort((a, b) => b.len - a.len);
+      function isFeasible(wordsLens, poolLens) {
+        const wSorted = [...wordsLens].sort((a, b) => b - a);
+        const pSorted = [...poolLens].sort((a, b) => b - a);
+        if (wSorted.length > pSorted.length) return false;
+        for (let i = 0; i < wSorted.length; i++) {
+          if (pSorted[i] < wSorted[i]) return false;
+        }
+        return true;
+      }
 
-      otherSlots.forEach(slot => {
-        if (availableDynamic.length === 0) return;
-        let chosenIdx = -1;
-        let bestFitLen = 999;
-        for (let i = 0; i < availableDynamic.length; i++) {
-          if (availableDynamic[i].maxLen >= slot.len && availableDynamic[i].maxLen < bestFitLen) {
-            bestFitLen = availableDynamic[i].maxLen;
-            chosenIdx = i;
-          }
+      // Candidate capacities sorted descending: 15, 14, 12, 10, 8, 7, 5
+      const sortedPool = [...MASTER_DYNAMIC_PUZZLES].sort((a, b) => b.maxLen - a.maxLen);
+      for (let i = 0; i < sortedPool.length; i++) {
+        const cand = sortedPool[i];
+        const poolAfter = MASTER_DYNAMIC_PUZZLES.map(p => p.maxLen);
+        const removeIdx = poolAfter.indexOf(cand.maxLen);
+        if (removeIdx !== -1) poolAfter.splice(removeIdx, 1);
+        if (isFeasible(otherWords, poolAfter)) {
+          return cand.maxLen;
         }
-        if (chosenIdx === -1) {
-          let largestLen = -1;
-          for (let i = 0; i < availableDynamic.length; i++) {
-            if (availableDynamic[i].maxLen > largestLen) {
-              largestLen = availableDynamic[i].maxLen;
-              chosenIdx = i;
-            }
-          }
-        }
-        if (chosenIdx !== -1) {
-          availableDynamic.splice(chosenIdx, 1);
-        }
-      });
-
-      if (availableDynamic.length > 0) {
-        return Math.max(...availableDynamic.map(p => p.maxLen));
       }
       return 15;
     }
 
-    // Dynamic Best-Fit Puzzle Mapping Engine
+    // Dynamic Best-Fit Puzzle Mapping Engine ("Sticky When Fits, Smart Upgrade When Exceeds")
     function recalculateDynamicClueMapping() {
       const activeClues = huntClues.filter(c => !c.disabled);
       if (!activeClues.length) return;
@@ -5725,73 +5713,101 @@ const EmbeddedAssets = {
         return;
       }
 
-      const availableDynamic = MASTER_DYNAMIC_PUZZLES.map(p => ({ ...p }));
-      const availableStatic = MASTER_STATIC_PUZZLES.map(p => ({ ...p }));
+      const availDynamic = MASTER_DYNAMIC_PUZZLES.map(p => ({ ...p }));
+      const availStatic = MASTER_STATIC_PUZZLES.map(p => ({ ...p }));
       const assigned = new Map(); // clue -> puzzle
 
       // Phase 1: Exact static location matches ("Dining Table", "Door", "Sink")
       activeClues.forEach(c => {
         const cleanLoc = (c.location || '').trim().toUpperCase();
         if (!cleanLoc) return;
-        const sIdx = availableStatic.findIndex(sp => sp.location === cleanLoc);
+        const sIdx = availStatic.findIndex(sp => sp.location === cleanLoc);
         if (sIdx !== -1) {
-          assigned.set(c, availableStatic[sIdx]);
-          availableStatic.splice(sIdx, 1);
+          assigned.set(c, availStatic[sIdx]);
+          availStatic.splice(sIdx, 1);
         }
       });
 
-      // Phase 2: Dynamic Best-Fit for custom words (longest words first)
-      const unassignedWithWords = activeClues
-        .filter(c => !assigned.has(c) && getLetterCount(c.location) > 0)
-        .map(c => ({ clue: c, len: getLetterCount(c.location) }));
+      function isFeasible(wordsLens, pool) {
+        const wSorted = [...wordsLens].sort((a, b) => b - a);
+        const pSorted = pool.map(p => p.maxLen).sort((a, b) => b - a);
+        if (wSorted.length > pSorted.length) return false;
+        for (let i = 0; i < wSorted.length; i++) {
+          if (pSorted[i] < wSorted[i]) return false;
+        }
+        return true;
+      }
 
-      unassignedWithWords.sort((a, b) => b.len - a.len);
+      // Phase 2: Words with lengths, sorted descending by length
+      const wordsInfo = [];
+      activeClues.forEach(c => {
+        if (assigned.has(c)) return;
+        const wlen = getLetterCount(c.location);
+        if (wlen > 0) {
+          wordsInfo.push({ clue: c, len: wlen, curPid: c.puzzleId });
+        }
+      });
+      wordsInfo.sort((a, b) => b.len - a.len);
 
-      unassignedWithWords.forEach(item => {
-        if (availableDynamic.length === 0) return;
-        // Best fit: smallest capacity >= word length
+      // Phase 2A: Sticky assignment with feasibility check
+      wordsInfo.forEach(item => {
+        const curPid = item.curPid;
+        const wlen = item.len;
+        const pCandIdx = availDynamic.findIndex(p => p.puzzleId === curPid && p.maxLen >= wlen);
+        if (pCandIdx !== -1) {
+          const pCand = availDynamic[pCandIdx];
+          const poolAfter = [...availDynamic];
+          poolAfter.splice(pCandIdx, 1);
+          const remWords = wordsInfo
+            .filter(w => w.clue !== item.clue && !assigned.has(w.clue))
+            .map(w => w.len);
+          if (isFeasible(remWords, poolAfter)) {
+            assigned.set(item.clue, pCand);
+            availDynamic.splice(pCandIdx, 1);
+          }
+        }
+      });
+
+      // Phase 2B: Best-fit for words that outgrew or couldn't stick
+      const unassignedWords = wordsInfo.filter(w => !assigned.has(w.clue));
+      unassignedWords.forEach(item => {
+        if (!availDynamic.length) return;
+        const wlen = item.len;
+        // Best fit: smallest maxLen >= wlen
         let chosenIdx = -1;
         let bestFitLen = 999;
-        for (let i = 0; i < availableDynamic.length; i++) {
-          if (availableDynamic[i].maxLen >= item.len && availableDynamic[i].maxLen < bestFitLen) {
-            bestFitLen = availableDynamic[i].maxLen;
+        for (let i = 0; i < availDynamic.length; i++) {
+          if (availDynamic[i].maxLen >= wlen && availDynamic[i].maxLen < bestFitLen) {
+            bestFitLen = availDynamic[i].maxLen;
             chosenIdx = i;
           }
         }
-        // If word exceeds all remaining capacities, assign largest remaining
+        // If word exceeds all available capacities, take largest available
         if (chosenIdx === -1) {
           let largestLen = -1;
-          for (let i = 0; i < availableDynamic.length; i++) {
-            if (availableDynamic[i].maxLen > largestLen) {
-              largestLen = availableDynamic[i].maxLen;
+          for (let i = 0; i < availDynamic.length; i++) {
+            if (availDynamic[i].maxLen > largestLen) {
+              largestLen = availDynamic[i].maxLen;
               chosenIdx = i;
             }
           }
         }
         if (chosenIdx !== -1) {
-          assigned.set(item.clue, availableDynamic[chosenIdx]);
-          availableDynamic.splice(chosenIdx, 1);
+          assigned.set(item.clue, availDynamic[chosenIdx]);
+          availDynamic.splice(chosenIdx, 1);
         }
       });
 
-      // Phase 3: Empty slots (assign remaining dynamic puzzles, then remaining static puzzles)
+      // Phase 3: Empty slots (retain default puzzle if available in pool, otherwise assign next available dynamic)
       const emptyClues = activeClues.filter(c => !assigned.has(c));
       emptyClues.forEach(c => {
-        if (availableDynamic.length > 0) {
-          const p = availableDynamic.shift();
-          assigned.set(c, p);
-        } else if (availableStatic.length > 0) {
-          const sp = availableStatic.shift();
-          assigned.set(c, sp);
-        } else {
-          // Extra active clues beyond 12: duplicate dynamic or generic
-          const idx = huntClues.indexOf(c);
-          const clueNum = idx + 1;
-          if (clueNum <= 12) {
-            assigned.set(c, { puzzleId: 8, name: "Missing Letters", maxLen: 15 });
-          } else {
-            assigned.set(c, { puzzleId: clueNum, name: `Clue ${clueNum}`, maxLen: 15 });
-          }
+        const defPid = c.puzzleId;
+        const pIdx = availDynamic.findIndex(p => p.puzzleId === defPid);
+        if (pIdx !== -1) {
+          assigned.set(c, availDynamic[pIdx]);
+          availDynamic.splice(pIdx, 1);
+        } else if (availDynamic.length > 0) {
+          assigned.set(c, availDynamic.shift());
         }
       });
 
@@ -5962,8 +5978,12 @@ const EmbeddedAssets = {
           badgeEl.classList.add('limit-shake');
           setTimeout(() => badgeEl.classList.remove('limit-shake'), 280);
         }
-        if (!isStep2 && maxCap < 15) {
-          showMappingToast(`All longer clue slots are in use. Maximum length available is ${maxCap} letters.`);
+        if (!isStep2) {
+          if (maxCap < 15) {
+            showMappingToast(`All longer clue slots are in use. Maximum length available is ${maxCap} letters.`);
+          } else {
+            showMappingToast("Maximum clue length is 15 letters.");
+          }
         }
       }
     }
@@ -6137,8 +6157,12 @@ const EmbeddedAssets = {
       updateSpotsListDOMInPlace(index);
       syncHidingSpots();
       
-      if (wasTruncated && maxCap < 15) {
-        showMappingToast(`All longer clue slots are in use. Maximum length available is ${maxCap} letters.`);
+      if (wasTruncated) {
+        if (maxCap < 15) {
+          showMappingToast(`All longer clue slots are in use. Maximum length available is ${maxCap} letters.`);
+        } else {
+          showMappingToast("Maximum clue length is 15 letters.");
+        }
       }
 
       if (typeof renderCurrentCluePreview === 'function') {
