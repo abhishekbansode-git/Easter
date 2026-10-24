@@ -951,11 +951,22 @@
       margin-right: 2px;
     }
 
-    .step1-reset-btn {
+    .step1-reset-btn,
+    .step1-clear-btn {
       padding: 3px 10px;
       font-size: 0.76rem;
       line-height: 1.25;
       border-radius: 8px;
+    }
+
+    .step1-clear-btn {
+      color: #b91c1c;
+      border-color: #fee2e2;
+    }
+    .step1-clear-btn:hover {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: #991b1b;
     }
 
     .step1-top-next-btn {
@@ -1109,37 +1120,55 @@
       white-space: nowrap;
     }
 
-    .spot-puzzle-info {
+    /* Dynamic Mapping Toast Notification */
+    .mapping-toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-24px) scale(0.96);
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 18px;
+      border-radius: 999px;
       display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .spot-puzzle-name {
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      z-index: 999999;
       font-family: var(--font-title);
       font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: 0.2px;
-      line-height: 1.2;
-    }
-
-    .spot-puzzle-limit {
-      font-size: 0.72rem;
       font-weight: 600;
-      color: #64748b;
-      line-height: 1.2;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    .spot-limit-tag {
+    .mapping-toast.visible {
+      transform: translateX(-50%) translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mapping-toast-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .mapping-toast-close {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #cbd5e1;
+      width: 22px;
+      height: 22px;
       display: inline-flex;
       align-items: center;
-      background: #f1f5f9;
-      color: #475569;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 600;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: all 0.15s ease;
+      margin-left: 4px;
+    }
+    .mapping-toast-close:hover {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
     }
 
     .spot-input-wrap {
@@ -1342,7 +1371,8 @@
         width: 100%;
         gap: 8px;
       }
-      .step1-reset-btn {
+      .step1-reset-btn,
+      .step1-clear-btn {
         padding: 5px 10px;
         font-size: 0.78rem;
         white-space: nowrap;
@@ -1364,6 +1394,7 @@
         min-width: 0;
         display: flex;
         align-items: center;
+        gap: 8px;
       }
       .spot-badge {
         font-size: 0.78rem;
@@ -2545,6 +2576,16 @@
       border-color: var(--primary-color);
       background: white;
       box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+    }
+
+    .deck-text-input:disabled,
+    .deck-text-input.is-static-locked {
+      opacity: 0.58;
+      background: #f1f5f9 !important;
+      color: #64748b !important;
+      border: 1.5px dashed #cbd5e1 !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
     }
 
     .deck-hint-text {
@@ -3877,12 +3918,14 @@
     }
     .clue4-eq-answer {
       position: absolute;
-      top: -16px;
+      top: -23px;
       left: 50%;
       transform: translateX(-50%);
       font-weight: 800;
       color: #16a34a;
-      font-size: 0.95em;
+      font-size: 1.25rem;
+      font-family: 'Outfit', sans-serif;
+      line-height: 1;
     }
     .clue4-bottom-container {
       position: absolute;
@@ -3954,15 +3997,16 @@
 
     .clue5-enc-answer {
       position: absolute;
-      top: -18px;
+      top: -24px;
       left: 50%;
       transform: translateX(-50%);
       font-family: 'Outfit', sans-serif;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 1.25rem;
       color: #16a34a;
       white-space: nowrap;
       pointer-events: none;
+      line-height: 1;
     }
 
     /* Key Table */
@@ -4924,9 +4968,14 @@
         <div class="step1-header-left">
           <div class="step1-title-row">
             <h2><span class="panel-step-label">Step 1:</span> Select Hiding Spots</h2>
-            <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
-              🔄 Reset to Default
-            </button>
+            <div class="step1-header-actions" style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" class="btn-text-action step1-clear-btn" onclick="clearAllSpots()" title="Clear all locations to start blank">
+                🗑️ Clear All
+              </button>
+              <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
+                🔄 Reset to Default
+              </button>
+            </div>
           </div>
           <p class="panel-subtitle" style="margin: 2px 0 0; text-align: left;">Edit, reorder or remove a clue</p>
         </div>
@@ -4941,6 +4990,13 @@
 
       <!-- Dynamic list of spots (3-Column Single Screen Layout) -->
       <div class="spots-list" id="spots-list"></div>
+
+      <!-- Toast Notification for Dynamic Puzzle Capacity -->
+      <div id="mapping-toast" class="mapping-toast" style="display:none;" role="alert">
+        <span class="mapping-toast-icon">💡</span>
+        <span id="mapping-toast-text" class="mapping-toast-text"></span>
+        <button type="button" class="mapping-toast-close" onclick="hideMappingToast()" aria-label="Close notification">✕</button>
+      </div>
     </main>
     <!-- STEP 2: CHOOSE A DESIGN -->
     <main class="step-panel" id="panel-step-2" style="display:none;">
@@ -5474,39 +5530,301 @@ const EmbeddedAssets = {
 
     // ===== STEP 1: HIDING SPOTS & CLUES LOGIC =====
     const DEFAULT_HUNT_CLUES = [
-      { puzzleId: 1, name: "Pigpen Cipher", location: "Television", maxLen: 10, placeholder: "e.g. Television" },
+      { puzzleId: 1, name: "Pigpen Cipher", location: "Television", maxLen: 12, placeholder: "e.g. Television" },
       { puzzleId: 2, name: "Tangled Paths", location: "Couch", maxLen: 5, placeholder: "e.g. Couch" },
-      { puzzleId: 3, name: "Color Coded", location: "Dining Table", maxLen: 15, placeholder: "e.g. Dining Table" },
+      { puzzleId: 3, name: "Color Coded", location: "Dining Table", maxLen: 11, placeholder: "e.g. Dining Table" },
       { puzzleId: 4, name: "Grid Decoder", location: "Kitchen", maxLen: 8, placeholder: "e.g. Kitchen" },
-      { puzzleId: 5, name: "Morse Code", location: "Pillow", maxLen: 10, placeholder: "e.g. Pillow" },
-      { puzzleId: 6, name: "Grid Coordinates", location: "Door", maxLen: 5, placeholder: "e.g. Door" },
-      { puzzleId: 7, name: "Wheel Decoder", location: "Fridge", maxLen: 10, placeholder: "e.g. Fridge" },
+      { puzzleId: 5, name: "Morse Code", location: "Pillow", maxLen: 12, placeholder: "e.g. Pillow" },
+      { puzzleId: 6, name: "Grid Coordinates", location: "Door", maxLen: 4, placeholder: "e.g. Door" },
+      { puzzleId: 7, name: "Wheel Decoder", location: "Fridge", maxLen: 14, placeholder: "e.g. Fridge" },
       { puzzleId: 8, name: "Missing Letters", location: "Oven", maxLen: 15, placeholder: "e.g. Oven" },
-      { puzzleId: 9, name: "Bunny Maze", location: "Waterhose", maxLen: 10, placeholder: "e.g. Waterhose" },
-      { puzzleId: 10, name: "Picture Rebus", location: "Sink", maxLen: 15, placeholder: "e.g. Sink" },
+      { puzzleId: 9, name: "Egg Maze", location: "Library", maxLen: 10, placeholder: "e.g. Library" },
+      { puzzleId: 10, name: "Picture Rebus", location: "Sink", maxLen: 4, placeholder: "e.g. Sink" },
       { puzzleId: 11, name: "Word Scramble", location: "Shower", maxLen: 7, placeholder: "e.g. Shower" },
       { puzzleId: 12, name: "Hidden Word Grid", location: "Wardrobe", maxLen: 8, placeholder: "e.g. Wardrobe" },
-      { puzzleId: 13, name: "Picture Puzzle", location: "Trash Can", maxLen: 15, placeholder: "e.g. Trash Can" },
-      { puzzleId: 14, name: "Mirrored Text", location: "Mailbox", maxLen: 15, placeholder: "e.g. Mailbox" },
-      { puzzleId: 4, name: "Grid Decoder", location: "Bedroom", maxLen: 8, placeholder: "e.g. Bedroom" },
-      { puzzleId: 5, name: "Morse Code", location: "Blanket", maxLen: 10, placeholder: "e.g. Blanket" },
-      { puzzleId: 6, name: "Grid Coordinates", location: "Clock", maxLen: 5, placeholder: "e.g. Clock" },
-      { puzzleId: 7, name: "Wheel Decoder", location: "Toaster", maxLen: 10, placeholder: "e.g. Toaster" },
-      { puzzleId: 8, name: "Missing Letters", location: "Freezer", maxLen: 15, placeholder: "e.g. Freezer" },
-      { puzzleId: 9, name: "Bunny Maze", location: "Flowerpot", maxLen: 10, placeholder: "e.g. Flowerpot" },
-      { puzzleId: 10, name: "Picture Rebus", location: "Desk", maxLen: 15, placeholder: "e.g. Desk" },
-      { puzzleId: 11, name: "Word Scramble", location: "Mirror", maxLen: 7, placeholder: "e.g. Mirror" },
-      { puzzleId: 12, name: "Hidden Word Grid", location: "Cupboard", maxLen: 8, placeholder: "e.g. Cupboard" }
+      { puzzleId: 13, name: "Clue 13", location: "", maxLen: 15, placeholder: "e.g. Location #13", disabled: true },
+      { puzzleId: 14, name: "Clue 14", location: "", maxLen: 15, placeholder: "e.g. Location #14", disabled: true },
+      { puzzleId: 15, name: "Clue 15", location: "", maxLen: 15, placeholder: "e.g. Location #15", disabled: true },
+      { puzzleId: 16, name: "Clue 16", location: "", maxLen: 15, placeholder: "e.g. Location #16", disabled: true },
+      { puzzleId: 17, name: "Clue 17", location: "", maxLen: 15, placeholder: "e.g. Location #17", disabled: true },
+      { puzzleId: 18, name: "Clue 18", location: "", maxLen: 15, placeholder: "e.g. Location #18", disabled: true },
+      { puzzleId: 19, name: "Clue 19", location: "", maxLen: 15, placeholder: "e.g. Location #19", disabled: true },
+      { puzzleId: 20, name: "Clue 20", location: "", maxLen: 15, placeholder: "e.g. Location #20", disabled: true },
+      { puzzleId: 21, name: "Clue 21", location: "", maxLen: 15, placeholder: "e.g. Location #21", disabled: true },
+      { puzzleId: 22, name: "Clue 22", location: "", maxLen: 15, placeholder: "e.g. Location #22", disabled: true },
+      { puzzleId: 23, name: "Clue 23", location: "", maxLen: 15, placeholder: "e.g. Location #23", disabled: true },
+      { puzzleId: 24, name: "Clue 24", location: "", maxLen: 15, placeholder: "e.g. Location #24", disabled: true }
+    ];
+
+    // Master Catalog of Dynamic Puzzles (supports custom user locations)
+    const MASTER_DYNAMIC_PUZZLES = [
+      { puzzleId: 8, name: "Missing Letters", maxLen: 15 },
+      { puzzleId: 7, name: "Wheel Decoder", maxLen: 14 },
+      { puzzleId: 1, name: "Pigpen Cipher", maxLen: 12 },
+      { puzzleId: 5, name: "Morse Code", maxLen: 12 },
+      { puzzleId: 9, name: "Egg Maze", maxLen: 10 },
+      { puzzleId: 4, name: "Grid Decoder", maxLen: 8 },
+      { puzzleId: 12, name: "Hidden Word Grid", maxLen: 8 },
+      { puzzleId: 11, name: "Word Scramble", maxLen: 7 },
+      { puzzleId: 2, name: "Tangled Paths", maxLen: 5 }
+    ];
+
+    // Master Catalog of Static Clues (artwork and riddles are fixed to these locations)
+    const MASTER_STATIC_PUZZLES = [
+      { puzzleId: 3, name: "Color Coded", location: "DINING TABLE", maxLen: 11 },
+      { puzzleId: 6, name: "Grid Coordinates", location: "DOOR", maxLen: 4 },
+      { puzzleId: 10, name: "Picture Rebus", location: "SINK", maxLen: 4 }
     ];
 
     const DEFAULT_HIDING_SPOTS = DEFAULT_HUNT_CLUES.map(c => c.location);
     let huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
     let hidingSpots = huntClues.map(c => c.location);
 
+    // Toast Notification for Dynamic Puzzle Capacity Limits
+    let mappingToastTimer = null;
+    function showMappingToast(message, duration = 3200) {
+      const toast = document.getElementById('mapping-toast');
+      const text = document.getElementById('mapping-toast-text');
+      if (!toast || !text) return;
+      text.textContent = message;
+      toast.style.display = 'flex';
+      void toast.offsetWidth;
+      toast.classList.add('visible');
+
+      if (mappingToastTimer) clearTimeout(mappingToastTimer);
+      mappingToastTimer = setTimeout(() => {
+        hideMappingToast();
+      }, duration);
+    }
+
+    function hideMappingToast() {
+      const toast = document.getElementById('mapping-toast');
+      if (!toast) return;
+      toast.classList.remove('visible');
+      if (mappingToastTimer) {
+        clearTimeout(mappingToastTimer);
+        mappingToastTimer = null;
+      }
+      setTimeout(() => {
+        if (!toast.classList.contains('visible')) {
+          toast.style.display = 'none';
+        }
+      }, 300);
+    }
+
     function getActiveHuntClues() {
       return (typeof huntClues !== 'undefined' && huntClues.length > 0)
         ? huntClues.filter(c => !c.disabled)
         : DEFAULT_HUNT_CLUES;
+    }
+
+    // Count ONLY alphabetical letters (A-Z, a-z), excluding spaces and punctuation
+    function getLetterCount(str) {
+      if (!str) return 0;
+      return str.replace(/[^a-zA-Z]/g, '').length;
+    }
+
+    // Limit a string to a maximum number of alphabetical letters while preserving spaces
+    function limitToMaxLetters(str, maxLetters) {
+      if (!str) return '';
+      let count = 0;
+      let result = '';
+      for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        if (/[a-zA-Z]/.test(ch)) {
+          if (count >= maxLetters) break;
+          count++;
+        }
+        result += ch;
+      }
+      return result;
+    }
+
+    // Calculates the true maximum available character length open to a specific spot slot
+    function getMaxAvailableCapacityForSpot(slotIndex) {
+      if (typeof slotIndex !== 'number' || !huntClues[slotIndex] || huntClues[slotIndex].disabled) {
+        return 15;
+      }
+
+      // If this slot currently has an exact static location match, return that static max
+      const currentLoc = (huntClues[slotIndex].location || '').trim().toUpperCase();
+      const staticMatch = MASTER_STATIC_PUZZLES.find(sp => sp.location === currentLoc);
+      if (staticMatch) return staticMatch.maxLen;
+
+      // Master dynamic pool clone
+      const availableDynamic = MASTER_DYNAMIC_PUZZLES.map(p => ({ ...p }));
+      
+      // Simulate Best-Fit claims for all OTHER active non-empty slots
+      const activeClues = huntClues.filter(c => !c.disabled);
+      const otherSlots = [];
+      activeClues.forEach(c => {
+        const origIdx = huntClues.indexOf(c);
+        if (origIdx === slotIndex) return;
+        const loc = (c.location || '').trim();
+        if (!loc) return;
+        // If other slot is static, it doesn't consume dynamic pool
+        const isOtherStatic = MASTER_STATIC_PUZZLES.some(sp => sp.location === loc.toUpperCase());
+        if (isOtherStatic) return;
+        const letterLen = getLetterCount(loc);
+        if (letterLen > 0) {
+          otherSlots.push({ idx: origIdx, len: letterLen });
+        }
+      });
+
+      // Sort other slots descending by letter count (longest claims first)
+      otherSlots.sort((a, b) => b.len - a.len);
+
+      otherSlots.forEach(slot => {
+        if (availableDynamic.length === 0) return;
+        let chosenIdx = -1;
+        let bestFitLen = 999;
+        for (let i = 0; i < availableDynamic.length; i++) {
+          if (availableDynamic[i].maxLen >= slot.len && availableDynamic[i].maxLen < bestFitLen) {
+            bestFitLen = availableDynamic[i].maxLen;
+            chosenIdx = i;
+          }
+        }
+        if (chosenIdx === -1) {
+          let largestLen = -1;
+          for (let i = 0; i < availableDynamic.length; i++) {
+            if (availableDynamic[i].maxLen > largestLen) {
+              largestLen = availableDynamic[i].maxLen;
+              chosenIdx = i;
+            }
+          }
+        }
+        if (chosenIdx !== -1) {
+          availableDynamic.splice(chosenIdx, 1);
+        }
+      });
+
+      if (availableDynamic.length > 0) {
+        return Math.max(...availableDynamic.map(p => p.maxLen));
+      }
+      return 15;
+    }
+
+    // Dynamic Best-Fit Puzzle Mapping Engine
+    function recalculateDynamicClueMapping() {
+      const activeClues = huntClues.filter(c => !c.disabled);
+      if (!activeClues.length) return;
+
+      // Pristine default check: if user hasn't modified default 12 clues, keep default 1-to-1 pairings
+      const isPristineDefault = activeClues.length === 12 && activeClues.every((c, i) => {
+        return DEFAULT_HUNT_CLUES[i] && c.location === DEFAULT_HUNT_CLUES[i].location;
+      });
+
+      if (isPristineDefault) {
+        activeClues.forEach((c, i) => {
+          const def = DEFAULT_HUNT_CLUES[i];
+          c.puzzleId = def.puzzleId;
+          c.name = def.name;
+          c.maxLen = def.maxLen;
+          c.placeholder = def.placeholder;
+        });
+        return;
+      }
+
+      const availableDynamic = MASTER_DYNAMIC_PUZZLES.map(p => ({ ...p }));
+      const availableStatic = MASTER_STATIC_PUZZLES.map(p => ({ ...p }));
+      const assigned = new Map(); // clue -> puzzle
+
+      // Phase 1: Exact static location matches ("Dining Table", "Door", "Sink")
+      activeClues.forEach(c => {
+        const cleanLoc = (c.location || '').trim().toUpperCase();
+        if (!cleanLoc) return;
+        const sIdx = availableStatic.findIndex(sp => sp.location === cleanLoc);
+        if (sIdx !== -1) {
+          assigned.set(c, availableStatic[sIdx]);
+          availableStatic.splice(sIdx, 1);
+        }
+      });
+
+      // Phase 2: Dynamic Best-Fit for custom words (longest words first)
+      const unassignedWithWords = activeClues
+        .filter(c => !assigned.has(c) && getLetterCount(c.location) > 0)
+        .map(c => ({ clue: c, len: getLetterCount(c.location) }));
+
+      unassignedWithWords.sort((a, b) => b.len - a.len);
+
+      unassignedWithWords.forEach(item => {
+        if (availableDynamic.length === 0) return;
+        // Best fit: smallest capacity >= word length
+        let chosenIdx = -1;
+        let bestFitLen = 999;
+        for (let i = 0; i < availableDynamic.length; i++) {
+          if (availableDynamic[i].maxLen >= item.len && availableDynamic[i].maxLen < bestFitLen) {
+            bestFitLen = availableDynamic[i].maxLen;
+            chosenIdx = i;
+          }
+        }
+        // If word exceeds all remaining capacities, assign largest remaining
+        if (chosenIdx === -1) {
+          let largestLen = -1;
+          for (let i = 0; i < availableDynamic.length; i++) {
+            if (availableDynamic[i].maxLen > largestLen) {
+              largestLen = availableDynamic[i].maxLen;
+              chosenIdx = i;
+            }
+          }
+        }
+        if (chosenIdx !== -1) {
+          assigned.set(item.clue, availableDynamic[chosenIdx]);
+          availableDynamic.splice(chosenIdx, 1);
+        }
+      });
+
+      // Phase 3: Empty slots (assign remaining dynamic puzzles, then remaining static puzzles)
+      const emptyClues = activeClues.filter(c => !assigned.has(c));
+      emptyClues.forEach(c => {
+        if (availableDynamic.length > 0) {
+          const p = availableDynamic.shift();
+          assigned.set(c, p);
+        } else if (availableStatic.length > 0) {
+          const sp = availableStatic.shift();
+          assigned.set(c, sp);
+        } else {
+          // Extra active clues beyond 12: duplicate dynamic or generic
+          const idx = huntClues.indexOf(c);
+          const clueNum = idx + 1;
+          if (clueNum <= 12) {
+            assigned.set(c, { puzzleId: 8, name: "Missing Letters", maxLen: 15 });
+          } else {
+            assigned.set(c, { puzzleId: clueNum, name: `Clue ${clueNum}`, maxLen: 15 });
+          }
+        }
+      });
+
+      // Apply assignments back to huntClues
+      activeClues.forEach(c => {
+        const p = assigned.get(c);
+        if (p) {
+          c.puzzleId = p.puzzleId;
+          c.name = p.name;
+          c.maxLen = p.maxLen;
+        }
+        const idx = huntClues.indexOf(c);
+        if (!c.placeholder || c.placeholder.includes('Missing') || c.placeholder.includes('Decoder') || c.placeholder.includes('Cipher') || c.placeholder.includes('Maze') || c.placeholder.includes('Scramble') || c.placeholder.includes('Paths')) {
+          c.placeholder = (DEFAULT_HUNT_CLUES[idx] && DEFAULT_HUNT_CLUES[idx].placeholder) ? DEFAULT_HUNT_CLUES[idx].placeholder : `Location #${idx + 1}`;
+        }
+      });
+    }
+
+    // In-place DOM updater so user never loses input focus, cursor, or selection while typing
+    function updateSpotsListDOMInPlace(focusedIndex) {
+      huntClues.forEach((item, i) => {
+        if (item.disabled) return;
+        const maxCap = getMaxAvailableCapacityForSpot(i);
+        
+        // Update input element maxLength (allow spaces) & placeholder
+        const input = document.getElementById(`spot-input-${i}`);
+        if (input) {
+          input.maxLength = maxCap + 8;
+          if (i !== focusedIndex) {
+            input.placeholder = item.placeholder || `Location #${i + 1}`;
+          }
+        }
+      });
     }
 
     function syncHidingSpots() {
@@ -5528,6 +5846,7 @@ const EmbeddedAssets = {
     function resetDefaultSpots() {
       if (confirm(`Reset back to the ${DEFAULT_HUNT_CLUES.length} default clues and spots?`)) {
         huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
+        recalculateDynamicClueMapping();
         syncHidingSpots();
         renderSpotsList();
         if (currentPreviewClue > huntClues.length) currentPreviewClue = 1;
@@ -5538,17 +5857,36 @@ const EmbeddedAssets = {
       }
     }
 
+    function clearAllSpots() {
+      if (confirm('Clear all hiding spots to start blank?')) {
+        huntClues.forEach((item, i) => {
+          item.location = '';
+          item.placeholder = `Location #${i + 1}`;
+        });
+        recalculateDynamicClueMapping();
+        syncHidingSpots();
+        renderSpotsList();
+        if (currentPreviewClue > huntClues.length) currentPreviewClue = 1;
+        if (typeof populateDeckJumpStrip === 'function') populateDeckJumpStrip();
+        if (typeof renderClueJumpTrack === 'function') renderClueJumpTrack();
+        if (typeof updateStep3SheetCounts === 'function') updateStep3SheetCounts();
+        renderCurrentCluePreview();
+        const firstInput = document.getElementById('spot-input-0');
+        if (firstInput) firstInput.focus();
+      }
+    }
+
     function getMaxLocationLength(clueNum) {
       const item = huntClues[clueNum - 1] || DEFAULT_HUNT_CLUES[clueNum - 1];
       return item ? item.maxLen : 15;
     }
 
-    // Timeout tracking for temporary limit notices
+    // Timeout tracking for temporary limit notices (used in Step 2)
     const limitNoticeTimers = new Map();
 
     function showLimitNoticeTemporarily(badge, input, maxLen, duration = 1800) {
       if (!badge) return;
-      badge.textContent = `Max length reached (${maxLen})`;
+      badge.textContent = `Max ${maxLen} letters reached`;
       badge.classList.add('visible');
       if (input) input.classList.add('input-at-max');
 
@@ -5575,21 +5913,63 @@ const EmbeddedAssets = {
       if (input) input.classList.remove('input-at-max');
     }
 
-    function handleLocationKeydown(e, maxLen, badgeEl) {
-      if (e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        if (e.target.value.length >= maxLen && e.target.selectionStart === e.target.selectionEnd) {
-          showLimitNoticeTemporarily(badgeEl, e.target, maxLen, 1800);
-          if (badgeEl) {
-            badgeEl.classList.remove('limit-shake');
-            void badgeEl.offsetWidth;
-            badgeEl.classList.add('limit-shake');
-            setTimeout(() => badgeEl.classList.remove('limit-shake'), 280);
-          }
+    function handleLocationKeydown(e, maxLen, arg3, arg4) {
+      let badgeEl = null;
+      let slotIndex = null;
+      let isStep2 = false;
+
+      if (typeof arg3 === 'number') {
+        slotIndex = arg3;
+      } else if (arg3 && arg3.nodeType) {
+        badgeEl = arg3;
+        if (typeof arg4 === 'number') {
+          slotIndex = arg4;
+        } else {
+          isStep2 = true;
+        }
+      }
+
+      // Allow navigation keys, Backspace, Delete, Tab, Arrow keys, Enter, etc.
+      if (!e.key || e.key.length !== 1 || e.ctrlKey || e.metaKey || e.altKey) {
+        return;
+      }
+
+      // Spaces are allowed and do NOT count towards the letter limit!
+      if (e.key === ' ') {
+        return;
+      }
+
+      // Only alphabetic characters count towards the letter limit
+      if (!/^[a-zA-Z]$/.test(e.key)) {
+        return;
+      }
+
+      const maxCap = isStep2 ? maxLen : ((typeof slotIndex === 'number') ? getMaxAvailableCapacityForSpot(slotIndex) : maxLen);
+      const currentVal = e.target.value || '';
+      const selStart = e.target.selectionStart || 0;
+      const selEnd = e.target.selectionEnd || 0;
+      const selectedText = currentVal.substring(selStart, selEnd);
+      const selectedLetters = getLetterCount(selectedText);
+      const currentLetters = getLetterCount(currentVal);
+      const lettersAfterKey = currentLetters - selectedLetters + 1;
+
+      if (lettersAfterKey > maxCap) {
+        e.preventDefault();
+        if (badgeEl) {
+          showLimitNoticeTemporarily(badgeEl, e.target, maxCap, 1800);
+          badgeEl.classList.remove('limit-shake');
+          void badgeEl.offsetWidth;
+          badgeEl.classList.add('limit-shake');
+          setTimeout(() => badgeEl.classList.remove('limit-shake'), 280);
+        }
+        if (!isStep2 && maxCap < 15) {
+          showMappingToast(`All longer clue slots are in use. Maximum length available is ${maxCap} letters.`);
         }
       }
     }
 
     function renderSpotsList() {
+      recalculateDynamicClueMapping();
       const list = document.getElementById('spots-list');
       const count = document.getElementById('spots-count');
       const plural = document.getElementById('spots-plural');
@@ -5606,6 +5986,7 @@ const EmbeddedAssets = {
         const isActive = !item.disabled;
         const clueNum = i + 1;
         const maxLen = item.maxLen || 15;
+        const maxCap = isActive ? getMaxAvailableCapacityForSpot(i) : maxLen;
         const disabledClass = isActive ? '' : 'is-disabled';
 
         return `
@@ -5628,15 +6009,13 @@ const EmbeddedAssets = {
               type="text"
               class="spot-input"
               id="spot-input-${i}"
-              maxlength="${maxLen}"
+              maxlength="${maxCap + 8}"
               placeholder="${item.placeholder || `Location #${i + 1}`}"
               value="${escapeHtml(item.location)}"
               ${isActive ? '' : 'disabled'}
               oninput="updateSpot(${i}, this.value)"
-              onkeydown="handleLocationKeydown(event, ${maxLen}, document.getElementById('spot-limit-${i}'))"
-              onblur="hideLimitNotice(document.getElementById('spot-limit-${i}'), this)"
+              onkeydown="handleLocationKeydown(event, ${maxCap}, ${i})"
             >
-            <span class="spot-limit-notice" id="spot-limit-${i}"></span>
           </div>
           <div class="spot-actions">
             <button
@@ -5740,22 +6119,30 @@ const EmbeddedAssets = {
 
     function updateSpot(index, value) {
       const item = huntClues[index];
-      const maxLen = item ? item.maxLen : 15;
+      if (!item) return;
+
+      const maxCap = getMaxAvailableCapacityForSpot(index);
       const input = document.getElementById(`spot-input-${index}`);
-      const badge = document.getElementById(`spot-limit-${index}`);
       
-      if (value.length > maxLen) {
-        value = value.substring(0, maxLen);
+      let wasTruncated = false;
+      const letters = getLetterCount(value);
+      if (letters > maxCap) {
+        value = limitToMaxLetters(value, maxCap);
         if (input) input.value = value;
+        wasTruncated = true;
       }
 
-      if (item) item.location = value;
+      item.location = value;
+      recalculateDynamicClueMapping();
+      updateSpotsListDOMInPlace(index);
       syncHidingSpots();
       
-      if (value.length >= maxLen) {
-        showLimitNoticeTemporarily(badge, input, maxLen, 1800);
-      } else {
-        hideLimitNotice(badge, input);
+      if (wasTruncated && maxCap < 15) {
+        showMappingToast(`All longer clue slots are in use. Maximum length available is ${maxCap} letters.`);
+      }
+
+      if (typeof renderCurrentCluePreview === 'function') {
+        renderCurrentCluePreview();
       }
     }
 
@@ -6301,25 +6688,38 @@ const EmbeddedAssets = {
       populateDeckJumpStrip();
       renderClueJumpTrack();
 
+      const puzzleId = item ? item.puzzleId : clueNum;
+      const isStatic = (puzzleId === 3 || puzzleId === 6 || puzzleId === 10);
+
       const label = document.getElementById('preview-clue-label');
       const input = document.getElementById('preview-clue-input');
-      const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Answer #${clueNum}`;
-      let locText = (item && item.location !== undefined && item.location !== '') ? item.location : defaultVal;
+      const locVal = (item && typeof item.location === 'string') ? item.location : '';
+      const placeholderVal = item ? (item.placeholder ? item.placeholder.replace('e.g. ', '') : `Location #${clueNum}`) : `Location #${clueNum}`;
 
       const maxLen = item ? item.maxLen : 15;
       if (input) {
-        input.maxLength = maxLen;
-        input.value = locText;
+        input.maxLength = maxLen + 8;
+        input.value = locVal;
+        input.placeholder = placeholderVal;
+        input.disabled = isStatic;
+        if (isStatic) {
+          input.classList.add('is-static-locked');
+          input.title = "This clue has a fixed riddle/illustration and cannot be customized.";
+        } else {
+          input.classList.remove('is-static-locked');
+          input.title = "";
+        }
       }
       if (label) {
-        label.textContent = `Answer #${clueNum}:`;
+        label.textContent = isStatic ? `Answer #${clueNum} (Fixed):` : `Answer #${clueNum}:`;
       }
       hideLimitNotice(document.getElementById('preview-clue-limit-badge'), input);
 
       const charBadge = document.getElementById('preview-clue-char-count');
       if (charBadge) {
-        charBadge.textContent = `${locText.length} / ${maxLen} chars`;
-        charBadge.classList.toggle('warning', locText.length >= maxLen);
+        const letters = getLetterCount(locVal);
+        charBadge.textContent = `${letters} / ${maxLen} letters`;
+        charBadge.classList.toggle('warning', letters >= maxLen && letters > 0);
       }
 
       const stageBadge = document.getElementById('stage-clue-badge');
@@ -6430,33 +6830,39 @@ const EmbeddedAssets = {
     function handleLiveSpotInput(val) {
       const idx = currentPreviewClue - 1;
       const item = huntClues[idx] || DEFAULT_HUNT_CLUES[idx];
+      const puzzleId = item ? item.puzzleId : currentPreviewClue;
+      if (puzzleId === 3 || puzzleId === 6 || puzzleId === 10) return;
       const maxLen = item ? item.maxLen : 15;
-
-      if (val.length > maxLen) {
-        val = val.substring(0, maxLen);
+      let wasTruncated = false;
+      const letters = getLetterCount(val);
+      if (letters > maxLen) {
+        val = limitToMaxLetters(val, maxLen);
         const input = document.getElementById('preview-clue-input');
         if (input) input.value = val;
+        wasTruncated = true;
       }
 
       if (item) item.location = val;
+      // Keep puzzle fixed to current card during Step 2 live editing
       syncHidingSpots();
-      updatePreviewLimitNotice(val, maxLen);
+      updatePreviewLimitNotice(val, maxLen, wasTruncated);
 
       const charBadge = document.getElementById('preview-clue-char-count');
       if (charBadge) {
-        charBadge.textContent = `${val.length} / ${maxLen} chars`;
-        charBadge.classList.toggle('warning', val.length >= maxLen);
+        const curLetters = getLetterCount(val);
+        charBadge.textContent = `${curLetters} / ${maxLen} letters`;
+        charBadge.classList.toggle('warning', curLetters >= maxLen);
       }
       renderCurrentCluePreview();
     }
 
-    function updatePreviewLimitNotice(val, maxLen) {
+    function updatePreviewLimitNotice(val, maxLen, wasTruncated = false) {
       const badge = document.getElementById('preview-clue-limit-badge');
       const input = document.getElementById('preview-clue-input');
       if (!badge) return;
-      if (val && val.length >= maxLen) {
+      if (wasTruncated) {
         showLimitNoticeTemporarily(badge, input, maxLen, 1800);
-      } else {
+      } else if (val && getLetterCount(val) < maxLen) {
         hideLimitNotice(badge, input);
       }
     }
@@ -6475,8 +6881,7 @@ const EmbeddedAssets = {
       const idx = currentPreviewClue - 1;
       const activeClues = getActiveHuntClues();
       const item = activeClues[idx] || DEFAULT_HUNT_CLUES[idx];
-      const defaultVal = item ? (item.placeholder.replace('e.g. ', '')) : `Answer #${currentPreviewClue}`;
-      const locText = (item && item.location) || defaultVal;
+      const locText = (item && typeof item.location === 'string') ? item.location.trim() : '';
       const isAnswer = (cluePreviewMode === 'answer');
 
       const puzzleId = item ? item.puzzleId : (idx + 1);
@@ -6860,8 +7265,6 @@ const EmbeddedAssets = {
           case 10: return this.renderClue10(spot, isAnswer, themeId, num);
           case 11: return this.renderClue11(spot, isAnswer, themeId, num);
           case 12: return this.renderClue12(spot, isAnswer, themeId, num);
-          case 13: return this.renderClue13(spot, isAnswer, themeId, num);
-          case 14: return this.renderClue14(spot, isAnswer, themeId, num);
           default:
             return `
               <div class="print-card-inner">
@@ -6876,15 +7279,17 @@ const EmbeddedAssets = {
       // --- CLUE 1: PIGPEN CIPHER ---
       renderClue1(spot, isAnswer, themeId, clueNum = 1) {
         const theme = themeId || AppState.selectedTheme || 1;
-        const word = (spot || 'TELEVISION').trim().toUpperCase();
+        const raw = (spot || '').trim().toUpperCase();
+        const word = (raw && !raw.startsWith('LOCATION') && !raw.startsWith('ANSWER')) ? raw : 'TELEVISION';
         const chars = word.split('');
-        const symWidth = 32;
+        const symWidth = chars.length > 10 ? Math.max(22, Math.floor(340 / chars.length)) : 32;
         const symHeight = 38;
+        const symGap = chars.length > 10 ? 4 : 7;
         const strokeW = 0.5;
         const color = '#1e293b';
 
         const wordsHtml = `
-          <div class="cipher-word-block" style="display:flex; justify-content:center; align-items:flex-end; gap:7px;">
+          <div class="cipher-word-block" style="display:flex; justify-content:center; align-items:flex-end; gap:${symGap}px;">
             ${chars.map(c => {
               const isLetter = /^[a-zA-Z]$/.test(c);
               if (!isLetter) {
@@ -6892,7 +7297,7 @@ const EmbeddedAssets = {
               }
               return `
                 <div class="cipher-letter-col" style="display:flex; flex-direction:column; align-items:center; width:${symWidth}px !important;">
-                  <div class="cipher-letter-char ${isAnswer ? 'puzzle-ans-highlight' : 'hidden'}" style="font-family:'Franklin Gothic Medium', sans-serif; font-weight:800; font-size:1.15rem; height:22px; line-height:22px; text-align:center; color:${isAnswer ? '#16a34a' : color}; width:${symWidth}px !important;">${isAnswer ? escapeHtml(c) : ''}</div>
+                  <div class="cipher-letter-char ${isAnswer ? 'puzzle-ans-highlight' : 'hidden'}" style="font-family:'Franklin Gothic Medium', sans-serif; font-weight:800; font-size:${chars.length > 10 ? '0.98rem' : '1.15rem'}; height:22px; line-height:22px; text-align:center; color:${isAnswer ? '#16a34a' : color}; width:${symWidth}px !important;">${isAnswer ? escapeHtml(c) : ''}</div>
                   <div class="cipher-underline" style="width:${symWidth}px !important; height:${strokeW}px !important; background:${color}; margin:2px 0 4px 0 !important; border-radius:1px;"></div>
                   <div class="cipher-symbol-wrap" style="width:${symWidth}px !important; height:${symHeight}px !important; display:flex; align-items:center; justify-content:center;">
                     ${PigpenCipher.getSymbolSvg(c, symWidth, symHeight, strokeW, color)}
@@ -6963,8 +7368,9 @@ const EmbeddedAssets = {
 
       // --- CLUE 2: TANGLED PATH MAZE ---
       renderClue2(spot, isAnswer, themeId, clueNum = 2) {
-        const word = this.cleanLetters(spot || 'LIGHT') || 'LIGHT';
-        const letters = word.slice(0, 7).split('');
+        const cleaned = this.cleanLetters(spot);
+        const word = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 5) : 'COUCH';
+        const letters = word.split('');
         const count = letters.length;
 
         // Slot activation & horizontal centering logic:
@@ -7009,7 +7415,7 @@ const EmbeddedAssets = {
         let pathsSvg = '';
         activeSlotIndices.forEach((slotIdx, letterIdx) => {
           const d = threadPaths[slotIdx] || '';
-          const color = isAnswer ? ['#8b5cf6', '#ec4899', '#06b6d4', '#10b981', '#f59e0b', '#3b82f6', '#ef4444'][letterIdx % 7] : '#70594f';
+          const color = '#70594f';
           const strokeW = 3.5;
 
           pathsSvg += `<path id="clue2-thread-${slotIdx}" d="${d}" fill="none" stroke="${color}" stroke-width="${strokeW}" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -7166,7 +7572,8 @@ const EmbeddedAssets = {
 
       // --- CLUE 3 ---
       renderClue3(spot, isAnswer, themeId, clueNum = 3) {
-        const answerWord = (spot || 'DINING TABLE').trim().toUpperCase();
+        const raw = (spot || '').trim().toUpperCase();
+        const answerWord = (raw && !raw.startsWith('LOCATION') && !raw.startsWith('ANSWER')) ? raw : 'DINING TABLE';
         const words = answerWord.split(/\s+/);
         const dW = 21;
         const dH = 2;
@@ -7216,8 +7623,9 @@ When it's time to eat.</div>
       // --- CLUE 4: MATH EQUATION CIPHER ---
       renderClue4(spot, isAnswer, themeId, clueNum = 4) {
         const theme = themeId || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
-        const word = this.cleanLetters(spot || 'KITCHEN') || 'KITCHEN';
-        const letters = word.slice(0, 8).split('');
+        const cleaned = this.cleanLetters(spot);
+        const word = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 8) : 'KITCHEN';
+        const letters = word.split('');
 
         // Table definition: 4 cols x 7 rows (Matching exact clue4adjuster specification)
         const tableCols = [
@@ -7380,8 +7788,9 @@ When it's time to eat.</div>
           }).join('');
         };
 
-        const word = this.cleanLetters(spot || 'PILLOW') || 'PILLOW';
-        const letters = word.slice(0, 10).split('');
+        const cleaned = this.cleanLetters(spot);
+        const word = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 12) : 'PILLOW';
+        const letters = word.split('');
 
         // Calculate natural width of the encoded word to auto-scale if > 380px safe area
         const maxSafeW = 380;
@@ -7659,7 +8068,8 @@ When it's time to eat.</div>
       // --- CLUE 7: CIPHER WHEEL ---
       renderClue7(spot, isAnswer, themeId, clueNum = 7) {
         const theme = themeId || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
-        const rawWord = (spot || 'FRIDGE').toUpperCase();
+        const raw = (spot || '').trim().toUpperCase();
+        const rawWord = (raw && !raw.startsWith('LOCATION') && !raw.startsWith('ANSWER')) ? raw.slice(0, 14) : 'FRIDGE';
         const words = rawWord.split(' ');
 
         let slotsHtml = '';
@@ -7803,7 +8213,8 @@ When it's time to eat.</div>
 
       // --- CLUE 8: MISSING ALPHABET GRID ---
       renderClue8(spot, isAnswer, themeId, clueNum = 8) {
-        const word = this.cleanLetters(spot || 'OVEN') || 'OVEN';
+        const cleaned = this.cleanLetters(spot);
+        const word = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 15) : 'OVEN';
         const missingSet = new Set(word.split(''));
 
         // Available letters in alphabetical order, omitting the letters of the target word
@@ -7904,8 +8315,9 @@ When it's time to eat.</div>
 
       // --- CLUE 9: EGG-SHAPED LABYRINTH MAZE ---
       renderClue9(spot, isAnswer, themeId, clueNum = 9) {
-        const word = this.cleanLetters(spot || 'LAUNDRY') || 'LAUNDRY';
-        const targetChars = word.toUpperCase().slice(0, 10).split('');
+        const cleaned = this.cleanLetters(spot);
+        const word = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 10) : 'LIBRARY';
+        const targetChars = word.toUpperCase().split('');
 
         // 11 Calibrated solution waypoints along corridor
         const solutionSlots = [
@@ -8214,8 +8626,9 @@ When it's time to eat.</div>
       // --- CLUE 11: WORD SCRAMBLE ---
       renderClue11(spot, isAnswer, themeId, clueNum = 11) {
         const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
-        const targetWord = this.cleanLetters(spot || 'SHOWER') || 'SHOWER';
-        const chars = targetWord.slice(0, 7).split('');
+        const cleaned = this.cleanLetters(spot);
+        const targetWord = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 7) : 'SHOWER';
+        const chars = targetWord.split('');
 
         const WORD_BANK = {
           'A': { word: 'APRIL',    jumble: 'LIRPA' },
@@ -8322,7 +8735,8 @@ When it's time to eat.</div>
       renderClue12(spot, isAnswer, themeId, clueNum = 12) {
         const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
         const font = (theme === 2 || theme === 4) ? "var(--font-baskerville)" : "'Franklin Gothic Medium', sans-serif";
-        const target = this.cleanLetters(spot || 'CUPBOARD').toUpperCase().slice(0, 8);
+        const cleaned = this.cleanLetters(spot);
+        const target = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 8) : 'WARDROBE';
         const chars = target.split('');
 
         const REFERENCE_GRID = [
@@ -8396,106 +8810,6 @@ When it's time to eat.</div>
             ` : ''}
           </div>
         `;
-      },
-
-      // --- CLUE 13: PICTURE PUZZLE (TRASH CAN) ---
-      renderClue13(spot, isAnswer, themeId, clueNum = 13) {
-        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
-        const w1Chars = ['T', 'R', 'A', 'S', 'H'];
-        const w2Chars = ['C', 'A', 'N'];
-        const dW = 35;
-        const dH = 2;
-        const gap = 6;
-        const fSize = 24;
-
-        const w1Html = w1Chars.map(ch => `
-          <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
-            <span style="font-family:'Franklin Gothic Medium', 'Roboto', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? ch : ''}</span>
-            <div style="width:${dW}px; height:${dH}px; background:#1e293b; border-radius:1px; margin-top:2px;"></div>
-          </div>
-        `).join('');
-
-        const w2Html = w2Chars.map(ch => `
-          <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
-            <span style="font-family:'Franklin Gothic Medium', 'Roboto', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? ch : ''}</span>
-            <div style="width:${dW}px; height:${dH}px; background:#1e293b; border-radius:1px; margin-top:2px;"></div>
-          </div>
-        `).join('');
-
-        return `
-          <div class="clue-card-content" style="justify-content: flex-start;">
-            ${this.renderClueHeader(clueNum || 13, `You're moving too fast<br>solve this picture puzzle<br>and have a blast!`, theme)}
-
-            <!-- Picture 1 (Trash Bag: 19.png) -->
-            <div style="position:absolute; left:29px; top:183px; width:231px; z-index:10; pointer-events:none;">
-              <img src="assets/graphics/theme3/19.png" alt="Trash Bag" style="width:100%; height:auto; display:block;" />
-            </div>
-
-            <!-- Picture 2 (Soda Can: 18.png) -->
-            <div style="position:absolute; left:269px; top:236px; width:185px; z-index:10; pointer-events:none;">
-              <img src="assets/graphics/theme3/18.png" alt="Soda Can" style="width:100%; height:auto; display:block;" />
-            </div>
-
-            <!-- Word 1 Dashes (5 dashes: TRASH) -->
-            <div style="position:absolute; left:55px; top:468px; display:flex; align-items:flex-end; gap:${gap}px; z-index:12;">
-              ${w1Html}
-            </div>
-
-            <!-- Word 2 Dashes (3 dashes: CAN) -->
-            <div style="position:absolute; left:307px; top:468px; display:flex; align-items:flex-end; gap:${gap}px; z-index:12;">
-              ${w2Html}
-            </div>
-          </div>
-        `;
-      },
-
-      // --- CLUE 14: MIRRORED TEXT (MAILBOX) ---
-      renderClue14(spot, isAnswer, themeId, clueNum = 14) {
-        const theme = parseInt(themeId) || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
-        const answerWord = (spot || 'MAILBOX').trim().toUpperCase().replace(/\s+/g, '');
-        const words = [answerWord];
-        const dW = 21;
-        const dH = 2;
-        const dGap = 3;
-        const wGap = 11;
-        const dColor = '#1e293b';
-        const fSize = 18;
-
-        let answerSlotsHtml = '';
-        words.forEach((w, wIdx) => {
-          answerSlotsHtml += `<div style="display:inline-flex; align-items:flex-end; gap:${dGap}px; ${wIdx < words.length - 1 ? `margin-right:${wGap}px;` : ''}">`;
-          for (let i = 0; i < w.length; i++) {
-            const char = w[i];
-            answerSlotsHtml += `
-              <div style="display:flex; flex-direction:column; align-items:center; width:${dW}px;">
-                <span style="font-family:'Franklin Gothic Medium', 'Roboto', sans-serif; font-size:${fSize}px; font-weight:800; line-height:1; height:${fSize + 4}px; color:${isAnswer ? '#16a34a' : 'transparent'}; user-select:none;">${isAnswer ? char : ''}</span>
-                <div style="width:${dW}px; height:${dH}px; background:${dColor}; border-radius:${Math.max(1, Math.round(dH / 2))}px; margin-top:2px;"></div>
-              </div>
-            `;
-          }
-          answerSlotsHtml += '</div>';
-        });
-
-        return `
-          <div class="clue-card-content" style="justify-content: flex-start;">
-            ${this.renderClueHeader(clueNum || 14, `Here's your next clue for you<br>to inspect. You may take a<br>moment to sit and reflect.`, theme)}
-            ${this.getClue3Graphics(theme)}
-
-            <!-- Clue 14 Mirrored Text -->
-            <div class="clue14-mirrored-text-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; margin:10px auto; transform: translate(0px, -146px); position:relative; z-index:10; flex-shrink:0;">
-              <div style="display:inline-block; text-align:center; transform:scaleX(-1); white-space:pre-line; user-select:none; font-family:'Roboto', sans-serif; font-size:24px; line-height:1.6; letter-spacing:0px; word-spacing:0px; font-weight:400; color:#1e293b;">You can do it, you'll not fail
-If you look where we
- usually find mail</div>
-            </div>
-
-            <!-- Clue 14 Answer Slots -->
-            <div class="clue14-answer-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; margin:14px auto; transform: translate(0px, -168px); position:relative; z-index:10; flex-shrink:0;">
-              <div style="display:flex; align-items:flex-end; justify-content:center; flex-wrap:wrap; user-select:none;">
-                ${answerSlotsHtml}
-              </div>
-            </div>
-          </div>
-        `;
       }
     };
 
@@ -8505,8 +8819,9 @@ If you look where we
       const clueItem = activeClues[i] || ((typeof huntClues !== 'undefined' && huntClues[i]) ? huntClues[i] : null);
       const puzzleId = clueItem ? clueItem.puzzleId : (i + 1);
       const clueNum = i + 1;
-      const defaultVal = clueItem ? (clueItem.placeholder ? clueItem.placeholder.replace('e.g. ', '') : `Location #${clueNum}`) : `Location #${clueNum}`;
-      const locText = (spot !== undefined && spot !== null && spot !== '') ? spot : (clueItem && clueItem.location ? clueItem.location : defaultVal);
+      const locText = (spot !== undefined && spot !== null && spot !== '') 
+        ? spot 
+        : (clueItem && clueItem.location ? clueItem.location : '');
       return ScavengerHuntClues.renderPuzzle(puzzleId, locText, isAnswer, AppState.selectedTheme, clueNum);
     }
 
@@ -8521,7 +8836,7 @@ If you look where we
       if (PrintState.layout === 'portrait') {
         // 1 card per page: Uniform scale, 100% synchronized with Step 3, strictly 12 pages
         root.innerHTML = cluesToPrint.map((item, i) => {
-          const locText = (item.location && item.location.trim() !== '') ? item.location : item.placeholder.replace('e.g. ', '');
+          const locText = (item.location && item.location.trim() !== '') ? item.location : '';
           return `
           <div class="print-page portrait-page">
             <div class="card-scaler-portrait">
@@ -8543,8 +8858,8 @@ If you look where we
         for (let i = 0; i < cluesToPrint.length; i += 2) {
           const item1 = cluesToPrint[i];
           const item2 = (i + 1 < cluesToPrint.length) ? cluesToPrint[i + 1] : null;
-          const loc1 = (item1 && item1.location && item1.location.trim() !== '') ? item1.location : (item1 ? item1.placeholder.replace('e.g. ', '') : '');
-          const loc2 = (item2 && item2.location && item2.location.trim() !== '') ? item2.location : (item2 ? item2.placeholder.replace('e.g. ', '') : '');
+          const loc1 = (item1 && item1.location && item1.location.trim() !== '') ? item1.location : '';
+          const loc2 = (item2 && item2.location && item2.location.trim() !== '') ? item2.location : '';
           pagesHtml += `
             <div class="print-page landscape-page">
               <div class="landscape-half">
@@ -8598,25 +8913,13 @@ If you look where we
       9: 19,
       10: 0,
       11: 12,
-      12: 2,
-      13: 0, // Clue 13 has same border as Clue 10 (no border)
-      14: 0  // Clue 14 has same border as Clue 3 (no border)
+      12: 2
     };
 
     function getThemeCardBorderHtml(index) {
       const theme = AppState.selectedTheme;
       let effectiveIndex = index;
       const puzzleId = (typeof huntClues !== 'undefined' && huntClues[index]) ? huntClues[index].puzzleId : (index + 1);
-
-      // Clue 13 has the exact same border as Clue 10 for each theme
-      // Clue 14 has the exact same border as Clue 3 for each theme
-      if (puzzleId === 13) {
-        const c10Idx = (typeof huntClues !== 'undefined') ? huntClues.findIndex(c => c.puzzleId === 10) : 9;
-        effectiveIndex = c10Idx !== -1 ? c10Idx : 9;
-      } else if (puzzleId === 14) {
-        const c3Idx = (typeof huntClues !== 'undefined') ? huntClues.findIndex(c => c.puzzleId === 3) : 2;
-        effectiveIndex = c3Idx !== -1 ? c3Idx : 2;
-      }
 
       if (theme === 1) {
         const borderIdx = (effectiveIndex % 3) + 1;
@@ -8630,8 +8933,6 @@ If you look where we
         return `<img class="print-border-img" src="${src}" alt="Border">`;
       } else if (theme === 2) {
         let effPuzzleId = puzzleId;
-        if (effPuzzleId === 13) effPuzzleId = 10;
-        if (effPuzzleId === 14) effPuzzleId = 3;
         const eggIdx = (effPuzzleId in theme2ClueEggs) ? theme2ClueEggs[effPuzzleId] : ((effectiveIndex % 20) + 1);
         if (!eggIdx || eggIdx === "none" || eggIdx === 0) {
           return "";
@@ -8664,6 +8965,7 @@ If you look where we
 
       // Step 1 spots & hunt clues
       huntClues = DEFAULT_HUNT_CLUES.map(item => ({ ...item }));
+      recalculateDynamicClueMapping();
       syncHidingSpots();
       renderSpotsList();
       renderClueJumpTrack();
