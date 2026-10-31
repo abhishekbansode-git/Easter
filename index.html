@@ -3538,6 +3538,10 @@
       font-weight: 700;
     }
 
+    .theme-font-baskerville .clue-main-title {
+      font-weight: 400 !important;
+    }
+
     .theme-font-baskerville .clue-main-title .clue-hash,
     .theme-font-baskerville .clue-main-title span {
       font-family: 'Roboto', sans-serif !important;
@@ -9948,11 +9952,11 @@ const EmbeddedAssets = {
     // ===== CLUE 18: CLOCK CIPHER ENGINE =====
     const ClockCipher = {
       eggAssets: [
-        "assets/theme 2/eggs_original_hires/40.png",
-        "assets/theme 2/eggs_original_hires/45.png",
-        "assets/theme 2/eggs_original_hires/E15.png",
-        "assets/theme 2/eggs_original_hires/42.png",
-        "assets/theme 2/eggs_original_hires/49.png"
+        "assets/theme 2/eggs/40.png",
+        "assets/theme 2/eggs/45.png",
+        "assets/theme 2/eggs/E15.png",
+        "assets/theme 2/eggs/42.png",
+        "assets/theme 2/eggs/49.png"
       ],
 
       tableData: {
@@ -11325,11 +11329,12 @@ const EmbeddedAssets = {
       renderClueHeader(clueNum, poemHtml, themeId) {
         const theme = themeId || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
         const font = (theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)";
+        const titleWeight = (theme === 2 || theme === 4) ? "400" : "700";
         const hashWeight = (theme === 2 || theme === 4) ? "400" : "700";
         return `
             <div class="clue-card-header" style="width:100%; margin-bottom:8px;">
               <div style="transform: translate(0px, -10px); position:relative; width:100%;">
-                <h1 class="clue-main-title" style="font-family:${font}; font-size:2.55rem; letter-spacing:5px; font-weight:700; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
+                <h1 class="clue-main-title" style="font-family:${font}; font-size:2.55rem; letter-spacing:5px; font-weight:${titleWeight}; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
                   CLUE <span class="clue-hash" style="font-family:'Roboto', sans-serif; font-weight:${hashWeight}; margin:0 1px;">#</span>${clueNum}
                 </h1>
               </div>
@@ -11487,7 +11492,7 @@ const EmbeddedAssets = {
             
             <!-- 1. Title (Direct flex child 1) -->
             <div style="transform: translate(0px, -10px); position:relative; width:100%;">
-              <h1 class="clue-main-title" style="font-family:${(theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)"}; font-size:2.55rem; letter-spacing:5px; font-weight:700; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
+              <h1 class="clue-main-title" style="font-family:${(theme === 2 || theme === 4) ? "var(--font-baskerville)" : "var(--font-franklin)"}; font-size:2.55rem; letter-spacing:5px; font-weight:${(theme === 2 || theme === 4) ? "400" : "700"}; text-transform:uppercase; color:#1e293b; line-height:1.1; margin:0;">
                 CLUE <span class="clue-hash" style="font-family:'Roboto', sans-serif; font-weight:${(theme === 2 || theme === 4) ? "400" : "700"}; margin:0 1px;">#</span>${clueNum || 1}
               </h1>
             </div>
@@ -14212,7 +14217,8 @@ When it's time to eat.</div>
         let keysHtml = '';
         for (let i = 0; i < LockAndKeyCipher.KEY_DATA.length; i++) {
           const k = LockAndKeyCipher.KEY_DATA[i];
-          const keyImg = `assets/graphics/${folder}/Key ${k.id}.png`;
+          const keyPrefix = (folder === 'clue23') ? 'key' : 'Key';
+          const keyImg = `assets/graphics/${folder}/${keyPrefix} ${k.id}.png`;
           keysHtml += `
             <div class="clue26-key-item" style="height: 183px; transform: translate(${k.offsetX}px, ${k.offsetY}px); margin: 0 ${keyGap / 2}px;">
               <img class="clue26-key-img" src="${keyImg}" alt="Key ${k.id}">
