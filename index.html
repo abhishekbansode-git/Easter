@@ -874,33 +874,77 @@
         height: auto;
         position: static;
         padding: 10px 16px;
-        gap: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        gap: 8px 12px;
       }
       .sidebar-brand {
+        grid-column: 1;
+        grid-row: 1;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding-bottom: 0;
-        border-bottom: none;
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 0;
+        border: none;
       }
       .brand-badge-icon {
-        font-size: 1.5rem;
+        font-size: 1.45rem;
       }
       .brand-title {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
       }
       .sidebar-section-title {
         display: none !important;
       }
+      .sidebar-footer {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+      .sidebar-tutorial-btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border: 1.5px solid #fee2e2;
+        box-shadow: 0 1px 4px rgba(239, 68, 68, 0.1);
+        text-decoration: none;
+      }
+      .sidebar-tutorial-btn .tutorial-info {
+        display: none !important;
+      }
+      .tutorial-circle {
+        width: 24px;
+        height: 24px;
+        box-shadow: none;
+      }
+      .tutorial-circle svg {
+        width: 11px;
+        height: 11px;
+      }
       .sidebar-stepper {
+        grid-column: 1 / -1;
+        grid-row: 2;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         gap: 20px;
         padding: 4px 0;
-        margin: 2px 0;
+        margin: 0;
         overflow: visible;
       }
       .step-item {
@@ -947,30 +991,6 @@
       .step-hint {
         display: none;
       }
-      .sidebar-footer {
-        display: flex;
-        justify-content: center;
-        margin-top: 0;
-        padding-top: 0;
-        border-top: none;
-      }
-      .sidebar-tutorial-btn {
-        padding: 5px 12px;
-        border-radius: 999px;
-        gap: 8px;
-        justify-content: center;
-      }
-      .tutorial-circle {
-        width: 22px;
-        height: 22px;
-      }
-      .tutorial-circle svg {
-        width: 11px;
-        height: 11px;
-      }
-      .tutorial-name {
-        font-size: 0.8rem;
-      }
       .app-main {
         padding: 12px 14px 40px;
       }
@@ -978,6 +998,14 @@
         padding: 16px 12px;
         min-height: auto !important;
         height: auto !important;
+      }
+      .step2-panel-header {
+        width: 100% !important;
+        align-self: flex-start !important;
+        text-align: left !important;
+      }
+      .step2-panel-header h2 {
+        text-align: left !important;
       }
       #panel-step-1 {
         height: auto !important;
@@ -1633,15 +1661,22 @@
         width: 100%;
       }
       .step1-title-row {
-        display: block;
-        width: 100%;
+        display: contents;
+      }
+      .step1-title-row h2 {
+        order: 1;
         margin: 0;
       }
+      .step1-header-left .panel-subtitle {
+        order: 2;
+        margin: 2px 0 0;
+      }
       .step1-header-actions {
+        order: 3;
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-top: 4px;
+        margin-top: 6px;
       }
       .step1-reset-btn,
       .step1-clear-btn {
@@ -3255,6 +3290,15 @@
 
       .step3-control-column {
         display: contents;
+      }
+
+      .step2-panel-header {
+        width: 100% !important;
+        align-self: flex-start !important;
+        text-align: left !important;
+      }
+      .step2-panel-header h2 {
+        text-align: left !important;
       }
 
       .step3-card-column {
@@ -7723,16 +7767,16 @@
         <div class="step1-header-left">
           <div class="step1-title-row">
             <h2><span class="panel-step-label">Step 1:</span> Select Hiding Spots</h2>
+            <div class="step1-header-actions" style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" class="btn-text-action step1-clear-btn" onclick="clearAllSpots()" title="Clear all locations to start blank">
+                🗑️ Clear All
+              </button>
+              <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
+                🔄 Reset to Default
+              </button>
+            </div>
           </div>
           <p class="panel-subtitle" style="margin: 2px 0 0; text-align: left;">Edit, reorder or remove a clue</p>
-          <div class="step1-header-actions" style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
-            <button type="button" class="btn-text-action step1-clear-btn" onclick="clearAllSpots()" title="Clear all locations to start blank">
-              🗑️ Clear All
-            </button>
-            <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
-              🔄 Reset to Default
-            </button>
-          </div>
         </div>
 
         <button type="button" class="btn-primary step1-top-next-btn" onclick="proceedToStep2()">
