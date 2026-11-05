@@ -873,40 +873,109 @@
         max-width: 100%;
         height: auto;
         position: static;
-        padding: 16px 20px;
-        gap: 16px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        padding: 10px 16px;
+        gap: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
       }
       .sidebar-brand {
-        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      .brand-badge-icon {
+        font-size: 1.5rem;
+      }
+      .brand-title {
+        font-size: 1.1rem;
       }
       .sidebar-section-title {
-        display: none;
+        display: none !important;
       }
       .sidebar-stepper {
+        display: flex;
         flex-direction: row;
-        overflow-x: auto;
-        gap: 8px;
-        padding-bottom: 4px;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 4px 0;
+        margin: 2px 0;
+        overflow: visible;
       }
       .step-item {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
         flex-shrink: 0;
-        padding: 8px 12px;
+      }
+      .step-item .step-info {
+        display: none !important;
+      }
+      .step-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: calc(100% + 2px);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 2px;
+        background: #e2e8f0;
+      }
+      .step-item.completed:not(:last-child)::after {
+        background: var(--accent-green);
+      }
+      .step-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        transition: all 0.2s ease;
+      }
+      .step-item.active .step-circle {
+        background: var(--primary-color);
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
+        transform: scale(1.06);
       }
       .step-hint {
         display: none;
       }
       .sidebar-footer {
         display: flex;
-        margin-top: 6px;
-        padding-top: 8px;
-        border-top: 1px solid #f1f5f9;
+        justify-content: center;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+      .sidebar-tutorial-btn {
+        padding: 5px 12px;
+        border-radius: 999px;
+        gap: 8px;
+        justify-content: center;
+      }
+      .tutorial-circle {
+        width: 22px;
+        height: 22px;
+      }
+      .tutorial-circle svg {
+        width: 11px;
+        height: 11px;
+      }
+      .tutorial-name {
+        font-size: 0.8rem;
       }
       .app-main {
-        padding: 20px 16px 60px;
+        padding: 12px 14px 40px;
       }
       .step-panel {
-        padding: 24px 16px;
+        padding: 16px 12px;
         min-height: auto !important;
         height: auto !important;
       }
@@ -1553,14 +1622,26 @@
 
     @media (max-width: 650px) {
       .step1-top-bar {
-        gap: 10px;
+        gap: 8px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .step1-header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
       }
       .step1-title-row {
+        display: block;
+        width: 100%;
+        margin: 0;
+      }
+      .step1-header-actions {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        width: 100%;
         gap: 8px;
+        margin-top: 4px;
       }
       .step1-reset-btn,
       .step1-clear-btn {
@@ -1570,53 +1651,114 @@
       }
       .spot-card {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
-        gap: 8px 0;
-        padding: 10px 12px;
+        gap: 8px;
+        padding: 8px 10px;
         border-radius: 10px;
       }
       .spot-drag-handle {
-        display: none;
+        display: none !important;
       }
       .spot-meta-col {
         order: 1;
-        flex: 1;
+        flex-shrink: 0;
         min-width: 0;
         display: flex;
         align-items: center;
-        gap: 8px;
       }
       .spot-badge {
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 800;
-        padding: 3px 8px;
+        padding: 4px 7px;
         border-radius: 6px;
-      }
-      .spot-actions {
-        order: 2;
-        margin-left: auto;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .spot-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 0.82rem;
-        border-radius: 6px;
+        white-space: nowrap;
       }
       .spot-input-wrap {
-        order: 3;
-        width: 100%;
-        margin-top: 2px;
+        order: 2;
+        flex: 1;
+        min-width: 0;
+        width: auto;
+        margin: 0;
       }
       .spot-input {
-        min-height: 38px;
-        font-size: 0.95rem;
-        padding: 8px 12px;
+        min-height: 36px;
+        height: 36px;
+        font-size: 0.92rem;
+        padding: 6px 10px;
         border-radius: 8px;
         background: #f8fafc;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .spot-actions {
+        order: 3;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+      }
+      .spot-btn-up,
+      .spot-btn-down {
+        display: none !important;
+      }
+      .spot-btn {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 0.88rem;
+        border-radius: 8px;
+      }
+
+      /* Step 2 Navigation Bar on Mobile */
+      .clue-nav-bar-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+        flex-wrap: nowrap;
+      }
+      .preview-stage-nav-btn {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        padding: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .preview-stage-nav-btn span {
+        display: none !important;
+      }
+      .preview-stage-nav-btn svg {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        flex-shrink: 0;
+      }
+      .clue-nav-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex: 1;
+        min-width: 0;
+      }
+      .clue-nav-num {
+        font-size: 0.95rem;
+        line-height: 1.2;
+        margin: 0;
+        white-space: nowrap;
+      }
+      .clue-nav-hint {
+        font-size: 0.7rem;
+        margin-top: 1px;
+        max-width: 140px;
       }
     }
 
@@ -7581,16 +7723,16 @@
         <div class="step1-header-left">
           <div class="step1-title-row">
             <h2><span class="panel-step-label">Step 1:</span> Select Hiding Spots</h2>
-            <div class="step1-header-actions" style="display: flex; align-items: center; gap: 8px;">
-              <button type="button" class="btn-text-action step1-clear-btn" onclick="clearAllSpots()" title="Clear all locations to start blank">
-                🗑️ Clear All
-              </button>
-              <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
-                🔄 Reset to Default
-              </button>
-            </div>
           </div>
           <p class="panel-subtitle" style="margin: 2px 0 0; text-align: left;">Edit, reorder or remove a clue</p>
+          <div class="step1-header-actions" style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+            <button type="button" class="btn-text-action step1-clear-btn" onclick="clearAllSpots()" title="Clear all locations to start blank">
+              🗑️ Clear All
+            </button>
+            <button type="button" class="btn-text-action step1-reset-btn" onclick="resetDefaultSpots()" title="Restore default locations">
+              🔄 Reset to Default
+            </button>
+          </div>
         </div>
 
         <button type="button" class="btn-primary step1-top-next-btn" onclick="proceedToStep2()">
@@ -8839,14 +8981,14 @@ const EmbeddedAssets = {
           <div class="spot-actions">
             <button
               type="button"
-              class="spot-btn"
+              class="spot-btn spot-btn-up"
               title="Move Up"
               onclick="moveSpot(${i}, -1)"
               ${(isDisabled || i === 0 || (huntClues[i - 1] && huntClues[i - 1].disabled)) ? 'disabled' : ''}
             >▲</button>
             <button
               type="button"
-              class="spot-btn"
+              class="spot-btn spot-btn-down"
               title="Move Down"
               onclick="moveSpot(${i}, 1)"
               ${(isDisabled || i === huntClues.length - 1 || (huntClues[i + 1] && huntClues[i + 1].disabled)) ? 'disabled' : ''}
