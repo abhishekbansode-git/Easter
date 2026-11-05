@@ -4422,13 +4422,13 @@
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(calc(-50% + 0px), 514px);
+      transform: translate(calc(-50% + 0px), 516px);
       z-index: 10;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 23px;
+      gap: 30px;
     }
 
     .clue6-ans-row {
@@ -4844,12 +4844,12 @@
       pointer-events: none;
     }
 
-    /* --- CLUE 10: PICTURE REBUS (Calibrated from clue10adjuster.html) --- */
+    /* --- CLUE 10 / CLUE 33: PICTURE REBUS (Calibrated from clue33adjuster.html) --- */
     .clue10-pic1-wrap {
       position: absolute;
-      left: -2px;
+      left: 33px;
       top: 190px;
-      width: 251px;
+      width: 180px;
       height: auto;
       display: flex;
       align-items: center;
@@ -4864,10 +4864,10 @@
     }
     .clue10-pic2-wrap {
       position: absolute;
-      left: 283px;
-      top: 254px;
-      width: 139px;
-      height: 139px;
+      left: 275px;
+      top: 241px;
+      width: 159px;
+      height: 159px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -4882,7 +4882,7 @@
     }
     .clue10-word1-row {
       position: absolute;
-      left: 71px;
+      left: 89px;
       top: 428px;
       display: flex;
       align-items: flex-start;
@@ -6987,11 +6987,18 @@
       left: calc(50% + 2px);
       transform: translateX(-50%);
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      z-index: 10;
+      user-select: none;
+    }
+    .clue25-wrap .clue25-dashes-row {
+      display: flex;
       align-items: flex-end;
       justify-content: center;
       gap: 5px;
-      z-index: 10;
-      user-select: none;
     }
     .clue25-wrap .clue25-dash-slot {
       display: flex;
@@ -7016,7 +7023,7 @@
     .clue25-wrap .clue25-dash-bar {
       width: 100%;
       height: 2px;
-      background: #1e293b;
+      background: #334155;
       border-radius: 1px;
     }
 
@@ -10917,13 +10924,6 @@ const EmbeddedAssets = {
           mapping[keyNumbers[i]] = wordLetters[i];
         }
 
-        const full5 = (clean + 'COUCH').slice(0, 5);
-        for (let i = 0; i < 5; i++) {
-          if (!mapping[keyNumbers[i]]) {
-            mapping[keyNumbers[i]] = full5[i];
-          }
-        }
-
         return this.DEFAULT_DECODER_DATA.map(col => {
           if (mapping.hasOwnProperty(col.num)) {
             return { num: col.num, letter: mapping[col.num] };
@@ -10963,8 +10963,32 @@ const EmbeddedAssets = {
         { letter: 'Y', img: 'assets/graphics/clue25/30.png' },
         { letter: 'Z', img: 'assets/graphics/clue25/31.png' }
       ],
-      getEgg(letter) {
-        const item = this.ALPHABET_DATA.find(d => d.letter === (letter || '').toUpperCase());
+      getEgg(letter, theme = 1) {
+        const char = (letter || '').toUpperCase();
+        if (theme === 2) {
+          if (char === 'S') return 'assets/theme 2/eggs/E7.png';
+          if (char === 'I') return 'assets/theme 2/eggs/39.png';
+          if (char === 'N') return 'assets/theme 2/eggs/38.png';
+          if (char === 'K') return 'assets/theme 2/eggs/48.png';
+        }
+        if (theme === 3) {
+          if (char === 'S') return 'assets/graphics/theme3/10.png';
+          if (char === 'I') return 'assets/graphics/theme3/11.png';
+          if (char === 'N') return 'assets/graphics/theme3/20.png';
+          if (char === 'K') return 'assets/graphics/theme3/5.png';
+          if (char === 'O') return 'assets/graphics/theme3/8(1).png';
+          if (char === 'B') return 'assets/graphics/theme3/8.png';
+        }
+        if (theme === 4) {
+          if (char === 'S') return 'assets/theme 2/eggs/40.png';
+          if (char === 'I') return 'assets/theme 2/eggs/41.png';
+          if (char === 'N') return 'assets/theme 2/eggs/42.png';
+          if (char === 'K') return 'assets/theme 2/eggs/45.png';
+          if (char === 'D') return 'assets/theme 2/eggs/46.png';
+          if (char === 'P') return 'assets/theme 2/eggs/49.png';
+          if (char === 'Y') return 'assets/theme 2/eggs/E15.png';
+        }
+        const item = this.ALPHABET_DATA.find(d => d.letter === char);
         return item ? item.img : 'assets/graphics/clue25/1.png';
       }
     };
@@ -11777,42 +11801,24 @@ const EmbeddedAssets = {
             </div>
         `;
       },
-            getClue3Graphics(themeId) {
+      getClue3Graphics(themeId) {
         const theme = themeId || (typeof AppState !== 'undefined' ? AppState.selectedTheme : 1) || 1;
         if (theme === 1) {
           return `
             <div class="clue3-graphics-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; height:348px; min-height:348px; max-height:348px; flex-shrink:0; margin:16px auto; transform: translate(0px, -75px); position:relative; z-index:10;">
-              <img src="assets/graphics/theme1/1.png" alt="Theme 1 Graphic" style="width:246px; height:auto; max-height:380px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
+              <img src="assets/graphics/theme1/1.png" alt="Theme 1 Graphic" style="width:130px; height:auto; max-height:380px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
             </div>
           `;
         } else if (theme === 2 || theme === 4) {
-          const getEggSrc = (num) => `assets/theme 2/eggs/E${num}.png`;
-          const grassSrc = 'assets/theme 2/eggs/grass.png';
           return `
-            <div class="clue3-graphics-container" style="display:flex; justify-content:center; align-items:center; gap:16px; width:fit-content; max-width:100%; height:348px; min-height:348px; max-height:348px; flex-shrink:0; margin:16px auto; transform: translate(192px, -55px); position:relative; z-index:10;">
-              <div style="position:relative; z-index:1; transform: translate(-126px, -1px) rotate(-19deg) scale(1.05, 1); width:130px; height:auto; display:flex; justify-content:center; align-items:center; flex-shrink:0;">
-                <img src="${getEggSrc(13)}" alt="Egg 13" style="width:100%; height:auto; max-height:280px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
-              </div>
-              <div style="position:relative; z-index:2; transform: translate(-190px, -15px) rotate(0deg) scale(1.05, 0.95); width:163px; height:auto; display:flex; justify-content:center; align-items:center; flex-shrink:0;">
-                <img src="${getEggSrc(7)}" alt="Egg 7" style="width:100%; height:auto; max-height:280px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
-              </div>
-              <div style="position:relative; z-index:1; transform: translate(-252px, -6px) rotate(12deg) scale(1.1, 1); width:128px; height:auto; display:flex; justify-content:center; align-items:center; flex-shrink:0;">
-                <img src="${getEggSrc(15)}" alt="Egg 15" style="width:100%; height:auto; max-height:280px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
-              </div>
-              <div style="position:absolute; left:50%; top:50%; z-index:3; transform: translate(calc(-50% - 188px), calc(-50% + 33px)) rotate(0deg) scale(1, 1); width:308px; height:auto; display:flex; justify-content:center; align-items:center;">
-                <img src="${grassSrc}" alt="Grass" style="width:100%; height:auto; max-height:1000px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
-              </div>
+            <div class="clue3-graphics-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; height:348px; min-height:348px; max-height:348px; flex-shrink:0; margin:16px auto; transform: translate(0px, -75px); position:relative; z-index:10;">
+              <img src="assets/theme 2/eggs/egg2.png" alt="Theme ${theme} Graphic" style="width:300px; height:auto; max-height:380px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
             </div>
           `;
         } else if (theme === 3) {
           return `
-            <div class="clue3-graphics-container" style="display:flex; justify-content:center; align-items:center; gap:16px; width:fit-content; max-width:100%; height:348px; min-height:348px; max-height:348px; flex-shrink:0; margin:16px auto; transform: translate(0px, -75px); position:relative; z-index:10;">
-              <div style="position:relative; z-index:2; transform: translate(88px, 37px) rotate(0deg) scale(1, 1); width:416px; height:auto; display:flex; justify-content:center; align-items:center; flex-shrink:0;">
-                <img src="assets/graphics/theme3/8.png" alt="Theme 3 Graphic 8" style="width:100%; height:auto; max-height:1000px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
-              </div>
-              <div style="position:relative; z-index:1; transform: translate(-214px, -37px) rotate(0deg) scale(1, 1); width:141px; height:auto; display:flex; justify-content:center; align-items:center; flex-shrink:0;">
-                <img src="assets/graphics/theme3/1.png" alt="Theme 3 Graphic 1" style="width:100%; height:auto; max-height:1000px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
-              </div>
+            <div class="clue3-graphics-container" style="display:flex; justify-content:center; align-items:center; width:fit-content; max-width:100%; height:348px; min-height:348px; max-height:348px; flex-shrink:0; margin:16px auto; transform: translate(0px, -75px); position:relative; z-index:10;">
+              <img src="assets/graphics/clue27/design3/10.png" alt="Theme 3 Graphic" style="width:200px; height:auto; max-height:380px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1));" draggable="false">
             </div>
           `;
         }
@@ -12021,11 +12027,20 @@ const EmbeddedAssets = {
         const svgHeight = 310;
         const masterColW = 72; // 360 / 5 fixed column spacing
 
+        // Solved answer key colors for tangled paths
+        const SOLVED_LINE_COLORS = [
+          'rgb(208, 142, 150)',
+          'rgb(110, 98, 160)',
+          'rgb(231, 162, 110)',
+          'rgb(163, 210, 131)',
+          'rgb(173, 120, 178)'
+        ];
+
         // Render only active thread paths
         let pathsSvg = '';
         activeSlotIndices.forEach((slotIdx, letterIdx) => {
           const d = threadPaths[slotIdx] || '';
-          const color = '#70594f';
+          const color = isAnswer ? (SOLVED_LINE_COLORS[slotIdx % SOLVED_LINE_COLORS.length] || '#70594f') : '#70594f';
           const strokeW = 3.5;
 
           pathsSvg += `<path id="clue2-thread-${slotIdx}" d="${d}" fill="none" stroke="${color}" stroke-width="${strokeW}" stroke-dasharray="none" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -12547,10 +12562,16 @@ When it's time to eat.</div>
               'assets/graphics/theme1/17.png'
             ];
 
-        const rowIconSize = isEggTheme ? 52 : 76;
-        const rowIconsX = isEggTheme ? -9 : 3;
+        const rowIconSize = isEggTheme ? 43 : 45;
+        const rowIconsX = isEggTheme ? -14 : -15;
         const rowIconsY = -3;
         const rowIconsRot = isEggTheme ? -15 : 0;
+        const coordIconSize = isEggTheme ? 27 : 29;
+        const coordNumSize = 25;
+        const ansItemGap = 10;
+        const ansRowGap = 30;
+        const ansDashGap = 4;
+        const ansY = 516;
 
         // 5 Rows of Row Icons
         let rowIconsHtml = '';
@@ -12593,16 +12614,16 @@ When it's time to eat.</div>
             const word = (gridWords[s.row - 1] && gridWords[s.row - 1][s.col - 1]) || '';
             const iconSrc = rowIcons[s.row - 1] || '';
             return `
-              <div class="clue6-ans-slot">
+              <div class="clue6-ans-slot" style="gap:${ansDashGap}px;">
                 <div class="clue6-ans-line-wrap">
                   <span class="clue6-ans-word ${isAnswer ? 'puzzle-ans-highlight' : ''}" style="${isAnswer ? 'display:block;' : 'display:none;'}">${isAnswer ? word : ''}</span>
                   <span class="clue6-ans-line"></span>
                 </div>
                 <div class="clue6-ans-coord-label">
-                  <span class="clue6-coord-icon-box">
+                  <span class="clue6-coord-icon-box" style="width:${coordIconSize}px; height:${coordIconSize}px;">
                     ${iconSrc ? `<img src="${iconSrc}" alt="Row ${s.row}" style="width:100%; height:100%; object-fit:contain; display:block;" />` : ''}
                   </span>
-                  <span class="clue6-coord-num">${s.col}</span>
+                  <span class="clue6-coord-num" style="font-size:${coordNumSize}px;">${s.col}</span>
                 </div>
               </div>
             `;
@@ -12641,10 +12662,10 @@ When it's time to eat.</div>
         if (theme === 1) {
           graphicsHtml = `
             <div class="clue6-bottom-container">
-              <div class="clue6-corner-graphic" style="width:137px; left:-26px; bottom:-22px; transform: rotate(-15deg); transform-origin: center center;">
+              <div class="clue6-corner-graphic" style="width:64px; left:12px; bottom:14px; transform: rotate(-15deg); transform-origin: center center;">
                 <img src="assets/graphics/theme1/11.png" alt="Left Graphic">
               </div>
-              <div class="clue6-corner-graphic" style="width:99px; right:-17px; bottom:1px; transform: rotate(0deg); transform-origin: center center;">
+              <div class="clue6-corner-graphic" style="width:86px; right:-2px; bottom:8px; transform: rotate(0deg); transform-origin: center center;">
                 <img src="assets/graphics/theme1/21.png" alt="Right Graphic">
               </div>
             </div>
@@ -12652,10 +12673,10 @@ When it's time to eat.</div>
         } else if (theme === 3) {
           graphicsHtml = `
             <div class="clue6-bottom-container">
-              <div class="clue6-corner-graphic" style="width:127px; left:-16px; bottom:7px; transform: rotate(0deg); transform-origin: center center;">
+              <div class="clue6-corner-graphic" style="width:52px; left:18px; bottom:8px; transform: rotate(0deg); transform-origin: center center;">
                 <img src="assets/graphics/theme3/6.png" alt="Left Graphic">
               </div>
-              <div class="clue6-corner-graphic" style="width:103px; right:-11px; bottom:10px; transform: rotate(0deg); transform-origin: center center;">
+              <div class="clue6-corner-graphic" style="width:63px; right:9px; bottom:12px; transform: rotate(0deg); transform-origin: center center;">
                 <img src="assets/graphics/theme3/12.png" alt="Right Graphic">
               </div>
             </div>
@@ -12684,11 +12705,11 @@ When it's time to eat.</div>
             </div>
 
             <!-- Answer Slots Section (4 in Row 1, 4 in Row 2, plus Solution Dashes in solved key) -->
-            <div class="clue6-answers-wrap">
-              <div class="clue6-ans-row">
+            <div class="clue6-answers-wrap" style="transform: translate(calc(-50% + 0px), ${ansY}px); gap:${ansRowGap}px;">
+              <div class="clue6-ans-row" style="gap:${ansItemGap}px;">
                 ${ansRow1Html}
               </div>
-              <div class="clue6-ans-row">
+              <div class="clue6-ans-row" style="gap:${ansItemGap}px;">
                 ${ansRow2Html}
               </div>
               ${solRowHtml}
@@ -12815,7 +12836,7 @@ When it's time to eat.</div>
           gfxY = 7;
           gfxRot = 0;
         } else if (theme === 3) {
-          centerGfxSrc = 'assets/graphics/theme3/14.png';
+          centerGfxSrc = 'assets/graphics/theme3/5.png';
           gfxW = 118;
           gfxX = 0;
           gfxY = 1;
@@ -13358,7 +13379,7 @@ When it's time to eat.</div>
               <div style="position:absolute !important; left:1px !important; bottom:2px !important; width:99px !important; transform:rotate(0deg) scaleX(1) !important; transform-origin:center bottom !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme3/17.png" alt="Theme 3 Left Graphic" style="width:100%; height:auto; display:block;" />
               </div>
-              <div style="position:absolute !important; right:9px !important; bottom:0px !important; width:98px !important; transform:rotate(0deg) scaleX(1) !important; transform-origin:center bottom !important; z-index:20; pointer-events:none;">
+              <div style="position:absolute !important; right:9px !important; bottom:11px !important; width:98px !important; transform:rotate(0deg) scaleX(1) !important; transform-origin:center bottom !important; z-index:20; pointer-events:none;">
                 <img src="assets/graphics/theme3/20.png" alt="Theme 3 Right Graphic" style="width:100%; height:auto; display:block;" />
               </div>
             ` : ''}
@@ -14383,16 +14404,30 @@ When it's time to eat.</div>
           ['B', 'X', 'O', 'P', 'C', 'L', 'S', 'D', 'W']  // Row 8
         ];
 
-        const HUE_COLORS = {
-          1: '#e5697d', // Row 1: Pink/Coral
-          2: '#ee8357', // Row 2: Orange/Peach
-          3: '#f6be4e', // Row 3: Golden Yellow
-          4: '#5eb3a1', // Row 4: Seafoam Teal
-          5: '#5894b9', // Row 5: Cerulean Blue
-          6: '#a384b6', // Row 6: Soft Lavender/Purple
+        const HUE_COLORS_THEME1 = {
+          1: '#d76261', // Row 1: Coral / Red
+          2: '#46a6bb', // Row 2: Teal / Cyan
+          3: '#dca859', // Row 3: Orange
+          4: '#4eae74', // Row 4: Green
+          5: '#d55d87', // Row 5: Pink / Magenta
+          6: '#a35d98', // Row 6: Purple
           7: '#9fc166', // Row 7: Lime Green
           8: '#3a83b0'  // Row 8: Deep Blue
         };
+
+        // Design 2 & 4: Colors sampled directly from watercolor eggs 38, 48, 41, E11, E7, 39, 42, 49
+        const HUE_COLORS_THEME2 = {
+          1: 'rgb(220, 120, 110)', // Row 1 (38.png)
+          2: 'rgb(133, 173, 201)', // Row 2 (48.png)
+          3: 'rgb(202, 194, 131)', // Row 3 (41.png)
+          4: 'rgb(153, 151, 159)', // Row 4 (E11.png)
+          5: 'rgb(231, 182, 100)', // Row 5 (E7.png)
+          6: 'rgb(186, 174, 214)', // Row 6 (39.png)
+          7: 'rgb(186, 224, 163)', // Row 7 (42.png)
+          8: 'rgb(181, 138, 171)'  // Row 8 (49.png)
+        };
+
+        const activeHueColors = (theme === 2 || theme === 4) ? HUE_COLORS_THEME2 : HUE_COLORS_THEME1;
 
         const usedSlots = [];
         const encoded = [];
@@ -14444,6 +14479,32 @@ When it's time to eat.</div>
           }
         }
 
+        // 2b. Eggs Column HTML (Themes 2 & 4 use 8 individual standing eggs; Themes 1 & 3 use vertical strip)
+        const isTheme2or4 = (theme === 2 || theme === 4);
+        let eggsColHtml = '';
+        if (isTheme2or4) {
+          const theme2Eggs = ['38.png', '48.png', '41.png', 'E11.png', 'E7.png', '39.png', '42.png', '49.png'];
+          const eggsListHtml = theme2Eggs.map((eggFile, i) => `
+            <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+              <img src="assets/theme 2/eggs/${eggFile}" alt="Egg ${i + 1}" style="max-height:92%; max-width:92%; object-fit:contain; display:block;" draggable="false">
+            </div>
+          `).join('');
+
+          eggsColHtml = `
+            <div class="hue-eggs-col" style="right:calc(100% + 3.6px); width:29.5px; top:-12.6px; height:296px;">
+              <div style="width:100%; height:100%; display:grid; grid-template-rows:repeat(8, 1fr); align-items:center; justify-items:center; transform:scale(0.94, 0.9); transform-origin:center right;">
+                ${eggsListHtml}
+              </div>
+            </div>
+          `;
+        } else {
+          eggsColHtml = `
+            <div class="hue-eggs-col" style="right:calc(100% - 13.7px); width:72px; top:-14.8px; height:296px;">
+              <img src="assets/graphics/clue18.png" alt="Colorful Eggs" class="hue-egg-strip-img" style="width:100%; height:100%; object-fit:fill; transform:scale(0.84, 0.96); transform-origin:center right; display:block;" draggable="false">
+            </div>
+          `;
+        }
+
         // 3. Answer Slots & Dashes (Dynamic scaling up to 6 letters)
         const maxAvailableW = 410;
         let effDashW = 38;
@@ -14462,7 +14523,7 @@ When it's time to eat.</div>
 
         let answerSlotsHtml = '';
         encoded.forEach(item => {
-          const numColor = HUE_COLORS[item.row] || '#1e293b';
+          const numColor = activeHueColors[item.row] || '#1e293b';
           answerSlotsHtml += `
             <div class="answer-slot-item" style="width:${effDashW.toFixed(1)}px; margin-left:${(effDashGap / 2).toFixed(1)}px; margin-right:${(effDashGap / 2).toFixed(1)}px;">
               ${isAnswer ? `<div class="slot-solved-letter" style="font-size:${effSolvedFontSize.toFixed(1)}px; font-weight:800; bottom:9.5px;">${escapeHtml(item.char)}</div>` : ''}
@@ -14510,9 +14571,7 @@ When it's time to eat.</div>
             <!-- Hue Match Grid & Left Eggs Strip Group -->
             <div class="hue-grid-group" style="left:calc(50% + 19px); top:228px; transform:translateX(-50%); width:343px;">
               <!-- Eggs Strip Column -->
-              <div class="hue-eggs-col" style="right:calc(100% - 13.7px); width:72px; top:-14.8px; height:296px;">
-                <img src="assets/graphics/clue18.png" alt="Colorful Eggs" class="hue-egg-strip-img" style="width:100%; height:100%; object-fit:fill; transform:scale(0.84, 0.96); transform-origin:center right; display:block;" draggable="false">
-              </div>
+              ${eggsColHtml}
 
               <!-- Top Column Headers 1 to 9 -->
               <div class="hue-col-headers" style="width:343px; bottom:calc(100% + 7px); left:0;">
@@ -14870,14 +14929,15 @@ When it's time to eat.</div>
         const target = (cleaned && !cleaned.startsWith('LOCATION') && !cleaned.startsWith('ANSWER')) ? cleaned.slice(0, 5) : 'COUCH';
         const word = (target || 'COUCH').toUpperCase();
         const letters = word.split('');
+        const count = Math.min(5, Math.max(1, letters.length));
 
-        // 1. Locks row (5 locks)
+        // 1. Locks row (count locks)
         const lockSize = 89;
         const lockGap = 18;
         const lockWidth = Math.round(lockSize * 0.7483 * 10) / 10; // ~66.6px
         const designFolder = (theme === 2 || theme === 4) ? 'design2' : 'design1';
         let locksHtml = '';
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= count; i++) {
           locksHtml += `
             <div class="clue26-lock-item" style="width: ${lockWidth}px; height: ${lockSize}px; margin: 0 ${lockGap / 2}px;">
               <img class="clue26-lock-img" src="assets/graphics/clue23/${designFolder}/Lock ${i}.png" alt="Lock ${i}">
@@ -14889,7 +14949,7 @@ When it's time to eat.</div>
         const dashW = 34;
         const dashH = 1.5;
         let dashesHtml = '';
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < count; i++) {
           const letter = letters[i] || '';
           const solvedHtml = isAnswer
             ? `<div class="clue26-slot-solved-letter" style="bottom: 6px; font-size: 22px; font-weight: 700;">${letter}</div>`
@@ -14904,17 +14964,21 @@ When it's time to eat.</div>
           `;
         }
 
-        // 3. Keys row (5 keys)
+        // 3. Keys row (active keys matching active locks)
+        const LOCK_TO_KEY_ID = [2, 4, 1, 5, 3];
+        const activeKeyIds = LOCK_TO_KEY_ID.slice(0, count);
+        const activeKeys = LockAndKeyCipher.KEY_DATA.filter(k => activeKeyIds.includes(k.id));
+
         const isTheme1 = (theme === 1);
         const keyGap = 9.5;
         let keysHtml = '';
-        for (let i = 0; i < LockAndKeyCipher.KEY_DATA.length; i++) {
-          const k = LockAndKeyCipher.KEY_DATA[i];
+        for (let i = 0; i < activeKeys.length; i++) {
+          const k = activeKeys[i];
           const isAltKey = (theme === 3) && (k.id === 1 || k.id === 3);
           const keyFileName = isAltKey ? `Key ${k.id}a.png` : `Key ${k.id}.png`;
           const keyImg = `assets/graphics/clue23/${designFolder}/${keyFileName}`;
 
-          if (isTheme1) {
+          if (isTheme1 && count === 5) {
             keysHtml += `
               <div class="clue26-key-item" style="height: 183px; transform: translate(${k.offsetX}px, ${k.offsetY}px); margin: 0 ${keyGap / 2}px;">
                 <img class="clue26-key-img" src="${keyImg}" alt="Key ${k.id}">
@@ -14923,10 +14987,24 @@ When it's time to eat.</div>
                 </div>
               </div>
             `;
+          } else if (isTheme1 && count < 5) {
+            // Theme 1 dynamic mode (<= 4 letters):
+            // Key 1 stem centered under Lock 1 with bunny to the left; Keys 2, 4, 5 centered under their locks.
+            const shiftX = (k.id === 1) ? -26.5 : (k.id === 3 ? 26.5 : (k.id === 2 ? 2 : 0));
+            keysHtml += `
+              <div class="clue26-key-item" style="width: ${lockWidth}px; height: 183px; margin: 0 ${lockGap / 2}px; display: inline-flex; justify-content: center; align-items: flex-start; position: relative;">
+                <div style="position: relative; height: 100%; display: inline-flex; transform: translateX(${shiftX}px);">
+                  <img class="clue26-key-img" src="${keyImg}" alt="Key ${k.id}" style="height: 100%; width: auto; display: block;">
+                  <div class="clue26-key-number-badge" style="left: ${k.stemX}%; top: ${k.stemY}%; font-size: 16px;">
+                    ${k.number}
+                  </div>
+                </div>
+              </div>
+            `;
           } else {
             // Themes 2, 3, 4: keys positioned directly below each lock
-            const stemX = (k.id === 1 || k.id === 3) ? 50 : k.stemX;
-            const stemY = (k.id === 1) ? 19 : (k.id === 3 ? 19 : k.stemY);
+            const stemX = (k.id === 3) ? 55 : ((k.id === 1) ? 50 : k.stemX);
+            const stemY = (k.id === 3) ? 22 : ((k.id === 1) ? 19 : k.stemY);
             keysHtml += `
               <div class="clue26-key-item" style="width: ${lockWidth}px; height: 183px; margin: 0 ${lockGap / 2}px;">
                 <img class="clue26-key-img" src="${keyImg}" alt="Key ${k.id}">
@@ -14992,7 +15070,7 @@ When it's time to eat.</div>
             </div>
 
             <!-- Keys Row at Y: 345px -->
-            <div class="clue26-keys-group" ${!isTheme1 ? 'style="left: calc(50% - 1px);"' : ''}>
+            <div class="clue26-keys-group" ${(!isTheme1 || count < 5) ? 'style="left: calc(50% - 1px);"' : ''}>
               <div class="clue26-keys-row">
                 ${keysHtml}
               </div>
@@ -15083,11 +15161,9 @@ When it's time to eat.</div>
           const char = (word && i < word.length) ? word[i] : '';
           dashesHtml += `
             <div class="clue25-dash-slot">
-              ${isAnswer ? `
-                <span class="clue25-dash-letter">
-                  ${escapeHtml(char)}
-                </span>
-              ` : ''}
+              <span class="clue25-dash-letter" style="${isAnswer ? '' : 'visibility: hidden;'}">
+                ${escapeHtml(char)}
+              </span>
               <div class="clue25-dash-bar"></div>
             </div>
           `;
@@ -15126,7 +15202,9 @@ When it's time to eat.</div>
 
             <!-- Answer Dashes Row at Y: 605px -->
             <div class="clue25-dashes-group">
-              ${dashesHtml}
+              <div class="clue25-dashes-row">
+                ${dashesHtml}
+              </div>
             </div>
           </div>
         `;
@@ -15243,7 +15321,7 @@ When it's time to eat.</div>
         const solvedWeight = 700;
 
         const mysteryHtml = letters.map(letter => {
-          const imgSrc = EggAlphabetCipher.getEgg(letter);
+          const imgSrc = EggAlphabetCipher.getEgg(letter, theme);
           const solvedHtml = isAnswer
             ? `<div class="mystery-solved-letter" style="bottom:${solvedOffsetY}px; font-size:${solvedSize}px; font-weight:${solvedWeight};">${escapeHtml(letter)}</div>`
             : '';
@@ -15284,7 +15362,7 @@ When it's time to eat.</div>
           const rowWidth = colCount === 8 ? `${((colCount / 9) * 100).toFixed(2)}%` : '100%';
 
           const imgCells = rowLetters.map(letter => {
-            const imgSrc = EggAlphabetCipher.getEgg(letter);
+            const imgSrc = EggAlphabetCipher.getEgg(letter, theme);
             return `
               <td style="width:${colWidthPct}%; height:${cellImgH}px; border:${bWidth}px solid ${bColor};">
                 <div class="cell-img-wrap">
