@@ -1977,7 +1977,6 @@
 
     /* Top-level CSS @page descriptor (Standard CSS Paged Media compliance) */
     @page {
-      size: a4 portrait;
       margin: 0mm;
     }
     @page :left {
@@ -1996,7 +1995,6 @@
         print-color-adjust: exact !important;
       }
       @page {
-        size: a4 portrait;
         margin: 0 !important;
       }
       html, body {
@@ -2147,8 +2145,10 @@
       /* Landscape: 2 Cards Side-by-Side (Maximized Size, Balanced Margins, Edge-to-Edge Cut Line) */
       .landscape-page {
         position: relative !important;
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        height: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
         box-sizing: border-box !important;
@@ -2156,11 +2156,12 @@
         background: white !important;
       }
       .landscape-half {
+        flex: 0 0 50% !important;
+        width: 50% !important;
+        height: 100% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        height: 100% !important;
-        width: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
         box-sizing: border-box !important;
@@ -2175,17 +2176,17 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transform: scale(1.14) !important;
+        transform: scale(1.16) !important;
         transform-origin: center center !important;
         flex-shrink: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
       }
       .paper-letter .card-scaler-landscape {
-        transform: scale(1.11) !important;
+        transform: scale(1.085) !important;
       }
       .paper-a4 .card-scaler-landscape {
-        transform: scale(1.14) !important;
+        transform: scale(1.16) !important;
       }
       .card-scaler-landscape .clue-card-paper {
         width: 480px !important;
@@ -11176,7 +11177,7 @@ const EmbeddedAssets = {
       }
       const orientation = PrintState.layout || 'portrait';
       const paper = (PrintState.paperSize === 'letter') ? 'letter' : 'a4';
-      styleEl.textContent = `@page { size: ${paper} ${orientation}; margin: 0mm; }`;
+      styleEl.textContent = `@page { size: ${paper} ${orientation} !important; margin: 0mm !important; }`;
     }
 
     let printWarmState = {
